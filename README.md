@@ -20,6 +20,9 @@ APP运行效果如图:
 ![ScreenShot](http://img.my.csdn.net/uploads/201403/21/1395382994_5823.png)........
 ![ScreenShot](http://img.my.csdn.net/uploads/201403/21/1395382994_8935.png)
 
+![ScreenShot](http://img.my.csdn.net/uploads/201403/21/1395383005_2370.png)
+
+
 
 -------------------------------------------------------------------------------
 

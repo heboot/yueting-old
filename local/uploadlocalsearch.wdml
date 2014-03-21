@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ == ============================================================================
+ == | WonderTek [ 网络无处不在，沟通及时到达 ]
+ == ============================================================================
+ == | Copyright (c) 2011, WonderTek, Inc. All Rights Reserved.
+ == ============================================================================
+ == | Author: wangweipeng <wangweipeng@wondertek.com.cn>
+ == ============================================================================
+ == | Desc: 社区
+ == ============================================================================
+-->
+<root>
+    <header/>
+    <body  BuildChildrenFinished="bodyBuildChildrenFinished" OnSpriteEvent="bodyOnSpriteEvent" OnPluginEvent="bodyOnPluginEvent" resolution="720,1280">
+        <node name="mainNode" rect="0,0,720,1280" OnKeyUp="mainNodeOnKeyUp" layouttype="1" extendstyle="1111">
+        <shadow rect="0,0,720,1280" color="#F7FDF3" alpha="255" extendstyle="1111" />
+        <node rect="0,0,720,76" extendstyle="1010">
+            <shadow rect="0,0,720,76" color="#FFFFFF" alpha="255" extendstyle="1010" />
+            <shadow rect="0,0,720,4" color="#BADE9E" alpha="255" extendstyle="1510" />
+            <button name="searchBtn" rect="0,0,77,77" extendstyle="5000" normal="n" sel="d" OnSelect="scanAccessibleList">
+                <image name="n" rect="23,21,31,34" style="autosize" src="file://image/sg_search_n.png" extendstyle="0000" BuildChildrenFinished="resChoose"><node/></image>
+                <image name="d" rect="23,21,31,34" style="autosize" src="file://image/sg_search_f.png" extendstyle="0000" BuildChildrenFinished="resChoose"><node/></image>
+            </button>
+        </node>
+        <label name="title" rect="0,0,720,76" text="本地扫描" extendstyle="1010" h-align="center" v-align="center" font-size="28" color="#4F6855"/>
+        <button rect="0,8,100,59" style="autosize" OnSelect="backOnSelect" extendstyle="1010" normal="n" sel="s">
+            <image name="n" rect="22,12,15,35" src="file://image/backarrow_n.png" extendstyle="1000" style="autosize" />
+            <image name="s" rect="22,12,15,35" src="file://image/backarrow_n.png" extendstyle="1000" style="autosize" />
+        </button>
+        <panorama name="mainPanorama" rect="0,76,720,0" extendstyle="1017" foreground="foreground">
+            <panoramaitem name="foreground" rect="0,0,720,0" extendstyle="1017">
+                <node name="scanLoadingNode" rect="0,370,720,100" extendstyle="1010" visible="0" activate="0">
+                    <image rect="200,0,340,100" style="sudoku-auto" sudoku="16,16,16,16" src="file://image/tip.png" extendstyle="1010" BuildChildrenFinished="resChoose"><node/></image>
+                    <label name="scanTips" rect="300,0,240,100" extendstyle="1010" text="扫描中.." v-align="center" font-size="30" color="#FFFFFF"/>
+                    <node rect="200,0,340,100" extendstyle="1010">
+                        <image rect="27,18,64,64" style="autosize" src="file://image/loadingbg2.png" extendstyle="1010" />
+                        <animate rect="27,18,63,63" delay="12" loop="true" extendstyle="1010">
+                            <animate-frame start="$(start)" delay="1">
+                                <image rect="0,0,63,63" rotate="$(rotate)" style="autosize" src="file://image/loadingframe.png" extendstyle="1010" BuildChildrenFinished="resChoose"><node/></image>
+                            </animate-frame>
+                            <dataset>
+                                <set start="0" rotate="360"/><set start="1" rotate="30"/><set start="2" rotate="60"/>
+                                <set start="3" rotate="90"/><set start="4" rotate="120"/><set start="5" rotate="150"/>
+                                <set start="6" rotate="180"/><set start="7" rotate="210"/><set start="8" rotate="240"/>
+                                <set start="9" rotate="270"/><set start="10" rotate="300"/><set start="11" rotate="330"/>
+                            </dataset>
+                        </animate>
+                    </node>
+                </node>
+                <node name="tipsNode" rect="0,0,720,210" extendstyle="0017"/>
+            </panoramaitem>
+            <panoramaitem name="panoramaItem1" rect="0,0,720,788" padding="0,0,0,0" extendstyle="0016">
+                <node name="subListview3Tips" rect="0,60,720,500" extendstyle="1010">
+                    <textarea rect="100,200,520,100" extendstyle="1010" text="点击搜索按钮扫描本地音频" color="#817B7B" font-size="28" h-align="center" />
+                </node>
+                <listview name="subListview3" rect="0,0,720,788" auto-adjust="true" extendstyle="0017" scroll="auto" scrollbar_slider="file://image/slider.png,5,30" BuildChildrenFinished="listviewResChoose">
+                    <node/>
+                </listview>
+            </panoramaitem>
+        </panorama>
+        <node name="accessibleListAItem" rect="0,0,720,115" extendstyle="1010" visible="0" enable="0">
+            <button name='setBtn' rect="0,0,720,115" normal="n" sel="s" OnSelect="fileChooseOS" extendstyle="1010">
+                <node name='n' rect="0,0,720,115" extendstyle="1010">
+                    <image rect="10,10,700,100" style="sudoku-auto" sudoku="11,11,11,11" src="file://image/whitebg.png" extendstyle="1010" BuildChildrenFinished="resChoose"><node/></image>
+                    <label name="setName" rect="30,10,560,50" extendstyle="1010" color="#575757" font-size="28" postfix=".."/>
+                    <node rect="30,60,200,50" extendstyle="1010">
+                        <label rect="0,0,0,50" text="格式：" autoextend="true" extendstyle="1010" color="#847C7A" font-size="25"/>
+                        <label name="surfix" text="N/A" rect="0,0,510,50" extendstyle="8010" color="#847C7A"  font-size="25"/>
+                    </node>
+                    <node rect="230,60,200,50" extendstyle="1010">
+                        <label rect="0,0,0,110" text="文件：" autoextend="true" extendstyle="1010" color="#847C7A" font-size="25"/>
+                        <label name="size" text="N/A" rect="0,0,510,50" extendstyle="8010" color="#847C7A"  font-size="25"/>
+                    </node>
+                </node>
+                <node name='s' rect="0,0,720,115" extendstyle="1010">
+                    <image rect="10,10,700,100" style="sudoku-auto" sudoku="11,11,11,11" src="file://image/greenbg.png" extendstyle="1010" BuildChildrenFinished="resChoose"><node/></image>
+                    <label name="setName2" rect="30,10,560,50" extendstyle="1010" color="#FFFFFF" font-size="28" postfix=".."/>
+                    <node rect="30,60,200,50" extendstyle="1010">
+                        <label rect="0,0,0,50" text="格式：" autoextend="true" extendstyle="1010" color="#FFFFFF" font-size="25"/>
+                        <label name="surfix2" text="N/A" rect="0,0,510,50" extendstyle="8010" color="#FFFFFF"  font-size="25"/>
+                    </node>
+                    <node rect="230,60,200,50" extendstyle="1010">
+                        <label rect="0,0,0,110" text="文件：" autoextend="true" extendstyle="1010" color="#FFFFFF" font-size="25"/>
+                        <label name="size2" text="N/A" rect="0,0,510,50" extendstyle="8010" color="#FFFFFF"  font-size="25"/>
+                    </node>
+                </node>
+            </button>
+        </node>
+        </node>
+    </body>
+</root>
+<![CDATA[
+require('com_wondertek_mobileaudio.commonlocal')
+LOCAL_SCANAUDIOITEM_HEIGHT  = 115
+local rootSprite
+
+function bodyBuildChildrenFinished(sprite)
+    rootSprite = sprite
+    scanLoadingNode = Sprite:findChild(sprite, "scanLoadingNode")
+    subListview3 = Sprite:findChild(sprite, "subListview3")
+    subListview3Tips = Sprite:findChild(sprite, "subListview3Tips")
+    scanTips = Sprite:findChild(sprite, "scanTips")
+    accessibleListAItem = Sprite:findChild(sprite,"accessibleListAItem")
+end
+
+function bodyOnSpriteEvent(msg, param)
+   if msg == MSG_ACTIVATE then
+        createAccessibleList()
+    elseif msg == MSG_DEACTIVATE then
+        commonDeactivate()
+        Scene:freeByHandle(rootSprite)
+    elseif msg == MSG_STRINGEVENT then
+       
+    else
+        Util:onSpriteEvent(msg, param)
+    end
+end
+
+function bodyOnPluginEvent(msg, param)
+    Util:onPluginEvent(msg, param)
+end
+
+function mainNodeOnKeyUp(sprite, kc)
+    if kc == Key.F2 then
+        if commonF2KeyUp and commonF2KeyUp() then return end
+        Scene:back()
+    else
+        Util:mainNodeOnKeyUp(sprite, kc)
+    end
+end
+
+function backOnSelect(sprite)
+    Scene:back()
+end
+
+function createAccessibleList()
+    tableScanVideo= getScanList()
+    ListView:removeAllItems(subListview3, 1, 1)
+    if tableScanVideo and type(tableScanVideo) == 'table' and #tableScanVideo > 0 then
+        setNodeState(subListview3Tips,0)
+        ListView:loadItem(subListview3,accessibleListAItem, #tableScanVideo, 'onLoadAccessibleListItem2')
+    else
+        setNodeState(subListview3Tips,1)
+    end
+    Log:write("tableScanVideo",tableScanVideo)
+end
+
+function scanAccessibleList()
+    WriteLogs("--------------scanAccessibleList----------------")
+    local flashCard = System:getFlashCardName(1)
+    local innerCard = System:getFlashCardName(0)
+    if not (flashCard and flashCard ~= "") and not (innerCard and innerCard ~= "") then
+        Tips:show("sd卡没插吧?")
+        return
+    end
+    bIsscanLoading = 1
+    ListView:removeAllItems(subListview3, 1, 1)
+    setNodeState(scanLoadingNode,1)
+    Sprite:setProperty(scanTips,"text","扫描中.." .. 0 .. "%")
+    local filterArr = "*.mp3"
+    tableScanVideo= {}
+    local minResolution = SCREEN_WIDTH < SCREEN_HEIGHT and SCREEN_WIDTH or SCREEN_HEIGHT
+    local pngquality = minResolution >= 720 and 100 or math.floor(100*minResolution/720)
+    if flashCard and flashCard ~= '' then
+        if innerCard ~= flashCard and innerCard and innerCard ~= '' then
+            if not (string.match(innerCard,flashCard) or string.match(flashCard,innerCard)) then
+                bToExploreInner = 1
+                FileExplore(flashCard, filterArr, "testFunc", pngquality)
+            else
+                FileExplore(innerCard, filterArr, "testFunc", pngquality)
+            end
+        else
+            FileExplore(flashCard, filterArr, "testFunc", pngquality)
+        end
+    elseif innerCard ~= flashCard and innerCard and innerCard ~= '' then
+        FileExplore(innerCard, filterArr, "testFunc", pngquality)
+    end
+end
+
+function scanSecondCard()
+    local innerCard = System:getFlashCardName(0)
+    local filterArr = "*.mp3"
+    local minResolution = SCREEN_WIDTH < SCREEN_HEIGHT and SCREEN_WIDTH or SCREEN_HEIGHT
+    local pngquality = minResolution >= 720 and 100 or math.floor(100*minResolution/720)
+    bToExploreInner = 2
+    FileExplore(innerCard, filterArr, "testFunc", pngquality)
+end
+
+function testFunc(strFilePath, uSize, uCount, fileExplorePercent, pngFile)
+    Log:write("--------testFunc-------",strFilePath, uSize, uCount, fileExplorePercent, pngFile)
+    if strFilePath ~= "" and not string.match(strFilePath,"MobileVideoDownload") and tonumber(uSize) ~= 0 then
+        table.insert(tableScanVideo,{name = strFilePath,size = uSize})
+        _tmpData = tableScanVideo[#tableScanVideo]
+        local _, _,path,name = string.find(_tmpData.name, "(.+[/])([^/].+)")
+        _tmpData.name,_tmpData.path = name,path
+        ListView:loadItem(subListview3,accessibleListAItem, 1, 'onLoadAccessibleListItem')
+    end
+    local fep = fileExplorePercent
+    if bToExploreInner == 1 then
+        fep = tonumber(fileExplorePercent)/2
+    elseif bToExploreInner == 2 then
+        fep = 50 + tonumber(fileExplorePercent)/2
+    end
+    if fep ~= 0 then
+        Sprite:setProperty(scanTips,"text","扫描中.." .. math.ceil(fep).. "%")
+    end
+    if fileExplorePercent == 100 then
+        if bToExploreInner == 1 then
+            Timer:set(1,200,"scanSecondCard")
+        else
+            bToExploreInner = nil
+            bIsscanLoading = nil
+            setNodeState(scanLoadingNode,0)
+            if #tableScanVideo ~= 0 then
+                saveScanList(tableScanVideo)
+                Tips:show("扫描完成")
+                setNodeState(subListview3Tips,0)
+            else
+                Tips:show("没找到可以用的文件")
+                setNodeState(subListview3Tips,1)
+            end
+        end
+    end
+end
+
+function onLoadAccessibleListItem(list,item,index)
+    Sprite:setProperty(item, "extendstyle", "0010")
+    Sprite:setRect(item, 0, 0, 720, LOCAL_SCANAUDIOITEM_HEIGHT)
+    local setNamelbl,setNamelbl2 = Sprite:findChild(item, "setName"),Sprite:findChild(item, "setName2")
+    local setName = _tmpData.name
+    if string.find(setName, "@") then
+        _, _, setName = string.find(setName, "@(.+)")
+    end
+    local _, _, setName,surfix = string.find(setName, "(.+)%.([^%.].+)")
+    Sprite:setProperty(item, "data", _tmpData.name .. ';' .. _tmpData.path .. _tmpData.name)
+    Sprite:setProperty(setNamelbl, "text", setName) Sprite:setProperty(setNamelbl2, "text", setName)
+    local surfixlbl,surfixlbl2 = Sprite:findChild(item, "surfix"),Sprite:findChild(item, "surfix2")
+    Sprite:setProperty(surfixlbl, "text", surfix) Sprite:setProperty(surfixlbl2, "text", surfix)
+    local sizelbl,sizelbl2,nSize = Sprite:findChild(item, "size"),Sprite:findChild(item, "size2"),tonumber(_tmpData.size)
+    if nSize then
+        local setSize = string.format('%.1f', nSize / 1048576)
+        Sprite:setProperty(sizelbl, "text", setSize .. "MB")
+        Sprite:setProperty(sizelbl2, "text", setSize .. "MB")
+    end
+end
+
+function onLoadAccessibleListItem2(list,item,index)
+    Sprite:setProperty(item, "extendstyle", "0010")
+    Sprite:setRect(item, 0, 0, 720, LOCAL_SCANAUDIOITEM_HEIGHT)
+    local setNamelbl,setNamelbl2 = Sprite:findChild(item, "setName"),Sprite:findChild(item, "setName2")
+    local setName = tableScanVideo[index+1].name
+    if string.find(setName, "@") then
+        _, _, setName = string.find(setName, "@(.+)")
+    end
+    local _, _, setName,surfix = string.find(setName, "(.+)%.([^%.].+)")
+    Sprite:setProperty(item, "data", tableScanVideo[index+1].name .. ';' .. tableScanVideo[index+1].path .. tableScanVideo[index+1].name)
+    Sprite:setProperty(setNamelbl, "text", setName) Sprite:setProperty(setNamelbl2, "text", setName)
+    local surfixlbl,surfixlbl2 = Sprite:findChild(item, "surfix"),Sprite:findChild(item, "surfix2")
+    Sprite:setProperty(surfixlbl, "text", surfix) Sprite:setProperty(surfixlbl2, "text", surfix)
+    local sizelbl,sizelbl2,nSize = Sprite:findChild(item, "size"),Sprite:findChild(item, "size2"),tonumber(tableScanVideo[index+1].size)
+    if nSize then
+        local setSize = string.format('%.1f', nSize / 1048576)
+        Sprite:setProperty(sizelbl, "text", setSize .. "MB")
+        Sprite:setProperty(sizelbl2, "text", setSize .. "MB")
+    end
+end
+
+function fileChooseOS(sprite)
+    if bIsscanLoading == 1 then return end
+    local item = Sprite:getParent(sprite)
+    local data = Sprite:getData(item)
+    local dataTable = Util:split(data,';')
+    Log:write("Util:goPlay dataTable=",dataTable)
+    local desFilePath = ""
+    if dataTable and dataTable[1]~='' then
+        desFilePath = dataTable[2]
+    end
+    if not IO:fileExist(desFilePath) then Tips:show("未找到文件") return end
+    local reg = Reg:create(Reg.com_wondertek_mobileaudio.upload)
+    Reg:setString(reg,"filepath",desFilePath)
+    Scene:go(Alias.uploadworks,{setReturn = false})
+end
+
+function saveScanList(tableScanVideo)
+    local reg = Reg:create("tmpScan")
+    Reg:load(reg, "WONDER:\\temp\\scanlist.xml")
+    if tableScanVideo then Reg:setTable(reg,"tableScanVideo",tableScanVideo) end
+    Reg:save(reg, "WONDER:\\temp\\scanlist.xml")
+    Reg:release("tmpScan")
+end
+
+function getScanList()
+    local reg = Reg:create("tmpScan")
+    Reg:load(reg, "WONDER:\\temp\\scanlist.xml")
+    local tableTmp = Reg:getTable(reg,"tableScanVideo")
+    Reg:release("tmpScan")
+    Log:write("tableScanVideo",tableTmp)
+    return tableTmp
+end
+
+function scanCancel(bCreateList)
+    Sprite:setProperty(scanLable_n,"text","扫描") Sprite:setProperty(scanLable_f,"text","扫描")
+    bIsscanLoading = nil
+    setNodeState(scanLoadingNode,0)
+    bToExploreInner = nil
+    CancelFileExplore()
+    --Sprite:setProperty(subListview3,"data","3")
+    local item = ListView:getItem(subListview3,0)
+    ListView:removeItem(subListview3,item,1,1)
+    Tips:show("扫描终止")
+    if bCreateList then
+        createAccessibleList()
+    end
+end
+]]>

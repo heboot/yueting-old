@@ -1,0 +1,636 @@
+﻿<%@ page language="java" contentType="text/plain" pageEncoding="UTF-8"%>
+<%@ include file="/common/taglibs.jsp"%>
+<c:set var="common" value="/resource/mobileaudio3/common/common.wdml" /><%//定义common模板路径%>
+<c:set var="lua" value="/resource/mobileaudio3/syssetting/syssetting.wdml" /><%//定义本文件lua部分模板路径%>
+<cms:lastModified var="lastModifiedCommon" path="${common}"/><%//取common模板最后发布时间，并作模板存在性检查%>
+<cms:lastModified var="lastModifiedLua" path="${lua}"/><%//取本文件lua部分模板最后发布时间，并作模板存在性检查%>
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ == ============================================================================
+ == | WonderTek [ 网络无处不在，沟通及时到达 ]
+ == ============================================================================
+ == | Copyright (c) 2013, WonderTek, Inc. All Rights Reserved.
+ == ============================================================================
+ == | Author: cuiyizhou <cuiyizhou@wondertek.com.cn>
+ == ============================================================================
+ == | Desc: 系统设置
+ == ============================================================================
+-->
+<root>
+    <header>
+        <script src="${cpath}/publish/clt${common}?time=${lastModifiedCommon}" /><%//远程加载common模板,实现common修改后下载最新common%>
+    </header>
+    <body PreBuildChildren="bodyPreBuildChildren" BuildChildrenFinished="bodyBuildChildrenFinished" OnSpriteEvent="bodyOnSpriteEvent" OnPluginEvent="bodyOnPluginEvent" resolution="720,1280">
+    <node name="mainNode" rect="0,0,720,1280" extendstyle="1111" layouttype="1" OnKeyUp="mainNodeOnKeyUp">
+        <shadow rect="0,0,720,1280" color="#FFFFFF" alpha="255" extendstyle="1111" />
+        <node rect="0,0,720,76" extendstyle="1010">
+            <shadow rect="0,0,720,4" color="#BADE9E" alpha="255" extendstyle="1510" />
+        </node>
+        <label name="title" rect="0,0,720,76" text="设置" extendstyle="1010" h-align="center" v-align="center" font-size="28" color="#4F6855"/>
+        <button rect="0,8,100,59" style="autosize" OnSelect="backOnSelect" extendstyle="1010" normal="n" sel="s">
+            <image name="n" rect="22,12,15,35" src="file://image/backarrow_n.png" extendstyle="1000" style="autosize" />
+            <image name="s" rect="22,12,15,35" src="file://image/backarrow_n.png" extendstyle="1000" style="autosize" />
+        </button>
+        <panorama name="mainPanorama" rect="0,76,720,0" extendstyle="0017" foreground="foreground">
+            <panoramaitem name="foreground" rect="0,0,720,0" extendstyle="0017">
+                <node name="accountChangeNode" rect="0,0,720,90" extendstyle="0510" visible="0">
+                    <button rect="0,0,720,90" normal="n" sel="s" data="" OnSelect="accountBtnOS" extendstyle="1010">
+                        <shadow name="n" rect="0,0,720,90" color="#F7536E" alpha="255" extendstyle="1010">
+                            <label rect="0,0,720,90" extendstyle="1010" text="退出换号" font-size="28" color="#FFFFFF" v-align="center" h-align="center" />
+                        </shadow>
+                        <shadow name="s" rect="0,0,720,90" color="#1C9FE3" alpha="255" extendstyle="1010">
+                            <label rect="0,0,720,90" extendstyle="1010" text="退出换号" font-size="28" color="#ffffff" v-align="center" h-align="center" />
+                        </shadow>
+                    </button>
+                </node>
+                <node name="tipsNode" rect="0,0,720,210" extendstyle="0017"/>
+            </panoramaitem>
+            <panoramaitem rect="0,0,720,0" extendstyle="0017">
+                <listview name="settingArea" rect="0,0,720,0" extendstyle="1017" auto-adjust="true">
+                    <list-item name="accountArea" rect="0,0,702,200"  extendstyle="1010">
+                        <label rect="15,0,300,65" extendstyle="0010" v-align="center" font-size="28" color="#5F7D65" text="个人账号"/>
+                        <image rect="15,70,105,105" style="sudoku-auto" sudoku="7,7,7,7" src="file://image/commonbg.png" extendstyle="0000" >
+                            <image src="file://image/dft_headimg_big.jpg" rect="4,4,129,129" style="autosize" padding="0,4,4,0" extendstyle="0066" BuildChildrenFinished="resChoose"><node/></image>
+                            <image name="msgImg" src="" alphaeffect="true" rect="4,4,129,129" style="autosize" padding="0,4,4,0" extendstyle="0066"/>
+                        </image>
+                        <label name="userLbl" rect="150,70,500,105" v-align="center" extendstyle="1010" font-size="25" color="#83907C" text="点击登录个人账号"/>
+                        <button name="loginBtn" rect="0,70,720,105" OnSelect="accountBtnOS" extendstyle="1010">
+                            <image rect="645,30,17,76" style="autosize" src="file://image/setting_more.png" extendstyle="1010" />
+                        </button>
+                        <shadow rect="15,0,690,1" color="#D1DFC5" alpha="255" extendstyle="1514" />
+                        <node name="orderAdNode" rect="15,195,690,150" visible="0">
+                            <image rect="0,0,690,135" style="autosize" src="file://image/setting_ad.jpg" extendstyle="1010" />
+                            <button name="orderBtn" rect="490,48,180,55" normal="n" sel="s" data="" OnSelect="orderBtnOS" extendstyle="1010">
+                                <shadow name="n" rect="0,0,180,55" color="#F7536E" alpha="255" extendstyle="1010"/>
+                                <shadow name="s" rect="0,0,180,55" color="#1C9FE3" alpha="255" extendstyle="1010"/>
+                                <label name="orderBtnTxt" rect="0,0,180,55" extendstyle="1010" text="立即订购" font-size="25" color="#ffffff" v-align="center" h-align="center" />
+                            </button>
+                            <shadow rect="0,0,690,1" color="#D1DFC5" alpha="255" extendstyle="1514" />
+                        </node>
+                    </list-item>
+                    <list-item rect="0,0,782,170" extendstyle="1010">
+                        <label rect="15,0,300,65" extendstyle="0010" v-align="bottom" font-size="28" color="#5F7D65" text="存储"/>
+                        <image rect="0,75,702,300" extendstyle="1010" src="file://image/movie_bg.png" style="sudoku-auto" sudoku="4,4,4,4" />
+                        <node rect="0,65,782,200" extendstyle="0010">
+                            <label rect="15,0,300,100" v-align="center" extendstyle="1010"  font-size="25" color="#83907C" text="SD卡存储"/>
+                            <button name="driverDirGroupbutton1" rect="190,0,60,100" noraml="driverDirGroupbutton1Bg" sel="driverDirGroupbutton1Bg" disabled=="d" OnSelect="driverDirGrouponchange"  extendstyle="1010">
+                                <image name="driverDirGroupbutton1Bg" rect="0,31,36,36" style="autosize" src="file://image/setting_radiobox_n.png"  extendstyle="1010" BuildChildrenFinished="resChoose"><node/></image>
+                                <image name="d" rect="0,31,36,36" style="autosize" src="file://image/setting_radiobox_n.png"  extendstyle="1010" BuildChildrenFinished="resChoose"><node/></image>
+                                <image rect="0,31,36,36" name="driverDirGroupchecked1" visible="0" style="autosize" src="file://image/setting_radiobox_f.png"  extendstyle="1010" BuildChildrenFinished="resChoose"><node/></image>
+                            </button>
+                            <label rect="325,0,150,100" v-align="center" extendstyle="1010" font-size="25" color="#83907C" text="手机存储"/>
+                            <button rect="510,0,60,100" name="driverDirGroupbutton2" OnSelect="driverDirGrouponchange" extendstyle="1010">
+                                <image name="driverDirGroupbutton1Bg" rect="0,31,36,36" style="autosize" src="file://image/setting_radiobox_n.png"  extendstyle="1010" BuildChildrenFinished="resChoose"><node/></image>
+                                <image rect="0,31,36,36" name="driverDirGroupchecked2" visible="0" style="autosize" src="file://image/setting_radiobox_f.png"  extendstyle="1010" BuildChildrenFinished="resChoose"><node/></image>
+                            </button>
+                        </node>
+                        <shadow rect="15,0,690,1" color="#D1DFC5" alpha="255" extendstyle="1514" />
+                    </list-item>
+                    <list-item rect="0,0,720,125" extendstyle="1010">
+                        <label rect="15,0,300,125" extendstyle="0010" v-align="center" autoextend="true" font-size="28" color="#5F7D65" text="允许2G/3G环境下缓存与上传"/>
+                        <button name="switchBtn1" rect="505,35,200,55" extendstyle="1010" data="on" OnSelect="switchOnMouseUp" >
+                            <shadow rect="0,0,200,55" color="#E4E4E4" alpha="255" extendstyle="1010" />
+                            <node name="switchNode1" rect="0,0,100,55" extendstyle="1010">
+                                <shadow name="shadow" rect="0,0,100,55" color="#1C9FE3" alpha="255" extendstyle="1010" />
+                            </node>
+                            <label name="off" rect="0,0,100,55" extendstyle="1010" v-align="center" h-align="center" font-size="25" color="#FFFFFF" text="关" />
+                            <label name="on" rect="100,0,100,55" extendstyle="1010" v-align="center" h-align="center" font-size="25" color="#FFFFFF" text="开" />
+                        </button>
+                        <shadow rect="15,0,690,1" color="#D1DFC5" alpha="255" extendstyle="1514" />
+                    </list-item>
+                    <list-item rect="0,0,720,120" extendstyle="1010">
+                        <label rect="15,0,300,120" extendstyle="1010" v-align="center" autoextend="true" font-size="28" color="#5F7D65" text="睡眠模式" />
+                        <button name="switchBtn4" rect="505,35,200,55" extendstyle="1010" data="on" OnSelect="switchOnMouseUp" >
+                            <shadow rect="0,0,200,55" color="#E4E4E4" alpha="255" extendstyle="1010" />
+                            <node name="switchNode4" rect="0,0,100,55" extendstyle="1010">
+                                <shadow name="shadow" rect="0,0,100,55" color="#1C9FE3" alpha="255" extendstyle="1010" />
+                            </node>
+                            <label name="off" rect="0,0,100,55" extendstyle="1010" v-align="center" h-align="center" font-size="25" color="#FFFFFF" text="关" />
+                            <label name="on" rect="100,0,100,55" extendstyle="1010" v-align="center" h-align="center" font-size="25" color="#FFFFFF" text="开" />
+                        </button>
+                        <shadow rect="15,0,690,1" color="#D1DFC5" alpha="255" extendstyle="1514" />
+                    </list-item>
+                    <list-item rect="0,0,720,135"  extendstyle="1010">
+                        <label rect="15,25,300,100" extendstyle="1010" font-size="28" color="#5F7D65" text="版本更新"/>
+                        <label name="versionLbl" rect="15,75,300,100" extendstyle="1010" font-size="23" color="#83907C" autoextend="true" text="当前版本v3.0"/>
+                        <button rect="505,40,200,55" normal="n" sel="s" data="" OnSelect="updateBtnOS" extendstyle="1010">
+                            <shadow name="n" rect="0,0,200,55" color="#84CD7C" alpha="255" extendstyle="1010">
+                                <label rect="0,0,200,55" extendstyle="1010" text="版本检测" font-size="25" color="#FFFFFF" v-align="center" h-align="center" />
+                            </shadow>
+                            <shadow name="s" rect="0,0,200,55" color="#1C9FE3" alpha="255" extendstyle="1010">
+                                <label rect="0,0,200,55" extendstyle="1010" text="版本检测" font-size="25" color="#ffffff" v-align="center" h-align="center" />
+                            </shadow>
+                        </button>
+                        <shadow rect="15,0,690,1" color="#D1DFC5" alpha="255" extendstyle="1514" />
+                    </list-item>
+                    <list-item rect="0,0,720,175"  extendstyle="1010">
+                        <label rect="15,25,300,100" extendstyle="1010" font-size="28" color="#5F7D65" text="清除缓存碎片"/>
+                        <textarea rect="15,75,470,100" extendstyle="1010" font-size="23" line-height="30" autoextend="true" color="#83907C" text="清除客户端缓存到本地的数据，但不包括正在缓存和已缓存的任务"/>
+                        <button rect="505,60,200,55" normal="n" sel="s" data="" OnSelect="cachesetOkOnSelect" extendstyle="1010">
+                            <shadow name="n" rect="0,0,200,55" color="#84CD7C" alpha="255" extendstyle="1010">
+                                <label rect="0,0,200,55" extendstyle="1010" text="清除碎片" font-size="25" color="#FFFFFF" v-align="center" h-align="center" />
+                            </shadow>
+                            <shadow name="s" rect="0,0,200,55" color="#1C9FE3" alpha="255" extendstyle="1010">
+                                <label rect="0,0,200,55" extendstyle="1010" text="清除碎片" font-size="25" color="#ffffff" v-align="center" h-align="center" />
+                            </shadow>
+                        </button>
+                        <shadow rect="15,0,690,1" color="#D1DFC5" alpha="255" extendstyle="1514" />
+                    </list-item>
+                    <list-item rect="0,0,720,135"  extendstyle="1010">
+                        <label rect="15,25,300,100" extendstyle="1010" font-size="28" color="#5F7D65" text="意见反馈"/>
+                        <label rect="15,75,300,100" extendstyle="1010" font-size="23" color="#83907C" autoextend="true" text="您的点滴反馈助悦听日臻完美"/>
+                        <button rect="505,0,200,135" OnSelect="adviceBtnOS" extendstyle="1010">
+                            <image rect="140,30,17,76" style="autosize" src="file://image/setting_more.png" extendstyle="1010" />
+                        </button>
+                        <shadow rect="15,0,690,1" color="#D1DFC5" alpha="255" extendstyle="1514" />
+                    </list-item>
+                    <list-item  rect="0,0,782,90" extendstyle="1010">
+                    </list-item>
+                </listview>
+            </panoramaitem>
+        </panorama>
+    </node>
+    </body>
+</root>
+<cms:include filepath="${lua}" />
+<![CDATA[
+
+function bodyBuildChildrenFinished(sprite)
+    rootSprite = sprite
+    hd = Sprite:findChild(sprite, 'hd')
+    standard = Sprite:findChild(sprite, 'standard')
+    smooth = Sprite:findChild(sprite, 'smooth')
+    settingArea = Sprite:findChild(sprite, 'settingArea')
+    accountArea = Sprite:findChild(sprite, 'accountArea')
+    accountChangeNode = Sprite:findChild(sprite, 'accountChangeNode')
+    orderAdNode = Sprite:findChild(sprite, 'orderAdNode')
+    msgImg = Sprite:findChild(sprite, 'msgImg')
+    userLbl = Sprite:findChild(sprite, 'userLbl')
+    loginBtn = Sprite:findChild(sprite, 'loginBtn')
+    orderBtn = Sprite:findChild(sprite, 'orderBtn')
+    setLastSettings(sprite)
+    
+    local versionLbl = Sprite:findChild(sprite, 'versionLbl')
+    local version = Config:get('sdk_version')
+    local t = Util:split(version,".")
+    local vText = tonumber(t[1]) .. "." .. tonumber(t[3]) .. "." .. tonumber(t[4])
+    Sprite:setProperty(versionLbl,"text","当前版本v" .. vText)
+end
+
+-- @brief root开始创建子节点事件
+function bodyPreBuildChildren(root)
+    download_driver_dir = Config:get('download_path')
+    local notificationFlag = widgetConfig:get('NotificationEnable')
+    if notificationFlag ~= '0' and notificationFlag ~= '1' then
+        widgetConfig:set('NotificationEnable','1')
+        notificationFlag = '1'
+    end
+    swich_setting = {Config:get('autoDownload'),Config:get('notice_set'),Config:get('updateTips_setting'),Config:get('noImageMode'),notificationFlag}
+    rate_setting = Config:get('rate')
+end
+
+function textareaBuildChildrenFinished(sprite)
+    local cacheTextArea = Sprite:findChild(sprite, 'cacheTextArea')
+    local cacheBg = Sprite:findChild(sprite, 'cacheBg')
+    local cacheBtn = Sprite:findChild(sprite, 'cacheBtn')
+    local _, _, _, tah = Sprite:getRect(cacheTextArea)
+    local offset = tah - 130
+    local bgx, bgy, bgw, bgh = Sprite:getRect(cacheBg)
+    local bx, by, bw, bh = Sprite:getRect(cacheBtn)
+    local x, y, w, h = Sprite:getRect(sprite)
+    Sprite:setRect(cacheBg, bgx, bgy, bgw, bgh + offset)
+    Sprite:setRect(cacheBtn, bx, bgy + (bgh + offset - bh)/2, bw, bh)
+    Sprite:setRect(sprite, x, y, w, h + offset)
+end
+
+function setLastSettings(sprite)
+    driverDirGroupbutton1 = Sprite:findChild(sprite, 'driverDirGroupbutton1')
+    driverDirGroupbutton1Bg = Sprite:findChild(sprite, 'driverDirGroupbutton1Bg')
+    
+    driverDirGroupchecked1 = Sprite:findChild(sprite, 'driverDirGroupchecked1')
+    driverDirGroupchecked2 = Sprite:findChild(sprite, 'driverDirGroupchecked2')
+    
+    for i=1,#swich_setting do 
+        switchBtn = Sprite:findChild(sprite, "switchBtn"..i)
+        switchNode = Sprite:findChild(switchBtn, "switchNode"..i)
+        switchNode_s = Sprite:findChild(switchBtn, "switchNode"..i.."_s")
+        local shadow,onlbl,offlbl = Sprite:findChild(switchBtn,"shadow"),Sprite:findChild(switchBtn,"on"),Sprite:findChild(switchBtn,"off")
+        if swich_setting[i] == "1" then 
+            Sprite:setProperty(switchBtn, 'data', 'on')
+            Sprite:setProperty(shadow,"color","#1C9FE3")
+            Sprite:setProperty(onlbl,"color","#FFFFFF")
+            Sprite:setProperty(offlbl,"color","#C2C0C1")
+            setSwitchPos(100)
+        else
+            Sprite:setProperty(switchBtn, 'data', 'off')
+            Sprite:setProperty(shadow,"color","#C2C0C1")
+            Sprite:setProperty(onlbl,"color","#C2C0C1")
+            Sprite:setProperty(offlbl,"color","#FFFFFF")
+            setSwitchPos(0)
+        end
+     end
+     
+    local flashCard = System:getFlashCardName(1)
+    local innerCard = System:getFlashCardName(0)
+    if (flashCard and flashCard ~= '') or (innerCard and innerCard ~= '') then --存在外置SD卡
+        Log:write(' sd find--------', download_driver_dir)
+        if download_driver_dir == "1" then 
+            Sprite:setVisible(driverDirGroupchecked1,1)
+            Sprite:setVisible(driverDirGroupchecked2,0)
+        else
+            Sprite:setVisible(driverDirGroupchecked1,0)
+            Sprite:setVisible(driverDirGroupchecked2,1)
+        end
+    else   --不存在外置SD卡
+        Log:write(' no sd-------------')
+        Sprite:setEnable(driverDirGroupbutton1, 0)
+        Sprite:setVisible(driverDirGroupchecked1,0)
+        Sprite:setVisible(driverDirGroupchecked2,1)
+    end
+    
+    if rate_setting == "1" then
+        Sprite:setEnable(smooth,0)
+    elseif rate_setting == "2" then
+        Sprite:setEnable(standard,0)
+    else
+        Sprite:setEnable(hd,0)
+    end
+end
+
+function backOnSelect(sprite)
+    bFree = 1
+    Scene:back()
+end
+
+function driverDirGrouponchange(spriteGroup)
+    if Sprite:getName(spriteGroup) == "driverDirGroupbutton1" then 
+       if Sprite:isVisible(driverDirGroupchecked1) == 0 then
+           Sprite:setVisible(driverDirGroupchecked1,1)
+           Sprite:setVisible(driverDirGroupchecked2,0)
+           Index = "1"
+        end
+    else
+       if Sprite:isVisible(driverDirGroupchecked2) == 0 then
+           Sprite:setVisible(driverDirGroupchecked2,1)
+           Sprite:setVisible(driverDirGroupchecked1,0)
+           Index = "0"
+        end
+    end
+    Config:set('download_path', Index) 
+end
+
+function switchOnMouseUp(sprite)
+    local name=Sprite:getName(sprite)
+    local index=string.sub(name,-1)
+    if index == "4" and not SetDownloadImage then
+        Tips:show("敬请期待")
+        return
+    end
+    switchBtn = sprite
+    switchNode = Sprite:findChild(sprite, "switchNode"..index)
+    switchNode_s = Sprite:findChild(switchBtn, "switchNode"..index.."_s")
+    animate0()
+end
+
+function setSwitchPos(offset)
+    local x, y, w, h = Sprite:getRect(switchNode)
+    Sprite:setRect(switchNode, math.floor((200 - 100)*offset/100), y, w, h)
+    Sprite:setRect(switchNode_s, math.floor((200 - 100)*offset/100), y, w, h)
+end
+
+function animate0()
+    WriteLogs(Sprite:getData(switchBtn))
+    if Sprite:getData(switchBtn) == 'on' then
+        setSwitchPos(93)
+        Timer:set(1, 1, 'animate1')
+    else
+        setSwitchPos(7)
+        Timer:set(1, 1, 'animate1')
+    end
+end
+
+function animate1()
+    if Sprite:getData(switchBtn) == 'on' then
+        setSwitchPos(79)
+        Timer:set(1, 1, 'animate2')
+    else
+        setSwitchPos(21)
+        Timer:set(1, 1, 'animate2')
+    end
+end
+
+function animate2()
+    if Sprite:getData(switchBtn) == 'on' then
+        setSwitchPos(52)
+        Timer:set(1, 1, 'animate3')
+    else
+        setSwitchPos(48)
+        Timer:set(1, 1, 'animate3')
+    end
+end
+
+function animate3()
+    local config_flag
+    local tx,ty,tw,th
+    local shadow,onlbl,offlbl = Sprite:findChild(switchBtn,"shadow"),Sprite:findChild(switchBtn,"on"),Sprite:findChild(switchBtn,"off")
+    if Sprite:getData(switchBtn) == 'on' then
+        Sprite:setProperty(switchBtn, 'data', 'off')
+        setSwitchPos(0)
+        config_flag="0"
+        WriteLogs("off")
+        Sprite:setProperty(shadow,"color","#C2C0C1")
+        Sprite:setProperty(onlbl,"color","#C2C0C1")
+        Sprite:setProperty(offlbl,"color","#FFFFFF")
+    else
+        Sprite:setProperty(switchBtn, 'data', 'on')
+        setSwitchPos(100)
+        config_flag="1"
+        WriteLogs("on")
+        Sprite:setProperty(shadow,"color","#1C9FE3")
+        Sprite:setProperty(onlbl,"color","#FFFFFF")
+        Sprite:setProperty(offlbl,"color","#C2C0C1")
+    end
+    local name=Sprite:getName(switchBtn)
+    local index=string.sub(name,-1)
+    WriteLogs("config_flag=" .. config_flag)
+    if index == "1" then
+        Config:set('autoDownload', config_flag)
+    elseif index =="2" then
+        Config:set('notice_set', config_flag)
+    elseif index =="3" then
+        Config:set('updateTips_setting', config_flag)
+    elseif index =="4" then
+        Config:set('noImageMode', config_flag)
+        local curConnect = Http:getCurConnect()
+        if config_flag == "1" and (curConnect == 'CMWAP' or curConnect == 'CMNET') then
+            SetDownloadImage(0)
+        else
+            SetDownloadImage(1)
+        end
+    elseif index == '5' then
+        widgetConfig:set('NotificationEnable',config_flag)
+    end
+end
+
+--@breif 确定清除缓存
+function cachesetOkOnSelect(sprite)
+    IO:dirRemove('CACHE:\\com_wondertek_mobileaudio', 1)
+    IO:dirCreate('CACHE:\\com_wondertek_mobileaudio')
+    IO:dirCreate('CACHE:\\com_wondertek_mobileaudio\\image')
+    -- 退出时，释放该应用所有场景资源（除index.wdml、setting.wdml、home.wdml）
+    local sceneList = GetCurSceneList()
+    for n = 0, table.maxn(sceneList) do
+        local reg = Reg:create(Reg.g_observer)
+        local rmeappRoot = Reg:getInteger(reg, 'rootsprite')
+        local s = sceneList[n].sprite
+        if s ~= Sprite:getCurScene() and s ~= rmeappRoot then
+            if s == Scene:getHandleByName(Alias.index) and s == Scene:getHandleByName(Alias.home) then
+            elseif Alias.playeryue and s == Scene:getHandleByName(Alias.playeryue) then
+            elseif Alias.playeryuelocal and s == Scene:getHandleByName(Alias.playeryuelocal) then
+            else
+                Scene:freeByHandle(sceneList[n].sprite)
+            end
+        end
+    end
+    searchDownloadedFilesForTempFile()
+    cannotDelIndexTable = {}
+    for j=1,#filesName do
+        if string.match(filesName[j].name,"^temp_") then
+            for i=1,Download:getCount() do
+                local curTask = Download:getStatus(i)
+                local _,_,_,curName = string.find(curTask.title, "(.+)@(.+)" )
+                local subCurName = string.gsub(curName, "%-", "|minus|")
+                local subFilesName = string.gsub(filesName[j].name, "%-", "|minus|")
+                if string.match(subFilesName, subCurName) then
+                    table.insert(cannotDelIndexTable, j)
+                end
+            end
+        end
+    end
+    for j=1,#filesName do
+        local canDel = true
+        for i=1,#cannotDelIndexTable do
+            if j == cannotDelIndexTable[i] then
+                canDel = false
+                break
+            end
+        end
+        if canDel then
+            Log:write('deleteFileName:',filesName[j].path .. filesName[j].name)
+            IO:fileRemove(filesName[j].path .. filesName[j].name)
+        end
+    end
+    Tips:show('碎片清除成功')
+end
+
+function searchDownloadedFilesForTempFile()
+    filesName = {}
+    local flashCard = Util:getDownloadFolder(1) -- 外置存储卡
+    local innerCard = Util:getDownloadFolder(0) -- 内置存储卡
+    --local _, filterStr = Util:getPlayerInfo()
+    local filterStr = Config:get('video_type')
+    local filterArr = Util:split(filterStr, '|')
+    local count = #filterArr
+    if flashCard and flashCard ~= '' then       -- 外置存储卡
+        for i=1, count do
+            local files = IO:openDir(flashCard .. '\\' .. filterArr[i])
+            filterFilesForTempFile(files, flashCard .. '\\')
+        end
+    end
+    if innerCard ~= flashCard and innerCard and innerCard ~= '' then       -- 内置存储卡
+        for i=1, count do
+            local files = IO:openDir(innerCard .. '\\' .. filterArr[i])
+            filterFilesForTempFile(files, innerCard .. '\\')
+        end
+    end
+    for i=1, count do
+        local files = IO:openDir(Util:getDefaultFolder(WDFIDL_MYVIDIO) .. filterArr[i])
+        filterFilesForTempFile(files, Util:getDefaultFolder(WDFIDL_MYVIDIO))
+    end
+    if Util:getDefaultFolder(WDFIDL_MYVIDIO) == Util:getDefaultFolder(WDFIDL_DOWNLOAD) then
+        return
+    end
+    for i=1, count do
+        local files = IO:openDir(Util:getDefaultFolder(WDFIDL_DOWNLOAD) .. filterArr[i])
+        filterFilesForTempFile(files, Util:getDefaultFolder(WDFIDL_DOWNLOAD))
+    end
+end
+
+function filterFilesForTempFile(files, path)
+    if files then
+        local count = #files
+        for i = 0, count do
+            if files[i].attr == 0 then -- 若是文件
+                if string.match(files[i].filename, '^temp') then
+                    local fileTable = {}
+                    fileTable.name = files[i].filename
+                    fileTable.path = path
+                    table.insert(filesName, fileTable)
+                else -- 若不是下载临时文件
+                end
+            end
+        end
+    end
+end
+
+--[[  插件消息方法  ]]--
+function bodyOnPluginEvent(msg, param)
+    if msg == 101 then
+        Loading:close()
+        userinfoData = Http:jsonDecode('userinfoData')
+        Log:write('userinfoData', userinfoData)
+        if userinfoData and userinfoData.userId and userinfoData.userId ~= "" then
+            setSettingUI(1)
+            setNodeState(orderBtn,0)
+            Loading:show()
+            Http:request('myorder_data', Util:getServer() .. Alias.myorderproduct, 102, {useCache = 0})
+        else
+            setSettingUI(0)
+        end
+    elseif msg == 102 then
+        myorderData = Http:jsonDecode('myorder_data')
+        Log:write('myorderData', myorderData)
+        Loading:close()
+        if myorderData then
+            setOrderState()
+        else
+            Tips:show('返回数据格式错误')
+        end
+    elseif msg == 103 then
+        Loading:close()
+        local params = Http:jsonDecode('myorder_del')
+        if params then
+            if params.success == 'true' then
+                Tips:show('退订成功T-T')
+                Loading:show()
+            elseif params.success == 'false' then
+                Tips:show('退订失败,请稍后重试')
+            else
+                Dialog:show('提示', '返回数据格式错误', 'ok')
+            end
+            Http:request('myorder_data', Util:getServer() .. Alias.myorderproduct, 102, {useCache = 0})
+        else
+            Dialog:show('提示', '返回数据格式错误', 'ok')
+        end
+    elseif msg == 104 then
+        Loading:close()
+        local orderData = Http:jsonDecode('myorder_order')
+        Log:write('myorder_order', orderData)
+        if 'table' == type(orderData) then
+            if 'true' == orderData.success then -- 成功
+                Tips:show('恭喜您,订购成功')
+            else
+                local showTxt = orderData.desc == "" and '订购失败,请稍后重试' or orderData.desc
+                Tips:show(showTxt)
+            end
+            Http:request('myorder_data', Util:getServer() .. Alias.myorderproduct, 102, {useCache = 0})
+        else
+            Dialog:show('提示', '返回数据格式错误', 'ok')
+        end
+    else
+        Util:onPluginEvent(msg, param)
+    end
+end
+
+--[[  节点消息方法  ]]--
+function bodyOnSpriteEvent(msg, param)
+    if msg == MSG_ACTIVATE then
+        commonActivate()
+        requestUserinfoData()
+    elseif msg == MSG_DEACTIVATE then
+        commonDeactivate()
+        Timer:cancel(2)
+        if bFree == 1 then
+            Scene:freeByHandle(rootSprite)
+        end
+    else
+        Util:onSpriteEvent(msg, param)
+    end
+end
+
+--[[  按键事件响应  ]]--
+function mainNodeOnKeyUp(sprite, kc)
+    if kc == Key.F2 then
+        if commonF2KeyUp and commonF2KeyUp() then return end
+        bFree = 1
+        Scene:back()
+    else
+        Util:mainNodeOnKeyUp(sprite, kc)
+    end
+end
+
+function accountBtnOS()
+    Scene:go(Alias.myaccount)
+end
+
+function requestUserinfoData()
+    local regCommunity = Reg:create(Reg.com_wondertek_mobileaudio.community)
+    local userId = Reg:getString( regCommunity ,'userId')
+    local useCache = getRequestState("userinfoDataState",regCommunity)
+    Loading:show()
+    Http:request('userinfoData',  Util:getWeiBoServer() .. Alias.userinfoData .. '?userId='..userId, 101, {useCache = useCache})
+end
+
+function setSettingUI(style)
+    if style == 1 then
+        --[[  登录状态  ]]--
+        Sprite:setProperty(msgImg,"src",Util:getWeiBoServer() .. 'publish/clt' .. userinfoData.picture)
+        setNodeState(msgImg,1)
+        setNodeState(orderAdNode,1)
+        Sprite:setProperty(userLbl,"text",userinfoData.sname)
+        setNodeState(loginBtn,0)
+        setNodeState(accountChangeNode,1)
+        Sprite:setRect(accountArea,0,0,720,350)
+        ListView:adjust(settingArea)
+    else
+        setNodeState(msgImg,0)
+        setNodeState(orderAdNode,0)
+        Sprite:setProperty(userLbl,"text","点击登录个人账号")
+        setNodeState(loginBtn,1)
+        setNodeState(accountChangeNode,0)
+        Sprite:setRect(accountArea,0,0,720,200)
+        ListView:adjust(settingArea)
+    end
+end
+
+function setOrderState()
+    setNodeState(orderBtn,1)
+    local orderBtnTxt = Sprite:findChild(orderBtn,"orderBtnTxt")
+    if myorderData.monthList and myorderData.monthList[0] then
+        Sprite:setProperty(orderBtnTxt,"text","退订")
+        Sprite:setProperty(orderBtn,"OnSelect","cancelOrderBtnOS")
+        Sprite:setProperty(orderBtn, 'data', myorderData.monthList[0].productId)
+    else
+        Sprite:setProperty(orderBtnTxt,"text","立即订购")
+        Sprite:setProperty(orderBtn,"OnSelect","orderBtnOS")
+    end
+end
+
+function orderBtnOS()
+    if not myorderData.myorderProductId or myorderData.myorderProductId == '' then
+        Tips:show('无产品ID')
+        return
+    end
+    if not myorderData.tt or myorderData.tt == '' or not myorderData.ys or myorderData.ys == '' then
+        Tips:show('无加密信息')
+        return
+    end
+    Loading:show()
+    Http:request('myorder_order', Util:getServer() .. 'msp/order.msp?contentId=&nodeId=&productId=' .. myorderData.myorderProductId .. '&tt=' .. myorderData.tt .. '&ys=' .. myorderData.ys, 104, {useCache = 0})
+end
+
+function cancelOrderBtnOS()
+    local param = Sprite:getData(orderBtn)
+    Log:write('param', param)
+    Loading:show()
+    Http:request('myorder_del', Util:getServer() .. 'msp/orderCancel.msp?productId=' .. param, 103, {useCache = 0})
+end
+
+function updateBtnOS()
+    Tips:show("当前已是最新版本")
+end
+
+function adviceBtnOS()
+    Scene:go(Alias.advice)
+end
+]]>

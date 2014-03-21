@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Root>
+    <List>
+        <!-- 应用信息 -->
+        <Item name="company_url" value="http://www.wondertek.com.cn" />
+        <Item name="sdk_version" value="04.00.00.01" />
+        <Item name="app_id" value="com_wondertek_mobileaudio" />
+        <Item name="app_name" value="手机悦听3.0" />
+        <Item name="base_resolution" value="720x1280" />
+        <Item name="module_language" value="Lua" />
+        <!-- 带白名单 -->
+        <Item name="wlan_serverandportal" value="http://c22.cmvideo.cn/music/" />
+        <Item name="cmwap_serverandportal" value="http://c2.cmvideo.cn/music/" />
+        <Item name="wlan_weiboserverandportal" value="http://c22.cmvideo.cn/music-weibo/" />
+        <Item name="cmwap_weiboserverandportal" value="http://c2.cmvideo.cn/music-weibo/" />
+        <Item name="download_path" value="1" />  <!--  1.下载路径选择存储卡；0.下载路径选择手机 -->
+        <Item name="screenLock" value="0" /> <!-- 0. 选中锁屏 1. 未选中 -->
+        <Item name="wlan_support" value="1" />
+        <Item name="tokenPath" value="MODULE:\\token.dat" />
+        <Item name="newTokenPath" value="MODULE:\\newToken.dat" />
+        <Item name="skin_default" value="blueidea" />
+        <Item name="skin_default_ver" value="1.0.0.0" />
+        <Item name="mediaplayer_ver" value="1.0.0" />
+        <Item name="voice_ver" value="1.0.0" />
+        <Item name="channel_id" value="14000001-99000-100300010010001" />
+        <Item name="install_pkg_ext" value=".apk" />
+        <Item name="video_type" value="*.3gp|*.wmv|*.avi|*.mpg|*.mp4" />
+        <Item name="iskeysupport" value="0" />
+        <Item name="autoDownload" value="1" />              <!--2G/3G允许缓存-->
+        <Item name="notice_set" value="0" />                <!--多屏续播提醒：1、提醒；0、不提醒-->
+        <Item name="updateTips_setting" value="1" />        <!--自动更新-->
+        <Item name="errReportFlag" value="1" />             <!--错误上报：1、开启 0、关闭-->
+        <Item name="isShortcut" value="0" />                <!--标记创建快捷方式-->
+        <Item name="downloadSize" value="5242880" />        <!--标记下载大于5M-->
+        <Item name="isShowImage" value="1" />               <!--是否显示图片：1、是；0、不是-->
+        <Item name="flowFileName" value="WONDER:\\temp\\flowCount.xml" />  <!--存储流量统计文件路径-->
+        <!--播放器缓冲大小-->
+        <Item name="rcPlayerCache" value="3" />
+        <Item name="playerCache" value="1" />
+        <Item name="playerCacheLenth" value="12" />
+        <Item name="voiceGPRSRemind" value="1" />                <!--标记语音搜索GPRS流量提醒 0 关闭，1-提醒-->
+        <!--网络流量大小统计-->
+        <Item name="netTip_loginWaitLimit" value="5000" />
+        <Item name="netTip_login2GLimit" value="8" />
+        <Item name="netTip_login3GLimit" value="12" />
+        <Item name="netTip_login4GLimit" value="43" />
+        <Item name="netTip_loginWLANLimit" value="43" />
+        <!--网络相关配置-->
+        <Item name="filterType" value="1" />        <!--身份判断优先级 0:显式，1:隐式-->
+    </List>
+</Root>

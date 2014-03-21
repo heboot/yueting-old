@@ -1,0 +1,2273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ == ============================================================================
+ == | WonderTek [ 网络无处不在，沟通及时到达 ]
+ == ============================================================================
+ == | Copyright (c) 2013, WonderTek, Inc. All Rights Reserved.
+ == ============================================================================
+ == | Author: huangyuxin <huangyuxin@wondertek.com.cn>
+ == ============================================================================
+ == | Desc: 悦听播放界面
+ == ============================================================================
+-->
+<root>
+    <header/>
+    <body BuildChildrenFinished="bodyBuildChildrenFinished" OnSpriteEvent="bodyOnSpriteEvent" OnPluginEvent="bodyOnPluginEvent" resolution="720,1280" transparent="true" >
+    <node name="mainNode" rect="0,0,720,1280" extendstyle="1111" layouttype="1" OnKeyUp="mainNodeOnKeyUp">
+    <window name="shadow1" rect="0,0,720,1280" extendstyle="1111" alpha="0" bodyalpha="128"/>
+    <panorama name="mainPanorama" rect="0,0,720,1280" alpha="255" extendstyle="1017" foreground="foreground">
+        <panoramaitem name="foreground" rect="0,0,720,0" extendstyle="0017">
+            <node name="popupNode" rect="0,0,720,1280" extendstyle="1111"/>
+            <node name="tipsNode" rect="0,0,720,210" extendstyle="0017"/>
+        </panoramaitem>
+        <panoramaitem rect="0,0,720,0" extendstyle="0017" navigation_l="sideguideNode" navigation_auto="true" preview="270"
+                OnNavigationL="itemOnNavigationL" OnNavigationC="itemOnNavigationC" frame="false">
+            <shadow rect="0,0,720,1280" color="#FFFFFF" alpha="255" extendstyle="1111"/>
+            <node name="sideguideNode" rect="0,0,720,1280" padding="0,270,0,0" extendstyle="1061">
+                <shadow rect="0,0,720,1280" alpha="255" color="#585B54" extendstyle="1071"/>
+                <node rect="0,0,720,243" extendstyle="1070">
+                    <shadow rect="0,0,720,77" alpha="255" color="#F5FDF0" extendstyle="1070"/>
+                    <image rect="10,18,78,44" style="autosize" src="file://image/exdpi/sg_logo.png" extendstyle="1000"/>
+                    <button name="settingBtn" rect="0,0,77,77" extendstyle="5000" normal="n" sel="d" OnSelect="settingBtnOS">
+                        <image name="n" rect="23,21,31,34" style="autosize" src="file://image/sg_setting_n.png" extendstyle="0000" BuildChildrenFinished="resChoose"><node/></image>
+                        <image name="d" rect="23,21,31,34" style="autosize" src="file://image/sg_setting_f.png" extendstyle="0000" BuildChildrenFinished="resChoose"><node/></image>
+                    </button>
+                    <button name="searchBtn" rect="0,0,77,77" extendstyle="5000" normal="n" sel="d" OnSelect="" visible="0" enable="0">
+                        <image name="n" rect="23,21,31,34" style="autosize" src="file://image/sg_search_n.png" extendstyle="0000" BuildChildrenFinished="resChoose"><node/></image>
+                        <image name="d" rect="23,21,31,34" style="autosize" src="file://image/sg_search_f.png" extendstyle="0000" BuildChildrenFinished="resChoose"><node/></image>
+                    </button>
+                    <node rect="0,77,720,166" extendstyle="1077">
+                        <image rect="0,0,720,18" style="autosize" src="file://image/sg_spacebg.jpg" extendstyle="1077"/>
+                        <node name="loginNode" rect="0,0,720,166" extendstyle="1077">
+                            <image rect="22,48,252,69" style="autosize" src="file://image/logintip.png" extendstyle="0000" BuildChildrenFinished="resChoose"><node/></image>
+                            <button rect="0,0,300,166" extendstyle="0007" OnSelect="loginBtnOS"/>
+                        </node>
+                        <node name="userNode" rect="0,0,720,166" extendstyle="1077" visible="0" enable="0">
+                            <shadow rect="0,0,120,166" alpha="255" color="#FFFFFF" extendstyle="0000"/>
+                            <image rect="8,41,90,90" style="autosize" src="file://image/dft_headimg_mid.jpg" extendstyle="0000" BuildChildrenFinished="resChoose"><node/></image>
+                            <image name="userPic" rect="8,41,90,90" style="autosize" src="" extendstyle="0000" />
+                            <image rect="0,0,120,166" style="autosize" src="file://image/sg_spacemask.png" extendstyle="0000" />
+                            <label name="userName" rect="120,41,500,90" extendstyle="0000" text="" color="#ffffff" v-align="center" font-size="25"/>
+                            <button name="myspaceBtn" rect="0,0,300,166" extendstyle="0007" OnSelect="myspaceBtnOS"/>
+                        </node>
+                        <button name="" visible="0" rect="0,0,86,82" extendstyle="5000" normal="n" sel="d" OnSelect="">
+                            <shadow name="n" rect="0,0,86,82" alpha="75" color="#000000" padding="0,0,1,0" extendstyle="0076"/>
+                            <shadow name="d" rect="0,0,86,82" alpha="150" color="#000000" padding="0,0,1,0" extendstyle="0076"/>
+                            <image rect="25,22,36,37" style="autosize" src="file://image/sg_download.png" extendstyle="0000" BuildChildrenFinished="resChoose"><node/></image>
+                        </button>
+                        <button name="" visible="0" rect="0,0,86,82" extendstyle="5500" normal="n" sel="d" OnSelect="">
+                            <shadow name="n" rect="0,1,86,82" alpha="75" color="#000000" extendstyle="0077"/>
+                            <shadow name="d" rect="0,1,86,82" alpha="150" color="#000000" extendstyle="0077"/>
+                            <image rect="25,23,36,37" style="autosize" src="file://image/sg_fav.png" extendstyle="0000" BuildChildrenFinished="resChoose"><node/></image>
+                        </button>
+                        <image rect="0,0,720,32" style="autosize" src="file://image/shadow_top.png" extendstyle="1070"/>
+                    </node>
+                </node>
+                <listview name="sideguideListview" rect="0,243,720,0" padding="0,0,90,0" extendstyle="1076" auto-adjust="true" >
+                    <list-item rect="0,0,720,95" extendstyle="1070">
+                        <shadow rect="0,0,720,1" alpha="255" color="#6E7168" extendstyle="1574"/>
+                        <button name="guideBtn" rect="0,0,720,95" extendstyle="1070" disabled="d" OnSelect="guideBtnOnSelect">
+                            <image name="n" rect="15,25,63,44" style="autosize" src="$(src)" extendstyle="0000" BuildChildrenFinished="resChoose"><node/></image>
+                            <label name="lblName" rect="110,0,500,95" extendstyle="0000" text="$(txt)" color="#ffffff" v-align="center" font-size="30"/>
+                            <shadow name="d" rect="0,0,10,95" alpha="255" color="#0BBE5A" extendstyle="0000"/>
+                        </button>
+                    </list-item>
+                    <dataset>
+                        <set src="file://image/sg_recommend.png" txt="精彩推荐"/><set src="file://image/sg_radio.png" txt="电台直播"/><set src="file://image/sg_content.png" txt="金牌栏目"/>
+                    </dataset>
+                    <list-item name="moreContentItem" rect="0,0,720,620" extendstyle="1010">
+                        <shadow rect="0,0,720,2" alpha="255" color="#6E7168" extendstyle="1074"/>
+                        <label rect="15,0,500,60" extendstyle="0000" text="更多内容" color="#ffffff" v-align="center" font-size="20"/>
+                        <list name="moreList" rect="0,60,720,560" col="2" line="10" auto-adjust="true" offset="0,0" extendstyle="1010"/>
+                    </list-item>
+                </listview>
+                <node name="bottomNode" rect="0,0,720,90" extendstyle="0570">
+                    <shadow rect="0,0,720,90" alpha="255" color="#B7BFA8" extendstyle="1070"/>
+                    <image rect="22,27,252,35" style="autosize" src="file://image/uploadtip.png" extendstyle="1000" BuildChildrenFinished="resChoose"><node/></image>
+                    <button name="uploadBtn" rect="0,0,106,90" extendstyle="5000" normal="n" sel="d" OnSelect="uploadBtnOS">
+                        <shadow rect="0,0,106,90" alpha="255" color="#1BB05E" extendstyle="0000"/>
+                        <image name="n" rect="22,10,62,70" style="autosize" src="file://image/sg_upload_n.png" extendstyle="0000" BuildChildrenFinished="resChoose"><node/></image>
+                        <image name="d" rect="22,10,62,70" style="autosize" src="file://image/sg_upload_f.png" extendstyle="0000" BuildChildrenFinished="resChoose"><node/></image>
+                    </button>
+                </node>
+            </node>
+            <image rect="-32,0,32,0" style="autosize" src="file://image/shadow_right.png" extendstyle="0007"/>
+            <node name="titleNode" rect="0,0,720,77" extendstyle="1010">
+                <shadow rect="0,0,720,4" alpha="255" color="#BADE9E" extendstyle="1510"/>
+                <label name="titleLbl" rect="0,0,720,77" extendstyle="0000" v-align="center" h-align="center" text="电台" postfix=".." color="#4F6854" font-size="30"/>
+                <button name="moreBtn" rect="0,0,134,77" extendstyle="0000" normal="n" sel="d" OnSelect="showLeftNavigationOnSelect">
+                    <image name="n" rect="23,21,11,34" style="autosize" src="file://image/sg_more_n.png" extendstyle="0000" BuildChildrenFinished="resChoose"><node/></image>
+                    <image name="d" rect="23,21,11,34" style="autosize" src="file://image/sg_more_f.png" extendstyle="0000" BuildChildrenFinished="resChoose"><node/></image>
+                </button>
+                <button name="groupBtn" rect="0,0,77,77" extendstyle="5000" normal="n" sel="d" OnSelect="groupBtnOnSelect">
+                    <image name="n" rect="23,21,31,34" style="autosize" src="file://image/live_group_n.png" extendstyle="0000" BuildChildrenFinished="resChoose"><node/></image>
+                    <image name="d" rect="23,21,31,34" style="autosize" src="file://image/live_group_f.png" extendstyle="0000" BuildChildrenFinished="resChoose"><node/></image>
+                </button>
+            </node>
+            <node name="galleryNode" rect="0,78,720,154" extendstyle="1010">
+                <shadow rect="0,0,720,154" alpha="255" color="#F8FDF6" extendstyle="1017"/>
+                <shadow name="topVLine" rect="357,19,6,18" alpha="255" color="#BADE9E" extendstyle="1017"/>
+                <shadow rect="0,36,720,84" alpha="255" color="#F8FDF6" extendstyle="1010"/>
+                <gallery name="gallery" rect="0,0,720,154" extendstyle="1010" spacing="0" middle-size="180,64" normal-size="180,64" focus-size="220,76" OnSelect="galleryOnSelect" />
+                <node name="galleryItem" rect="0,0,180,76" normal="sNormal" focus="sFocus" middle="sMiddle" data="" visible="0" enable="0">
+                    <node name="sNormal" rect="0,0,180,76" extendstyle="0000">
+                        <image rect="0,6,180,64" bodyalpha="255" extendstyle="0000" style="sudoku-auto" sudoku="32,0,32,0" src="" BuildChildrenFinished="resChoose"><node/></image>
+                        <label name="lblNormal" rect="0,0,180,76" extendstyle="0000" h-align="center" v-align="center"  text="" color="#A4ACA1" font-size="25"/>
+                    </node>
+                    <node name="sFocus" rect="0,0,200,76" extendstyle="0000">
+                        <image rect="0,6,200,64" bodyalpha="255" extendstyle="0000" style="sudoku-auto" sudoku="32,0,32,0" src="file://image/live_selectbg.png" BuildChildrenFinished="resChoose"><node/></image>
+                        <label name="lblFocus" rect="0,0,200,76" extendstyle="0000" h-align="center" v-align="center"  text="" color="#FFFFFF" font-size="30"/>
+                    </node>
+                    <node name="sMiddle" rect="0,0,180,76" extendstyle="0000">
+                        <image rect="0,6,180,64" bodyalpha="255" extendstyle="0000" style="sudoku-auto" sudoku="32,0,32,0" src="" BuildChildrenFinished="resChoose"><node/></image>
+                        <label name="lblMiddle" rect="0,0,180,76" extendstyle="0000" h-align="center" v-align="center"  text="" color="#A4ACA1" font-size="25"/>
+                    </node>
+                </node>
+                <list rect="0,0,720,25" extendstyle="1510" line="1" col="60" BuildChildrenFinished="listadjust">
+                    <list-item rect="0,0,12,25" extendstyle="1010" >
+                        <shadow rect="0,$(p),1,25" alpha="255" color="#BADE9E" extendstyle="1040"/>
+                    </list-item>
+                    <dataset>
+                        <set p="0"/><set p="10"/><set p="10"/><set p="10"/><set p="10"/><set p="10"/><set p="10"/><set p="10"/><set p="10"/><set p="10"/><set p="10"/><set p="10"/><set p="10"/><set p="10"/><set p="10"/>
+                        <set p="0"/><set p="10"/><set p="10"/><set p="10"/><set p="10"/><set p="10"/><set p="10"/><set p="10"/><set p="10"/><set p="10"/><set p="10"/><set p="10"/><set p="10"/><set p="10"/><set p="10"/>
+                        <set p="0"/><set p="10"/><set p="10"/><set p="10"/><set p="10"/><set p="10"/><set p="10"/><set p="10"/><set p="10"/><set p="10"/><set p="10"/><set p="10"/><set p="10"/><set p="10"/><set p="10"/>
+                        <set p="0"/><set p="10"/><set p="10"/><set p="10"/><set p="10"/><set p="10"/><set p="10"/><set p="10"/><set p="10"/><set p="10"/><set p="10"/><set p="10"/><set p="10"/><set p="10"/><set p="10"/>
+                    </dataset>
+                </list>
+                <shadow name="bottomHLine" rect="0,0,720,2" alpha="255" color="#BADE9E" extendstyle="1514"/>
+            </node>
+
+            <!--全屏视频中部 -->
+            <node name="imageNode" rect="0,245,720,528" extendstyle="1010">
+                <image rect="0,0,720,528" extendstyle="1010" style="minsize" src="file://image/live_bg.jpg" />
+                <image rect="0,0,410,172" style="autosize" src="file://image/shadow_content.png" extendstyle="0570"/>
+            </node>
+            <node name="albumNode" rect="0,583,720,190" extendstyle="1010">
+                <node name="headNode" rect="30,2,133,133" extendstyle="1010">
+                    <image rect="0,0,133,133" bodyalpha="255" extendstyle="0000" style="sudoku-auto" sudoku="15,15,15,15" src="file://image/head_frame.png"  ></image>
+                    <image name="dftImg" rect="2,2,129,129" extendstyle="0000" style="center" src="file://image/dft_headimg_big.jpg"  BuildChildrenFinished="resChoose"><node/></image>
+                    <image name="headImg" rect="2,2,129,129" extendstyle="0000" style="center" src=""  ></image>
+                </node>
+                <node name="userInfoNode" rect="181,23,228,127" extendstyle="1010">
+                    <image name="sex" rect="0,0,34,34" extendstyle="1010" style="center" src="file://image/user_woman.png"  BuildChildrenFinished="resChoose"><node/></image>
+                    <label name="rank" rect="0,44,180,40" extendstyle="1010" h-align="left" text="等级:" color="#FFFFFF" font-size="25"/>
+                    <label name="rankValue" rect="76,44,300,40" extendstyle="1010" h-align="left" text="红喇叭" color="#FFFFFF" font-size="25"/>
+                    <label name="alias" rect="0,84,180,40" extendstyle="1010" h-align="left" text="昵称:" color="#FFFFFF" font-size="25"/>
+                    <label name="aliasValue" rect="76,84,300,40" extendstyle="1010" h-align="left" text="都市之声" color="#FFFFFF" font-size="25"/>
+                </node>
+            </node>
+
+            <!--全屏视频底部 -->
+            <node rect="0,855,720,380" extendstyle="0511" >
+                <shadow name="playbg" rect="121,0,121,97" alpha="255" color="#0AB25D" extendstyle="1010"/>
+                <image name="fabvbg" rect="0,0,121,97" bodyalpha="255" extendstyle="1010" style="sudoku-auto" sudoku="0,0,53,0" src="file://image/live_fav_bg.png"  BuildChildrenFinished="resChoose"><node/></image>
+                <node name="favNode" rect="0,0,121,97" extendstyle="1010" >
+                    <button name="favBtn1" rect="20,26,41,60" extendstyle="1010" normal="normal" sel="focus" OnSelect="favBtnOnSelect" >
+                        <image name="normal" bodyalpha="255" rect="0,0,41,43" extendstyle="0000" style="autosize" src="file://image/live_fav_n.png" BuildChildrenFinished="resChoose"><node/></image>
+                        <image name="focus" bodyalpha="255" rect="0,0,41,43" extendstyle="0000" style="autosize" src="file://image/live_fav_f.png" BuildChildrenFinished="resChoose"><node/></image>
+                    </button>
+                </node>
+                <node name="playNode" rect="122,0,121,97" extendstyle="1010" >
+                    <button name="playBtn" rect="43,26,41,60" extendstyle="1010" normal="normal" sel="focus" OnSelect="playBtnOnSelect" >
+                        <image name="normal" bodyalpha="255" rect="0,0,41,43" extendstyle="0000" style="autosize" src="file://image/live_play_n.png" BuildChildrenFinished="resChoose"><node/></image>
+                        <image name="focus" bodyalpha="255" rect="0,0,41,43" extendstyle="0000" style="autosize" src="file://image/live_play_f.png" BuildChildrenFinished="resChoose"><node/></image>
+                    </button>
+                    <button name="pauseBtn" rect="43,26,41,60" extendstyle="1010" normal="normal" sel="focus" OnSelect="pauseBtnOnSelect"  visible="0" enable="0">
+                        <image name="normal" bodyalpha="255" rect="0,0,41,43" extendstyle="0000" style="autosize" src="file://image/live_pause_n.png" BuildChildrenFinished="resChoose"><node/></image>
+                        <image name="focus" bodyalpha="255" rect="0,0,41,43" extendstyle="0000" style="autosize" src="file://image/live_pause_f.png" BuildChildrenFinished="resChoose"><node/></image>
+                    </button>
+                </node>
+                <node name="programInfoNode" rect="270,0,453,97" extendstyle="1010" >
+                    <shadow rect="0,0,17,97" alpha="255" color="#FF7F94" extendstyle="0047"/>
+                    <node rect="270,-2,453,97" extendstyle="8010" >
+                        <label rect="10,-5,180,40" extendstyle="0000" text="当前播放:" color="#5E7C64" font-size="28"/>
+                        <label name="boxLbl" rect="163,-5,271,40" extendstyle="0000" text="在路上" postfix=".." color="#5E7C64" font-size="28"/>
+                        <shadow rect="10,38,420,1" alpha="255" color="#FF7F94" extendstyle="0014"/>
+                        <label name="director" rect="10,40,80,34" extendstyle="0000" text="主播:" color="#82907D" font-size="25"/>
+                        <label name="directorValue" rect="88,40,271,34" extendstyle="0000" text="方周周" color="#82907D" font-size="25"/>
+                        <node rect="10,70,300,30" extendstyle="1010" >
+                            <label name="curTimeLbl" rect="0,0,120,30" extendstyle="0000" h-align="left" text="00:00:00" color="#670D38" font-size="25"/>
+                            <label name="midTimeLbl" rect="120,0,10,30" extendstyle="8000" h-align="center" text="/" color="#670D38" font-size="25"/>
+                            <label name="totalTimeLbl" rect="130,0,120,30" extendstyle="8000" h-align="right" text="00:00:00" color="#670D38" font-size="25"/>
+                        </node>
+                    </node>
+                </node>
+            </node>
+            <node name="audioLblNode" rect="0,0,720,270" extendstyle="0510"  visible="0" enable="0">
+                <label name="curPlayLbl" rect="0,0,720,50" extendstyle="1010" h-align="center" text="" color="#FFFFFF" font-size="28"/>
+                <label name="curPlayProp1" rect="0,50,720,240" extendstyle="1010" h-align="center" text="" color="#FFFFFF" font-size="23"/>
+                <label name="curPlayProp2" rect="0,90,720,240" extendstyle="1010" h-align="center" text="" color="#FFFFFF" font-size="23"/>
+            </node>
+
+            <node name="playerTipConnectBufffer" rect="200,387,320,105" extendstyle="0000" visible="0" enable="0">
+                <image rect="0,0,320,105" bodyalpha="255" extendstyle="0000" sudoku="19,18,19,18" style="sudoku-auto" src="file://image/tip.png" BuildChildrenFinished="resChoose"><node/></image>
+                <image rect="27,18,64,64" style="autosize" src="file://image/loadingbg2.png" extendstyle="0000" />
+                <animate rect="27,18,63,63" delay="12" loop="true" extendstyle="0000">
+                    <animate-frame start="$(start)" delay="1">
+                        <image rect="0,0,63,63" rotate="$(rotate)" style="autosize" src="file://image/loadingframe.png" extendstyle="0000" BuildChildrenFinished="resChoose"><node/></image>
+                    </animate-frame>
+                    <dataset>
+                        <set start="0" rotate="360"/><set start="1" rotate="30"/><set start="2" rotate="60"/>
+                        <set start="3" rotate="90"/><set start="4" rotate="120"/><set start="5" rotate="150"/>
+                        <set start="6" rotate="180"/><set start="7" rotate="210"/><set start="8" rotate="240"/>
+                        <set start="9" rotate="270"/><set start="10" rotate="300"/><set start="11" rotate="330"/>
+                    </dataset>
+                </animate>
+                <button rect="110,0,320,105" extendstyle="0000" bodyalpha="255">
+                    <label name="playerTipConnectBuffferLbl" rect="0,0,320,105" extendstyle="0000" font-size="28" color="#FFFFFF" v-align="center"/>
+                </button>
+            </node>
+        </panoramaitem>
+    </panorama>
+    <!--剧集列表 -->
+    <node name="groupListNode" rect="0,0,720,1280" extendstyle="1111" visible="false" enable="false">
+        <shadow name="groupListShadow" rect="0,0,720,1280" alpha="128" color="#000000" extendstyle="1111"/>
+        <button name="groupFullBtn" rect="0,0,720,1280" extendstyle="1111" OnSelect="groupFullBtnOnSelect" >
+            <shadow rect="0,0,720,1280" alpha="4" color="#0" extendstyle="0000" />
+        </button>
+        <node name="bottomshadow" rect="0,0,620,35" extendstyle="0510">
+            <image rect="0,0,620,72" src="file://image/dialogShadow.png" style="autosize" extendstyle="1010" />
+        </node>
+        <node name="groupListFrame" rect="90,140,540,960" extendstyle="1111">
+            <image name="groupListbg" bodyalpha="255" rect="0,0,540,960" extendstyle="1111" sudoku="11,11,11,11" style="sudoku-auto" src="file://image/whitebg.png" BuildChildrenFinished="resChoose"><node/></image>
+            <node name="titleArea" rect="0,0,540,85" extendstyle="1017">
+                <label name="dtitle" rect="0,0,540,85" text="节目单" color="#4F6852" font-size="30" v-align="center" h-align="center" extendstyle="1010"/>
+                <shadow rect="5,85,530,4" color="#B2DB93" alpha="255" extendstyle="1010"/>
+                <shadow rect="190,90,1,60" alpha="255" color="#D0E9C5" padding="0,0,5,0" extendstyle="1046"/>
+            </node>
+            <listview name="groupListview" rect="5,90,530,956" padding="0,0,5,0" extendstyle="1016" auto-adjust="true" />
+        </node>
+    </node>
+    <node name="groupListItem" rect="0,0,544,60" extendstyle="0010" visible="0" enable="0">
+        <shadow name="livingImg" rect="4,0,536,60" alpha="255" color="#84CD7D" extendstyle="0000" visible="0" enable="0"/>
+        <button name="programBtn" normal="programName" sel="" bodyalpha="255" rect="0,0,536,60" extendstyle="0000" data="" OnSelect="">
+            <label name="programTime" rect="0,0,186,60" bodyalpha="255" extendstyle="0000" font-size="22" postfix=".." color="#A4ABA2" h-align="center" v-align="center" />
+            <label name="programName" rect="200,0,340,60" bodyalpha="255" extendstyle="A4ABA2" font-size="22" postfix=".." color="#0" h-align="left" v-align="center" />
+        </button>
+    </node>
+    <node name="channelItem" rect="0,0,220,140" extendstyle="0000" visible="0" enable="0" active="0">
+        <button name="channelBtn" rect="10,0,200,120" extendstyle="0000" normal="n" sel="s" OnSelect="channelBtnOS">
+            <node name="n" rect="0,0,200,120" extendstyle="0000">
+                <image name="i1" rect="0,0,200,120" style="sudoku-auto" sudoku="7,7,7,7" src="file://image/sg_btngray.png" extendstyle="0000" BuildChildrenFinished="resChoose"><node/></image>
+                <image name="i2" rect="15,80,25,21" style="autosize" src="file://image/sg_contentcounts_gray.png" extendstyle="0000" BuildChildrenFinished="resChoose"><node/></image>
+                <label name="conts_n" rect="45,78,200,50" extendstyle="0000" text="N/A" color="#B3B3B1" font-size="18"/>
+            </node>
+            <node name="s" rect="0,0,200,120" extendstyle="0000">
+                <image name="i2" rect="0,0,200,120" style="sudoku-auto" sudoku="7,7,7,7" src="file://image/sg_btngreen.png" extendstyle="0000" BuildChildrenFinished="resChoose"><node/></image>
+                <image name="i4" rect="15,80,25,21" style="autosize" src="file://image/sg_contentcounts_white.png" extendstyle="0000" BuildChildrenFinished="resChoose"><node/></image>
+                <label name="conts_s" rect="45,78,200,50" extendstyle="0000" text="N/A" color="#FFFFFF" font-size="18"/>
+            </node>
+            <label name="channelname" rect="15,0,500,55" extendstyle="0000" text="$(txt)" color="#ffffff" v-align="center" font-size="24"/>
+        </button>
+    </node>
+    </node>
+    </body>
+</root>
+<![CDATA[
+require('com_wondertek_mobileaudio.commonlocal')
+require('framework.player')
+
+local root
+local curPanoramaIndex = 0
+local curNavIndex = 0
+
+local filesName = {} -- 文件列表
+local filesNameIndex = 0
+local localfile
+local isScreenLock = false
+local isPlayerCreate -- 播放器是否已经调用create方法
+local beforeBackStatus -- 最小化之前的播放器状态
+local status -- 播放器状态
+local lastStatus -- 播放器上次的状态
+local lastBufTime = 0
+local timeOffset = 0
+local paramErrno = 255 --将接收的 MSG_NETWORK_ERROR 的消息赋给paramErrno，在播放界面时，客户端从后台切换至前台用此变量
+local TMPCplayer = 2
+local PEplayer = 3
+local HLSplayer = 4  --华为播放器并支持HLS协议
+local gContparam = ''
+local gAudioParam = ''
+local coverflowData = {}
+
+local _gallerySprite
+
+
+local isLoadingMore =0 --正在加载更多数据
+local ContPageSize = 30
+local contlistPageIndex = 1
+local playerGroupData = {}
+local originalFavStatus = false  --上次收藏状态
+local newFavStatus = false       --收藏标志
+local YueTingLiveId = '10161416' --悦听电台专区
+local YueTingFreePlayId = '10161425' --悦听随心听专区
+local YueTingJumpToNodeId = ''   --预跳转音频直播栏目的nodeId
+local subListTable = {} --剧集列表，用于排序
+
+
+--全屏播放控制引擎支持标志
+local bFSControlFlag = 0
+--全屏播放UI标志,0-竖屏,1-横屏未锁屏，2-横屏锁屏
+local bFSUIFlag = 0
+-- 0是循环，1是顺序，2是随机
+local modeSelect = 0
+
+local catalogueAudioData2 = ''
+
+--网络流量统计
+local flowFileName = Config:get('flowFileName') == '' and Config:get('flowFileName') or "WONDER:\\temp\\flowCount.xml"
+local lastTotalFlow = 0
+local oneBufferFlag = 0           -- 缓存完毕标志,0-缓冲开始(buffering) ，1-缓冲完成(playing),2-其他(重复playing)
+local lastbufferReadyTime = 0     -- 上次缓冲结束时刻(s)
+local lastbufferBeginTime = 0     -- 上次缓冲开始时刻(s)
+local tipsCount = 3               -- 连续提示数量次数,最多3次
+local bufferOffset = 0            -- 两次缓冲时间间隔
+local BUFFEROFFSETLIMIT=30*1000   -- 两次缓冲时间间隔阀值30s
+local BUFFERWAITLIMIT = 7*1000    -- 缓冲等待时间阀值7s
+
+local nodeUserId = ''
+-- @brief root子节点创建完事件
+function bodyBuildChildrenFinished(sprite)
+    root = sprite
+    mainPanorama = Sprite:findChild(root, 'mainPanorama')
+    audioTypeImg = Sprite:findChild(root, 'audioTypeImg')
+    --coverflowLbl = Sprite:findChild(root, 'coverflowLbl')
+
+    audioboxNode = Sprite:findChild(root, 'audioboxNode')
+    audioLblNode = Sprite:findChild(root, 'audioLblNode')
+    curPlayLbl = Sprite:findChild(root, 'curPlayLbl')
+    curPlayProp1 = Sprite:findChild(root, 'curPlayProp1')
+    curPlayProp2 = Sprite:findChild(root, 'curPlayProp2')
+    imageNode = Sprite:findChild(root, 'imageNode')
+    groupBtn = Sprite:findChild(root,'groupBtn')
+    imageNode1 = Sprite:findChild(root,'imageNode1')
+    livingImg = Sprite:findChild(root,'livingImg')
+
+    pauseBtn = Sprite:findChild(root,'pauseBtn')
+    playBtn = Sprite:findChild(root,'playBtn')
+    favBtn = Sprite:findChild(root,'favBtn')
+
+    shadow1 = Sprite:findChild(root,'shadow1')
+    groupListNode = Sprite:findChild(root,'groupListNode')
+    groupListview = Sprite:findChild(root,'groupListview')
+    groupListItem = Sprite:findChild(root,'groupListItem')
+
+    statusLbl = Sprite:findChild(sprite, 'statusLbl')
+    progressNode = Sprite:findChild(sprite, 'progressNode')
+    progressBtn = Sprite:findChild(progressNode, 'progressBtn')
+    progressBgImg = Sprite:findChild(progressNode, 'progressBgImg')
+    progressBarImg = Sprite:findChild(progressNode, 'progressBarImg')
+    bufferingBarImg = Sprite:findChild(progressNode, 'bufferingBarImg')
+    progressPointImg = Sprite:findChild(progressNode, 'progressPointImg')
+
+    playerTipConnectBufffer = Sprite:findChild(root, 'playerTipConnectBufffer')
+    playerTipConnectBuffferLbl = Sprite:findChild(playerTipConnectBufffer, 'playerTipConnectBuffferLbl')
+
+    groupListNode = Sprite:findChild(root, 'groupListNode')
+    boxLbl = Sprite:findChild(root, 'boxLbl')
+    curTimeLbl = Sprite:findChild(root, 'curTimeLbl')
+    totalTimeLbl = Sprite:findChild(root, 'totalTimeLbl')
+    titleLbl = Sprite:findChild(root, 'titleLbl')
+    gallery = Sprite:findChild(root, 'gallery')
+    galleryItem = Sprite:findChild(root, 'galleryItem')
+    
+    loginNode = Sprite:findChild(sprite,'loginNode')
+    userNode = Sprite:findChild(sprite,'userNode')
+    userPic = Sprite:findChild(userNode,'userPic')
+    userName = Sprite:findChild(userNode,'userName')
+    myspaceBtn = Sprite:findChild(userNode,'myspaceBtn')
+
+    sideguideListview = Sprite:findChild(sprite,'sideguideListview')
+    moreContentItem = Sprite:findChild(sprite,'moreContentItem')
+    moreList = Sprite:findChild(moreContentItem,'moreList')
+    channelItem = Sprite:findChild(sprite,'channelItem')
+    
+    --初始化网络流量统计数据
+    initNetFlowData()
+end
+
+--初始化场景
+function initSceneData()
+    --保存悦听场景句柄
+    local curSceneHandle = Sprite:getCurScene()
+    if setAudioScene then setAudioScene(curSceneHandle) end
+
+    --判断音频类型,'isAudio=true;objType=freePlay;nodeId=xxx' / 'isAudio=true;objType=freePlay;nodeId=xxx'
+    if getAudioParam then
+        gAudioParam = getAudioParam()
+        Log:write('initSceneData gAudioParam=',gAudioParam)
+    end
+
+    local _,_,audType = string.find(gAudioParam, 'objType=(%a+);')
+    local _,_,nodeId = string.find(gAudioParam, 'nodeId=(%d+);')
+
+    -- 悦听直播
+    if audType and audType ~= '' and audType == 'live' then
+        Log:write('initSceneData 111 audType=',audType)
+        --判断是否音频正在播放，如在播放则停止
+        if getAudioPlayFlag then
+            if getAudioPlayFlag() ~= 0 then
+                --停止定时器，防止视频停止后音频点播自动播放下一集，取悦听场景句柄
+                if getAudioScene then
+                    local curAudioScene = getAudioScene()
+                    Sprite:sendEvent(curAudioScene, Msg.stopAudioTimer)
+                end
+                Player:stop()
+                Player:show(0)
+                resetAudioPlayFlag()
+                Log:write('initSceneData 222222 audType=',audType)
+            end
+        end
+
+        if audType == 'live' then --悦听直播
+            if nodeId ~= YueTingLiveId then
+                YueTingJumpToNodeId  = nodeId
+                nodeId = YueTingLiveId
+            end
+        end
+
+        gContparam = ''
+        playerJson = ''
+        Http:request('catalogueAudioData', Util:getServer() ..Alias.catalogueAudioData..'?nodeId='..nodeId, 130, { useCache=0})
+
+        --请求栏目用户信息
+        if nodeUserId and nodeUserId~='' then
+            Http:request('userinfoData',  Util:getWeiBoServer() .. Alias.userinfoData..'?nodeId='..nodeUserId, 110, {useCache=0})
+        end
+        --清空重置
+        if resetAudioParam then resetAudioParam() end
+    else -- 悦听点播
+        -- dothing
+    end
+
+    ----重置收藏标志
+    resetFavoriteFlag()
+    --发检查收藏请求
+    -- checkFavRequest()
+end
+
+--初始化点播数据
+function initDemandData()
+    --设置节目信息
+    if playerJson then
+        Sprite:setProperty(titleLbl,'text',playerJson.nodeName)
+        if playerJson.img ~='' and (string.match(gContparam,'objType=0') or string.match(gContparam,'objType=content')) then
+            Sprite:setProperty(imageNode,'src',playerJson.img)
+        end
+        if playerJson.audioDesc ~= '' then
+            local audioDescTable = Util:split(playerJson.audioDesc,'|')
+            Sprite:setProperty(curPlayLbl,'text',playerJson.titleName)
+            Sprite:setProperty(curPlayProp1,'text',audioDescTable[1] and audioDescTable[1] or '')
+            Sprite:setProperty(curPlayProp2,'text',audioDescTable[2] and audioDescTable[2] or '')
+        end
+    end
+
+    --设置剧集内容
+    setGroupData()
+    --初始化播放器
+    initPlayer()
+end
+
+function LoadUserInfo()
+    local headImg = Sprite:findChild(root, 'headImg')
+    local aliasValue = Sprite:findChild(root, 'aliasValue')
+    local rankValue = Sprite:findChild(root, 'rankValue')
+    local sex = Sprite:findChild(root, 'sex')
+
+    local mypicurl =userinfoData.picture or ''
+    if mypicurl~='' then
+        mypicurl =Util:getWeiBoServer() ..'publish/clt'..mypicurl
+        Log:write(' mypicurl = ',mypicurl)
+        Sprite:setProperty(headImg,'src', mypicurl)
+    end
+
+    Sprite:setProperty( aliasValue,'text',userinfoData.sname or '')
+    Sprite:setProperty( rankValue,'text', userinfoData.grade or '')
+    if userinfoData.sex == '1' then
+        Sprite:setProperty( sex,'src','file://image/user_woman.png')
+        resChoose(sex)
+    else
+        Sprite:setProperty( sex,'src','file://image/user_man.png')
+        resChoose(sex)
+    end
+
+    -- Sprite:setProperty( sex,'data',userinfoData.userId or '')
+
+end
+
+-- @brief root节点消息方法
+function bodyOnSpriteEvent(msg, param)
+    if msg == MSG_ACTIVATE then
+        progressBarFlag = 0
+        PEReviewCurTime = 0  --该变量用于存放华为播放器直播回放节目时，（当前时间-起始时间）的秒数
+        PEReviewFinishFlag = false  --该变量用于判断华为播放器直播回放节目是否播放结束
+        useTempCurTimeFlag = false  --该变量用于判断是否使用tempCurTime变量
+        tempCurTime = 0 --用于记录点播节目seek之后的时间点，seek之后的playing中只为当前播放时间赋一次值
+        playerType = Util:getPlayerInfo() --播放器类型
+        Log:write('Util:getPlayerInfo() ,playerType=',playerType)
+
+        if playerType == 2 then
+            sceneName = 'scene:player | ' .. 'player:RongChuang | '
+        elseif playerType == 3 then
+            sceneName = 'scene:player | ' .. 'player:HuaWei | '
+        else
+            sceneName = 'scene:player | ' .. 'player: Other | '
+        end
+
+        -- if setSystemVolumeVisible then setSystemVolumeVisible(0) end --不显示系统音量调节按钮
+        System:startMonitor(0)
+        if doMessageReturn then doMessageReturn() end  --处理通知消息直接播放的跳转返回关系
+
+        --判断是否是音频页面激活
+        if getAudioActiveFlag and getAudioActiveFlag() == 1 then
+            resetAudioActiveFlag()
+        else
+            initSceneData()
+        end
+        
+        local regI = Reg:create(Reg.com_wondertek_mobileaudio.index)
+        local phoneNumber = Reg:getString(regI, 'phoneNumber')
+        Log:write('phoneNumber', phoneNumber)
+        if Reg:getInteger(regI, 'accountLogin') == 1 then --已显式登录标志位
+            LoginStatusChange(true)
+        else
+            if phoneNumber == '' then
+                LoginStatusChange(true)
+            elseif phoneNumber == 'logout' then
+                LoginStatusChange(false)
+            else
+                LoginStatusChange(true)
+            end
+        end
+        local homeData = Http:jsonDecode('homeData')
+        if homeData and homeData.recommendList then
+            homeDataUse()
+        else
+            Http:request('homeData', Util:getServer() .. '/publish/clt/resource/mobileaudio3/home/homeData.jsp',103)
+        end
+    elseif msg == MSG_DEACTIVATE then
+        Log:write('player deactive')
+        commonDeactivate()
+        --发送上次收藏请求
+        changeFavRequest()
+        --保存当前播放记录,放在commonlocal里做
+        --uploadMyHistory()
+
+        System:startMonitor(120)
+        if isPlayerCreate then
+            setAudioPlayFlag()
+        else
+            resetAudioPlayFlag()
+        end
+        --Scene:freeByHandle(Sprite:getCurScene())
+    elseif msg == MSG_MINIMIZED then
+        if isPlayerCreate then
+            setAudioPlayFlag()  ----设置音频播放标志
+        else
+            resetAudioPlayFlag()
+        end
+
+    elseif msg == MSG_MAXIMIZED then
+    elseif msg == MSG_SCREENLOCK then --是否设置锁屏
+        if isPlayerCreate then
+            setAudioPlayFlag()  ----设置音频播放标志
+        else
+            resetAudioPlayFlag()
+        end
+    elseif msg == MSG_AIRPLANE then
+        --do nothing
+    elseif msg == Msg.loadingShow then
+        setNodeState(playerTipConnectBufffer,0)
+        Sprite:setProperty(playerTipConnectBufffer,"data","1")
+    elseif msg == Msg.loadingClose then
+        Sprite:setProperty(playerTipConnectBufffer,"data","")
+    elseif msg == Msg.stopAudioTimer then
+        Timer:cancel(TimerId.status)
+    else
+        Util:onSpriteEvent(msg, param)
+    end
+end
+
+-- @brief 插件消息方法
+function bodyOnPluginEvent(msg, param)
+    if msg == 107 then -- 检查收藏返回
+        local checkFavData = Http:jsonDecode('checkFavData')
+        Log:write('107 isFavorited= ,favoritesid = ',checkFavData.isFavorited,checkFavData.favoritesid)
+        if checkFavData.isFavorited=='1' and checkFavData.favoritesid ~='' then
+            Sprite:setProperty(favBtn, 'data', checkFavData.favoritesid)
+            originalFavStatus = true
+            newFavStatus = true
+        end
+        showFavarite(checkFavData.isFavorited,checkFavData.favoritesid)
+    elseif msg == 109 then
+    elseif msg == 110 then
+        userinfoData = Http:jsonDecode('userinfoData')
+        Log:write(' userinfoData = ',userinfoData)
+        if userinfoData.code == '1014' then
+
+        else
+            LoadUserInfo()
+        end
+    elseif msg == 112 then -- 剧集分页加载
+        playerGroupData = Http:jsonDecode('playerGroupData')
+        Log:write('112 playerGroupData=',playerGroupData)
+
+        --Interloading:close()
+        isLoadingMore = 0
+        local lastItem = ListView:getItem(groupListview,ListView:getItemCount(groupListview)-1)
+        ListView:removeItem(groupListview,lastItem,1,1)
+        if playerGroupData.contList then
+            local count =#playerGroupData.contList +1
+            if count>0 then
+                ListView:loadItem(groupListview, groupListItem, count, 'onLoadGroupListViewPage')
+                ListView:adjust(groupListview)
+            else
+                contlistPageIndex = -1
+                Tips:show('到底啦！')
+            end
+        else
+            contlistPageIndex = -1
+            Tips:show('到底啦！')
+        end
+    elseif msg == 130 then --悦听直播数据一级栏目数据
+        local catalogueAudioData = Http:jsonDecode('catalogueAudioData')
+        Log:write('catalogueAudioData count=',#catalogueAudioData)
+        Log:write('catalogueAudioData = ',catalogueAudioData)
+        if catalogueAudioData then
+            local count =#catalogueAudioData +1
+            if count >0 then
+                Sprite:setProperty(titleLbl,'text',catalogueAudioData.nodeName)
+                setGalleryData(catalogueAudioData)
+                --设置剧集内容
+                setLiveGroupData()
+                --开始播放
+                radioPlayOnSelect()
+                --取userId
+                nodeUserId = catalogueAudioData.userId
+            end
+        end
+    elseif msg == 131 then --悦听直播数据二级栏目数据
+        catalogueAudioData2 = Http:jsonDecode('catalogueAudioData2')
+        Log:write('catalogueAudioData2 count=',#catalogueAudioData2)
+        Log:write('catalogueAudioData2 = ',catalogueAudioData2)
+
+        if catalogueAudioData2 and catalogueAudioData2~='' then
+            if catalogueAudioData2.objType ==  'live' and catalogueAudioData2.livePlayList and catalogueAudioData2.livePlayList ~='' then
+                --设置电台直播剧集内容
+                setLiveGroupData()
+
+                local ct = Util:getServerTime()
+                local t = os.date('*t', math.floor(ct / 1000))
+                local curServerTime = (t.hour < 10 and '0' .. t.hour or t.hour) .. ':' .. (t.min < 10 and '0' .. t.min or t.min)
+                Log:write('curServerTime = ',curServerTime)
+                Log:write('catalogueAudioData2.livePlayList = ',#catalogueAudioData2.livePlayList)
+                --请求数据
+                for i=0,#catalogueAudioData2.livePlayList do
+                    if (catalogueAudioData2.livePlayList[i].eTime >= curServerTime) and (catalogueAudioData2.livePlayList[i].sTime <= curServerTime)  then
+                        Log:write('request audio live data = ',catalogueAudioData2.livePlayList[i])
+                        local tmpParam = catalogueAudioData2.livePlayList[i].param
+                        if string.match(tmpParam,'live') then
+                            tmpParam = tmpParam .. 'live=true;'
+                        end
+                        Util:goPlay(tmpParam,{isAudio=true})
+                        break
+                    end
+                end
+            end
+        end
+    elseif msg == Msg.getJsonPlayer then
+        Loading:close()
+        local playerData = Http:jsonDecode('playerData')
+        if playerData and playerData.code == '1014' then
+            Net:goToMyAccount()
+        elseif playerData and playerData.orderList then
+            OrderNode:show(playerData)
+        elseif playerData and playerData.errordesc then
+            Tips:show(playerData.errordesc)
+        elseif playerData and 'table' == type(playerData) then
+            --发送上次收藏请求
+            changeFavRequest()
+            --保存当前播放记录
+            Log:write(' playeryue ,Msg.getJsonPlayer ----------- 11')
+            uploadMyHistory()
+
+            --获取本次数据内容
+            playerJson = Http:jsonDecode('playerData')
+            gContparam = playerJson ~=nil and playerJson.param or ''
+            Log:write('Msg.getJsonPlayer playerJson=',playerJson)
+
+            if playerJson and playerJson~='' and gContparam and gContparam ~='' then
+                ----重置收藏标志
+                resetFavoriteFlag()
+                --发检查收藏请求
+                -- checkFavRequest()
+                if string.match(gContparam,'objType=live') or string.match(gContparam,'objType=review') then
+                    --判断是否音频正在播放，如在播放则停止
+                    if getAudioPlayFlag then
+                        if getAudioPlayFlag() ~= 0 then
+                            Log:write('------------Msg.getJsonPlayer-2--------')
+                            --停止定时器，防止视频停止后音频点播自动播放下一集，取悦听场景句柄
+                            if getAudioScene then
+                                local curAudioScene = getAudioScene()
+                                Log:write('Msg.getJsonPlayer CurScene =',curAudioScene )
+                                Sprite:sendEvent(curAudioScene, Msg.stopAudioTimer)
+                            end
+                            Player:stop()
+                            Player:show(0)
+                            isPlayerCreate = false
+                            resetAudioPlayFlag()
+                        end
+                    end
+
+                    Sprite:setProperty(boxLbl,"text",playerJson.titleName)
+                    if setAudioGParam then setAudioGParam(gContparam) end --保存当前音频参数，供其他场景保存历史记录使用
+                    initPlayer()
+                elseif string.match(gContparam,'objType=0') or string.match(gContparam,'objType=content') or string.match(gContparam,'objType=freePlay') then
+                    --判断是否音频正在播放，如在播放则停止
+                    if getAudioPlayFlag then
+                        if getAudioPlayFlag() ~= 0 then
+                            Log:write('------------Msg.getJsonPlayer-2--------')
+                            --停止定时器，防止视频停止后音频点播自动播放下一集，取悦听场景句柄
+                            if getAudioScene then
+                                local curAudioScene = getAudioScene()
+                                Log:write('Msg.getJsonPlayer CurScene =',curAudioScene )
+                                Sprite:sendEvent(curAudioScene, Msg.stopAudioTimer)
+                            end
+                            Player:stop()
+                            Player:show(0)
+                            isPlayerCreate = false
+                            resetAudioPlayFlag()
+                        end
+                    end
+
+                    if setAudioGParam then setAudioGParam(gContparam) end --保存当前音频参数，供其他场景保存历史记录使用
+                    initDemandData()
+                end
+            end
+        else
+            Tips:show(Util:getTipsMsg(usrMsgFileName.localTipsMsg,7)) --('无法获取数据，请稍后再试')
+        end
+    elseif msg == Msg.phoneNumber then
+        local loginPhoneNumData = Http:jsonDecode('loginPhoneNum')
+        Log:write("loginPhoneNumData",loginPhoneNumData)
+        if loginPhoneNumData and loginPhoneNumData.userInfo then
+            local img = Util:getWeiBoServer() ..'publish/clt' .. loginPhoneNumData.userInfo.picture
+            Sprite:setProperty(userPic,"src",img)
+            Sprite:setProperty(myspaceBtn,"data",'')
+            Sprite:setProperty(userName,"text",loginPhoneNumData.userInfo.sname .. " 欢迎您")
+        else
+            LoginStatusChange(false)
+        end
+    else
+        Util:onPluginEvent(msg, param)
+    end
+end
+
+function mainNodeOnKeyUp(sprite, kc)
+    if kc == Key.F2 then
+        if commonF2KeyUp and commonF2KeyUp() then return end
+        if Sprite:isVisible(groupListNode) == 1 then setGroupListNodeStatus(0) return end
+        local item = Panorama:getItem(mainPanorama,0)
+        if Panorama:getCurNavigation(item) == 1 then
+            Panorama:showNavigation(item, 0)
+            return
+        end
+        dialogContent,dialogTitle = Util:getTipsMsg(usrMsgFileName.localDialogMsg,4) --or '确定要退出手机视频？','提示'
+        Dialog:show(dialogTitle, dialogContent, 'ok_cancel', 'UI_exit')
+    elseif kc == Key.VolumeUp then
+        Log:write('Key.VolumeUp')
+        return 0
+    elseif kc == Key.VolumeDown then
+        Log:write('Key.VolumeDown')
+        return 0
+    end
+end
+
+function goBackOrHome()
+    local lreg = Reg:create(Reg.com_wondertek_mobileaudio.player)
+    local defaultDataUrl = Reg:getString(lreg, 'defaultDataUrl')
+    Log:write('defaultDataUrl=',defaultDataUrl)
+    if defaultDataUrl == '' then
+        Scene:back()
+    else -- 点击已下载完成通知栏内容会直接进入本地播放页，此时在本页面点击返回回到首页或渠道版首页
+        -- Scene:go(defaultDataUrl)
+        Scene:go(Alias.home)
+    end
+end
+
+-- @brief 设置播放状态界面
+function uiPlay()
+    Sprite:setVisible(pauseBtn, 0)
+    Sprite:setEnable(pauseBtn, 0)
+    Sprite:setVisible(playBtn, 1)
+    Sprite:setEnable(playBtn, 1)
+end
+
+-- @brief 设置暂停状态界面
+function uiPause()
+    Sprite:setVisible(pauseBtn, 1)
+    Sprite:setEnable(pauseBtn, 1)
+    Sprite:setVisible(playBtn, 0)
+    Sprite:setEnable(playBtn, 0)
+end
+
+--发检查收藏请求
+function checkFavRequest()
+    if gContparam and gContparam ~='' then
+        Log:write('checkFavRequest 111111, gContparam=',gContparam)
+        if string.match(gContparam,'objType=live') or string.match(gContparam,'objType=freePlay') then
+            Log:write('checkFavRequest 222222 ')
+            local _,_,nodeId = string.find(gContparam, 'nodeId=(%d+);')
+            Http:request('checkFavData', Util:getServer() ..Alias.checkFavoriteData..'?nodeId='..nodeId, 107, { useCache=0})
+
+        elseif string.match(gContparam,'objType=0') or string.match(gContparam,'objType=content') then
+            Log:write('checkFavRequest 3333333 ')
+            local _,_,contentId = string.find(gContparam, 'contentId=(%d+);')
+            Http:request('checkFavData', Util:getServer() ..Alias.checkFavoriteData..'?contentId='..contentId, 107, { useCache=0})
+        end
+    end
+end
+
+--重置收藏标志
+function resetFavoriteFlag()
+    originalFavStatus = false  --上次收藏状态
+    newFavStatus = false       --收藏标志
+    changeFavStatus(0)
+end
+
+--显示收藏
+function showFavarite(isFavorited,favoritesid)
+    Log:write('showFavarite 1111 ,isFavorited,favoritesid=',isFavorited,favoritesid)
+    local n = Sprite:findChild(favBtn,'normal')
+    local s = Sprite:findChild(favBtn,'focus')
+    if isFavorited=='1' then
+        Sprite:setProperty(n, "src", 'file://image/playerYue_faved.png')
+        Sprite:setProperty(s, "src", 'file://image/playerYue_faved.png')
+        Sprite:setProperty(favBtn, "data", favoritesid)
+    else
+        Sprite:setProperty(n, "src", 'file://image/playerYue_fav_n.png')
+        Sprite:setProperty(s, "src", 'file://image/playerYue_fav_s.png')
+    end
+    resChoose(n)
+    resChoose(s)
+end
+
+--收藏
+function favBtnOnSelect(sprite)
+    Sprite:killFocus(sprite)
+    Sprite:releaseCapture(sprite)
+    changeFavStatus(1)
+end
+
+--改变收藏状态(1-改变状态 ，0恢复初始状态)
+function changeFavStatus(isChange)
+    local btnFavorite = Sprite:findChild(root,'favBtn')
+    local btnFavorite_n = Sprite:findChild(btnFavorite,'normal')
+    local btnFavorite_s = Sprite:findChild(btnFavorite,'focus')
+
+    if isChange == 1 then
+        if newFavStatus then
+            newFavStatus = false
+            Sprite:setProperty(btnFavorite_n, "src", 'file://image/playerYue_fav_n.png')
+            Sprite:setProperty(btnFavorite_s, "src", 'file://image/playerYue_fav_s.png')
+        else
+            newFavStatus = true
+            Sprite:setProperty(btnFavorite_n, "src", 'file://image/playerYue_faved.png')
+            Sprite:setProperty(btnFavorite_s, "src", 'file://image/playerYue_faved.png')
+        end
+    else
+        Sprite:setProperty(btnFavorite_n, "src", 'file://image/playerYue_fav_n.png')
+        Sprite:setProperty(btnFavorite_s, "src", 'file://image/playerYue_fav_s.png')
+    end
+    resChoose(btnFavorite_n)
+    resChoose(btnFavorite_s)
+end
+--发送收藏请求
+function changeFavRequest()
+    Log:write('changeFavRequest 111111111,newFavStatus,originalFavStatus=',newFavStatus,originalFavStatus)
+    if newFavStatus ~= originalFavStatus then
+        if newFavStatus then
+            if gContparam and gContparam ~='' then
+                Log:write('changeFavRequest 2222222,gContparam=',gContparam)
+                --直播
+                if string.match(gContparam,'objType=live') or string.match(gContparam,'objType=freePlay') or string.match(gContparam,'objType=review') then
+                    local _,_,nodeId = string.find(gContparam, 'nodeId=(%d+);')
+                    _doAddChannelType = '2'
+
+                    local param = ''
+                    if string.match(gContparam,'objType=freePlay') then --随心听收藏(约定contentId和nodeId写一样)
+                        param = 'contentId=' .. nodeId .. '&nodeId=' .. nodeId .. '&urlPath=&channelType=' .. _doAddChannelType
+                    else --电台收藏
+                        param = 'nodeId=' .. nodeId .. '&urlPath=&channelType=' .. _doAddChannelType
+                    end
+                    Http:request('detail_fav', Util:getServer() .. 'msp/collect.msp?' .. param, 200, {useCache = 0})
+
+                elseif string.match(gContparam,'objType=0') or string.match(gContparam,'objType=content') then
+                    local _,_,contentId = string.find(gContparam, 'contentId=(%d+);')
+                    local _,_,nodeId = string.find(gContparam, 'nodeId=(%d+);')
+                    _doAddChannelType = '1'
+                    local param = 'contentId=' .. contentId .. '&nodeId=' .. nodeId .. '&urlPath=&channelType=' .. _doAddChannelType
+                    Http:request('detail_fav', Util:getServer() .. 'msp/collect.msp?' .. param, 200, {useCache = 0})
+                end
+            end
+        else
+            local btnFavorite = Sprite:findChild(root,'favBtn')
+            local favId = Sprite:getData(btnFavorite)
+            Log:write('changeFavRequest 3333333 favId=',favId)
+            Http:request('detail_delFav', Util:getServer() .. '/msp/collectCancel.msp?ids=' .. favId, 200, {useCache = 0})
+        end
+        setFavDataUpdate()
+    end
+end
+
+
+-- @brief 【播放】OnSelect事件
+function playBtnOnSelect()
+    Log:write('playBtnOnSelect')
+    if status == Player.status.Finished or status == Player.status.Stopped then
+        createPlayer()
+
+    elseif status == Player.status.Ready
+        or status == Player.status.Idle
+        or status == Player.status.Paused then
+        uiPause()
+        Player:play()
+        if setNotificationStatus then setNotificationStatus(0) end -- 设置通知栏播放状态
+    end
+end
+
+-- @brief 【暂停】OnSelect事件
+function pauseBtnOnSelect()
+    Log:write('pauseBtnOnSelect')
+    if status == Player.status.Playing then
+        uiPlay()
+        Player:pause()
+        if setNotificationStatus then setNotificationStatus(1) end -- 设置通知栏播放状态
+    end
+end
+
+-- @brief 播放器暂停处理
+function pausePlayer(pauseParam)
+    Log:write('------------------pausePlayer-----------------')
+    if isScreenLock ~= true then
+        beforeBackStatus = status
+    end
+    if isPlayerCreate and status ~= Player.status.Connecting then
+        Player:pause(pauseParam)
+        Log:write('pausePlayer()-222')
+    end
+end
+
+-- @brief 播放器开始处理
+function startPlayer()
+    if isPlayerCreate then
+        if beforeBackStatus ~= Player.status.Paused then
+            Log:write('startPlayer()')
+            uiPause()
+            judgeShow()
+            Player:play()
+        end
+    end
+end
+
+
+-----------------------------------------------------------------
+-- --@function doPlaynext
+-- -- Desc :  播放下一节目
+-- -- @access public
+-- -- @param data
+-- -- @return 无
+-----------------------------------------------------------------
+function doPlaynext(data)
+    if data ~= '' then -- 如果数据存在在跳转，否则提示没有下一条节目
+        if status ~= Player.status.Buffering and status ~= Player.status.Connecting then -- #0032993
+            pausePlayer()
+            -- Sprite:setVisible(Sprite:findChild(root, "surface"), 0)
+            Util:goPlay(data)
+        end
+    else
+        Tips:show(Util:getTipsMsg(usrMsgFileName.floatMsg,61)) --('没有下一条节目！')
+    end
+end
+
+
+-- @brief 创建播放器区域
+function createPlayer()
+    Log:write('createPlayer')
+    Player:create(0, -1, 1, 1)
+    isPlayerCreate = true
+    --旋屏操作放在openUrl里
+    openUrl()
+
+    ----设置音频播放标志,在此处加是解决loading数据时快速点返回，当前场景以及切换而本场景不释放仍然能收到音频数据产生播放，单播放标志不对的情况
+    if isPlayerCreate then
+        setAudioPlayFlag()
+
+        --增加音频通知消息
+        if SendNotification then
+            if objType=='live' then --音频直播
+                local boxLbl = Sprite:getProperty(boxLbl,'text')
+                SendNotification('正在播放:'..boxLbl,'正在播放的节目',boxLbl,'',1116,1,'','notificationaudio')
+                if setNotificationStatus then setNotificationStatus(0) end -- 设置通知栏播放状态
+            end
+        end
+    else
+        resetAudioPlayFlag()
+    end
+end
+
+function judgeShow()
+    local reg = Reg:create(Reg.com_wondertek_mobileaudio.player)
+    if '1' ~= Reg:getString(reg, 'isAudio') then
+        Player:show(1)
+    else
+        Player:show(0)
+    end
+end
+
+-- @brief 打开url
+function openUrl()
+    Log:write('openUrl', playUrl)
+    --取断点
+    local reg = Reg:create(Reg.com_wondertek_mobileaudio.player)
+    breakPoint = Reg:getInteger(reg, 'breakPoint')
+    Log:write('openUrl breakPoint ===== ', breakPoint)
+    if breakPoint ~= 0 then
+        Reg:remove(reg, 'breakPoint')
+    end
+    if Http:getCurConnect() == 'WLAN' then
+        System:setBufferTime(2)
+    else
+        System:setBufferTime(3)
+    end
+
+    Log:write('-----playUrl=------Http:getCurConnect()= ', playUrl,Http:getCurConnect())
+    Player:open(playUrl,Http:getCurConnect(), breakPoint)
+    Player:show(0)
+    Timer:set(TimerId.status, 500, 'getStatus')
+
+end
+
+-- @brief 刷新播放与暂停按钮状态
+function getStatus()
+    lastStatus = status
+    status, errorCode = Player:getStatus()
+    setStatusLbl(status, errorCode)
+    if status == Player.status.Idle or
+        status == Player.status.Connecting or
+        status == Player.status.Buffering or
+        (status == Player.status.Playing and not PEReviewFinishFlag ) then
+
+        -- 控制window控件开启
+        if (status == Player.status.Playing) and bFSControlFlag ~=0 and SpriteWindow_Open then
+            SpriteWindow_Open(shadow1)
+        end
+
+        uiPause()
+        if objType ~= 'live' then refreshDemandProgress()
+        else refreshLiveProgress() end
+
+    elseif status == Player.status.Paused or status == Player.status.Ready then
+        uiPlay()
+    elseif status == Player.status.Paused then
+        uiPlay()
+        if objType == 'live' then refreshLiveProgress() end
+    elseif status == Player.status.Stopped or status == Player.status.Finished or PEReviewFinishFlag then
+        if lastStatus ~= Player.status.Stopped and lastStatus ~= Player.status.Finished then
+            if status == Player.status.Finished then
+                local pIndex = getNextPlayParam(modeSelect)
+                if objType~='live' and subListTable and subListTable ~= '' and pIndex ~= -1 and Sprite:isVisible(groupBtn)==1 then
+                    Log:write('subListTable[pIndex].param=',subListTable[pIndex].param)
+                    doPlaynext(subListTable[pIndex].param)
+                else
+                    Player:stop()
+                    Player:show(0)
+                    Timer:cancel(TimerId.status)
+                end
+            else
+                Player:stop()
+                Player:show(0)
+                Timer:cancel(TimerId.status)
+            end
+        end
+
+        if objType ~= 'live' and objType ~= 'review' then
+            local totalTime = timeFormat(Player:getTotalTime())
+            Sprite:setProperty(totalTimeLbl, 'text', totalTime)
+            Sprite:setProperty(curTimeLbl, 'text', totalTime)
+        end
+        uiPlay()
+    end
+    Timer:set(TimerId.status, 500, 'getStatus')
+end
+
+--@brief mode 0- 循环 1-顺序 2-随机
+function getNextPlayParam(mode)
+    if subListTable then
+        local count = #subListTable
+        local curPlayName = Sprite:getProperty(curPlayLbl,'text')
+        Log:write('curPlayName=',curPlayName)
+        local iFound = -1
+
+        if subListTable and subListTable~='' and curPlayName ~='' then
+            for i=0,count  do
+                if subListTable[i].name == curPlayName then
+                    if mode == 0 then
+                        if (i+1 > count) then iFound = 0
+                        else iFound = i+1 end
+                        break
+                    elseif mode == 1 then
+                        if (i+1 > count) then iFound = -1
+                        else iFound = i+1 end
+                        break
+                    elseif mode == 2 then
+                        math.randomseed(os.time())
+                        math.random()
+                        iFound = math.random(0,count)
+                        break
+                    end
+                end
+            end
+        end
+        Log:write('iFound=,mode=',iFound,mode)
+        return iFound
+    end
+end
+
+
+
+-- @brief 刷新点播进度条
+function refreshDemandProgress(bForceRefresh)
+    local _, _, bg_w = Sprite:getRect(progressBgImg)
+    local totalTime
+    local curTime
+    local bufTime -- 新增播放缓冲时间
+    Log:write('11111 refreshDemandProgress()')
+    if objType == 'review' then
+        Log:write('22222 refreshDemandProgress()')
+        local startTime = Sprite:getText(curTimeLbl)
+        totalTime = Sprite:getText(totalTimeLbl)
+        local startTable = Util:split(startTime, ':')
+        local totalTable = Util:split(totalTime, ':')
+        startTime = tonumber(startTable[1])*60*60 + tonumber(startTable[2])*60
+        totalTime = tonumber(totalTable[1])*60*60 + tonumber(totalTable[2])*60 - startTime
+        curTime = PEReviewCurTime
+        if curTime >= totalTime then  --华为播放器无法判断直播回放节目是否结束，只能由脚本判断。
+            PEReviewFinishFlag = true
+        end
+    else
+        Log:write('3333 refreshDemandProgress()')
+        totalTime = Player:getTotalTime()
+        if useTempCurTimeFlag and status == Player.status.Playing then
+            curTime = tempCurTime
+            useTempCurTimeFlag = false
+        else
+            curTime = Player:getCurTime()
+        end
+    end
+
+    Log:write('refreshDemandProgress()-bFSControlFlag',bFSControlFlag)
+    --获取当前缓冲时间(ms)
+    bufTime =  (System:getAlreadyBufferTime()/1000) and (System:getAlreadyBufferTime()/1000) or 0
+
+    Log:write('4444 refreshDemandProgress(),bufTime=',bufTime)
+    Log:write('refreshDemandProgress--totalTime', totalTime)
+    Log:write('refreshDemandProgress--curTime', curTime)
+    if status == Player.status.Idle or
+        status == Player.status.Connecting then
+    else
+        if objType == 'review' then
+        else
+            Log:write('4445555 refreshDemandProgress(),totalTimeLbl=,curTimeLbl=',timeFormat(totalTime),timeFormat(curTime))
+            Sprite:setProperty(totalTimeLbl, 'text', timeFormat(totalTime))
+            Sprite:setProperty(curTimeLbl, 'text', timeFormat(curTime))
+        end
+    end
+    Log:write('5555 refreshDemandProgress(),bufTime=,bForceRefresh=',bufTime,bForceRefresh)
+    if status == Player.status.Playing or bForceRefresh == 1 then
+        Log:write('6666 refreshDemandProgress(),bufTime=',bufTime)
+        if totalTime and totalTime ~= 0 and curTime then
+            local pct = curTime / totalTime
+            local pctBuf = (curTime + bufTime) / totalTime
+            local x = math.floor(pct * bg_w)
+            local xbuf = math.floor(pctBuf * bg_w)
+            Log:write('refreshDemandProgress--pct=,x=', pct,x)
+            if progressBarFlag == 0 then  --进度条被拖动过程中不按时间片调整进度条长度
+                setProgressBarPos(progressBtn, x)
+                setBufferingBarPos(progressBtn, xbuf)  --新增播放缓存进度条
+            end
+            if objType == 'review' then
+                PEReviewCurTime = PEReviewCurTime + 0.5
+            end
+        end
+    end
+end
+
+-- @brief 刷新直播进度条
+function refreshLiveProgress()
+    local _, _, bg_w = Sprite:getRect(progressBgImg)
+    local ct = Util:getServerTime()
+    if status == Player.status.Playing then
+        if lastStatus == Player.status.Buffering or lastStatus == Player.status.Paused then
+            timeOffset = ct - lastBufTime + timeOffset
+        end
+    elseif status == Player.status.Buffering or status == Player.status.Paused then
+        if lastStatus ~= Player.status.Buffering and lastStatus ~= Player.status.Paused then
+            lastBufTime = ct
+        end
+    end
+    local t = os.date('*t', math.floor(ct / 1000))
+    local t1 = os.date('*t', math.floor((ct - timeOffset) / 1000))
+    local curPlayTime = (t1.hour < 10 and '0' .. t1.hour or t1.hour) .. ':' .. (t1.min < 10 and '0' .. t1.min or t1.min)
+    for i, v in ipairs(liveList) do
+        if v.startTime <= curPlayTime and v.endTime > curPlayTime then
+            local lastProgramEndTime = Sprite:getText(totalTimeLbl)
+            if lastProgramEndTime <= v.startTime then
+                Log:write("progressBarFlag = 0")
+                progressBarFlag = 0
+            end
+            Sprite:setProperty(totalTimeLbl, 'text', v.endTime)
+            Sprite:setProperty(curTimeLbl, 'text', v.startTime)
+
+        local bar_x, bar_y, _, bar_h = Sprite:getRect(bufferingBarImg)
+        if isLiveSeeking == false then
+            Sprite:setRect(bufferingBarImg, bar_x, bar_y, 0, bar_h) --下一条直播，重置缓冲进度条
+        end
+
+            if status == Player.status.Buffering or status == Player.status.Paused or status == Player.status.Playing then
+                local s = Util:split(v.startTime, ':')
+                local e = Util:split(v.endTime, ':')
+                local pct = ((t.hour * 60 * 60 + t.min * 60 + t.sec) - (s[1] * 60 * 60 + s[2] * 60)) / ((e[1] * 60 * 60 + e[2] * 60) - (s[1] * 60 * 60 + s[2] * 60))
+                local x = math.floor((pct < 1 and pct or 1) * bg_w)
+                if progressBarFlag == 0 then  --进度条被拖动过程中不按时间片调整进度条长度
+                    setBufferingBarPos(progressBtn, x)
+                end
+                if status == Player.status.Playing then
+                    local pct1 = ((t1.hour * 60 * 60 + t1.min * 60 + t1.sec) - (s[1] * 60 * 60 + s[2] * 60)) / ((e[1] * 60 * 60 + e[2] * 60) - (s[1] * 60 * 60 + s[2] * 60))
+                    local x1 = math.floor(pct1 * bg_w)
+                    if progressBarFlag == 0 then  --进度条被拖动过程中不按时间片调整进度条长度
+                        setProgressBarPos(progressBtn, x1)
+                    end
+                end
+            end
+            break
+        end
+    end
+end
+
+-- @brief 格式化时间
+function timeFormat(sec)
+    Log:write('@@@@@@ timeFormat @@@@@,sec=',sec)
+    if sec == nil then return '00:00' end
+    local mm = math.floor(sec / 60) < 10 and '0' .. math.floor(sec / 60) or math.floor(sec / 60)
+    local ss = math.mod(sec, 60) < 10 and '0' .. math.mod(sec, 60) or math.mod(sec, 60)
+    local time = mm .. ':' .. ss
+    return time
+end
+
+-- @brief 设置状态文字
+function setStatusLbl(status, errorCode)
+    setNodeState(playerTipConnectBufffer,0)
+    if status == Player.status.Idle then
+        WriteLogs("----------------->Idle<--------------------")
+        Sprite:setProperty(playerTipConnectBuffferLbl, 'text', '连接中...')
+        if Sprite:getData(playerTipConnectBufffer) == "" then setNodeState(playerTipConnectBufffer,1) end
+    elseif status == Player.status.Connecting then
+        WriteLogs("----------------->Connecting<--------------------")
+        Sprite:setProperty(playerTipConnectBuffferLbl, 'text', '连接中...')
+        if Sprite:getData(playerTipConnectBufffer) == "" then setNodeState(playerTipConnectBufffer,1) end
+    elseif status == Player.status.Ready then
+        WriteLogs("----------------->Ready<--------------------")
+        Sprite:setProperty(playerTipConnectBuffferLbl, 'text', '连接成功')
+        if Sprite:getData(playerTipConnectBufffer) == "" then setNodeState(playerTipConnectBufffer,1) end
+    elseif status == Player.status.Buffering then
+        WriteLogs("----------------->Buffering<--------------------")
+        local bufPct = Player:getBufferPercent()
+        Log:write('bufPct', bufPct)
+        if bufPct then
+            Sprite:setProperty(playerTipConnectBuffferLbl, 'text', '缓冲中..' .. (bufPct <= 100 and bufPct or 100) .. '%')
+            if Sprite:getData(playerTipConnectBufffer) == "" then setNodeState(playerTipConnectBufffer,1) end
+        end
+
+         --网络状况差提示
+        oneBufferFlag = 0
+        lastTotalFlow = (GetTotalBytes~=nil) and GetTotalBytes() or 0
+        lastbufferBeginTime = Util:getServerTime()
+
+        --两次缓冲时间较短<30秒,提示网络差
+        bufferOffset = Util:getServerTime() - lastbufferReadyTime
+        Log:write('Player.status.Buffering , bufferOffset=,lastbufferReadyTime=',bufferOffset,lastbufferReadyTime)
+        if lastbufferReadyTime >0 and bufferOffset >0 and bufferOffset <= BUFFEROFFSETLIMIT and tipsCount>=0  then
+            tipsCount = tipsCount - 1
+            local reg = Reg:create(Reg.com_wondertek_mobileaudio.index)
+            local commonNetworkFlag = Reg:getInteger(reg,'commonNetworkFlag')
+            Log:write('commonNetworkFlag=',commonNetworkFlag)
+            if commonNetworkFlag == 2 then
+                Tips:show('网络不给力..请稍后再试或切换网络')
+                --Sprite:setProperty(statusLbl, 'text', '网络不给力..请稍后再试或切换网络')
+            else
+                Tips:show('网络不给力..请稍后再试或切换网络')
+                --Sprite:setProperty(statusLbl, 'text', '网络不给力..请稍后再试或切换网络')
+            end
+            Log:write('--------111-------- Player.status.Buffering')
+        else
+            --否则按照实际缓冲数据量来计算是否提示
+            -- Timer:set(70,BUFFERWAITLIMIT,'calculateNetData')
+            Log:write('--------222--------Player.status.Buffering')
+        end
+
+    elseif status == Player.status.Playing then
+        WriteLogs("----------------->Playing<--------------------")
+        Sprite:setProperty(statusLbl, 'text', '播放中...')
+
+        --网络状况差提示
+        if oneBufferFlag == 0 then
+            oneBufferFlag = 1
+        else
+            oneBufferFlag = 2
+        end
+    elseif status == Player.status.Paused then
+        WriteLogs("----------------->Paused<--------------------")
+        Sprite:setProperty(statusLbl, 'text', '暂停中...')
+    elseif status == Player.status.Stopped then
+        WriteLogs("----------------->Stopped<--------------------")
+        Sprite:setProperty(statusLbl, 'text', '播放结束')
+    elseif status == Player.status.Finished then
+        WriteLogs("----------------->Finished<--------------------")
+        Sprite:setProperty(statusLbl, 'text', '播放结束')
+    elseif status == Player.status.Error then
+        WriteLogs("----------------->Error<-------------------- errorCode="..errorCode)
+
+        errorDispose(errorCode + 60 , sceneName .. 'errors of player, playurl = ' .. playUrl )
+        if errorCode == Player.errorCode.None then
+            Sprite:setProperty(statusLbl, 'text', Util:getTipsMsg(usrMsgFileName.floatMsg,74))     --'未知错误')
+        elseif errorCode == Player.errorCode.PlayerError then
+            Sprite:setProperty(statusLbl, 'text', Util:getTipsMsg(usrMsgFileName.floatMsg,75))     --'播放器出错')
+        elseif errorCode == Player.errorCode.NetworkError then
+            Sprite:setProperty(statusLbl, 'text', Util:getTipsMsg(usrMsgFileName.floatMsg,76))     --'网络出错')
+        elseif errorCode == Player.errorCode.StremMediaError then
+            Sprite:setProperty(statusLbl, 'text', Util:getTipsMsg(usrMsgFileName.floatMsg,77))     --'媒体流出错')
+        elseif errorCode == Player.errorCode.DisconnectError then
+            Sprite:setProperty(statusLbl, 'text', Util:getTipsMsg(usrMsgFileName.floatMsg,78))     --'与服务器断开连接')
+        elseif errorCode == Player.errorCode.OutOfMemoryError then
+            Sprite:setProperty(statusLbl, 'text', Util:getTipsMsg(usrMsgFileName.floatMsg,79))     --'空间不足')
+        elseif errorCode == Player.errorCode.InitAudioError then
+            Sprite:setProperty(statusLbl, 'text', Util:getTipsMsg(usrMsgFileName.floatMsg,80))     --'音频初始化错误')
+        elseif errorCode == Player.errorCode.OpenAudioError then
+            Sprite:setProperty(statusLbl, 'text', Util:getTipsMsg(usrMsgFileName.floatMsg,81))     --'音频打开错误')
+        elseif errorCode == Player.errorCode.InitVideoError then
+            Sprite:setProperty(statusLbl, 'text', Util:getTipsMsg(usrMsgFileName.floatMsg,82))     --'视频初始化错误')
+        elseif errorCode == Player.errorCode.OpenVideoError then
+            Sprite:setProperty(statusLbl, 'text', Util:getTipsMsg(usrMsgFileName.floatMsg,83))     --'视频打开错误')
+        elseif errorCode == Player.errorCode.Create264DecodeError then
+            Sprite:setProperty(statusLbl, 'text', Util:getTipsMsg(usrMsgFileName.floatMsg,84))     --'创建264解码器错误')
+        elseif errorCode == Player.errorCode.InitialStreamError then
+            Sprite:setProperty(statusLbl, 'text', Util:getTipsMsg(usrMsgFileName.floatMsg,85))     --'流初始化错误')
+        elseif errorCode == Player.errorCode.MediaSpecError then
+            Sprite:setProperty(statusLbl, 'text', Util:getTipsMsg(usrMsgFileName.floatMsg,86))     --'媒体格式错误')
+        elseif errorCode == Player.errorCode.NoAudioCodecError then
+            Sprite:setProperty(statusLbl, 'text', Util:getTipsMsg(usrMsgFileName.floatMsg,87))     --'没有找到音频解码库')
+        elseif errorCode == Player.errorCode.NoVideoCodecError then
+            Sprite:setProperty(statusLbl, 'text', Util:getTipsMsg(usrMsgFileName.floatMsg,88))     --'没有找到视频解码库')
+        elseif errorCode == Player.errorCode.NoPlayObjectError then
+            Sprite:setProperty(statusLbl, 'text', Util:getTipsMsg(usrMsgFileName.floatMsg,89))     --'没有播放对象')
+        elseif errorCode == Player.errorCode.LoadPluginError then
+            --这里的提示语和定义不一样
+            Sprite:setProperty(statusLbl, 'text', Util:getTipsMsg(usrMsgFileName.floatMsg,90))     --'播放地址为空')
+        elseif errorCode == Player.errorCode.NotImplementPluginError then
+            Sprite:setProperty(statusLbl, 'text', Util:getTipsMsg(usrMsgFileName.floatMsg,91))     --'插件错误')
+        elseif errorCode == Player.errorCode.OpenPluginError then
+            Sprite:setProperty(statusLbl, 'text', Util:getTipsMsg(usrMsgFileName.floatMsg,92))     --'插件打开错误')
+        elseif errorCode == Player.errorCode.StartPluginError then
+            Sprite:setProperty(statusLbl, 'text', Util:getTipsMsg(usrMsgFileName.floatMsg,93))     --'启动插件错误')
+        elseif errorCode == Player.errorCode.OpenDenyError then
+            Sprite:setProperty(statusLbl, 'text', Util:getTipsMsg(usrMsgFileName.floatMsg,94))     --'打开视频请求被拒绝')
+        elseif errorCode == Player.errorCode.OpenNotFoundError then
+            Sprite:setProperty(statusLbl, 'text', Util:getTipsMsg(usrMsgFileName.floatMsg,95))     --'未找到视频')
+        elseif errorCode == Player.errorCode.OpenBadRequestError then
+            Sprite:setProperty(statusLbl, 'text', Util:getTipsMsg(usrMsgFileName.floatMsg,96))     --'打开视频请求数据错误')
+        elseif errorCode == Player.errorCode.OpenConnectNetworkError then
+            Sprite:setProperty(statusLbl, 'text', Util:getTipsMsg(usrMsgFileName.floatMsg,97))     --'打开视频请求网络错误')
+        elseif errorCode == Player.errorCode.OpenConnectServerError then
+            Sprite:setProperty(statusLbl, 'text', Util:getTipsMsg(usrMsgFileName.floatMsg,98))     --'打开视频请求服务端错误')
+        elseif errorCode == Player.errorCode.OpenRequestError then
+            Sprite:setProperty(statusLbl, 'text', Util:getTipsMsg(usrMsgFileName.floatMsg,99))     --'打开视频请求错误')
+        elseif errorCode == Player.errorCode.OpenUnsupportedAudioCodecError then
+            Sprite:setProperty(statusLbl, 'text', Util:getTipsMsg(usrMsgFileName.floatMsg,100))     --'打开不支持的音频解码库错误')
+        elseif errorCode == Player.errorCode.OpenUnsupportedVideoCodecError then
+            Sprite:setProperty(statusLbl, 'text', Util:getTipsMsg(usrMsgFileName.floatMsg,101))     --'打开不支持的视频解码库错误')
+        elseif errorCode == Player.errorCode.OpenUnsupportedFormatError then
+            Sprite:setProperty(statusLbl, 'text', Util:getTipsMsg(usrMsgFileName.floatMsg,102))     --'打开不支持的媒体错误')
+        elseif errorCode == Player.errorCode.OpenUnsupportedVideoSizeError then
+            Sprite:setProperty(statusLbl, 'text', Util:getTipsMsg(usrMsgFileName.floatMsg,103))     --'打开不支持的媒体大小错误')
+        elseif errorCode == Player.errorCode.TransmissionError then
+            Sprite:setProperty(statusLbl, 'text', Util:getTipsMsg(usrMsgFileName.floatMsg,104))     --'传输错误')
+        elseif errorCode == Player.errorCode.TransmissionTimeoutError then
+            Sprite:setProperty(statusLbl, 'text', Util:getTipsMsg(usrMsgFileName.floatMsg,105))     --'传输超时')
+        elseif errorCode == Player.errorCode.EPlayerError_ChargeAccessRefusal then
+            Sprite:setProperty(statusLbl, 'text', Util:getTipsMsg(usrMsgFileName.floatMsg,106))     --'播放器鉴权错误')
+        elseif errorCode == Player.errorCode.EPlayerError_TemobiAccessRefusal then
+            Sprite:setProperty(statusLbl, 'text', Util:getTipsMsg(usrMsgFileName.floatMsg,107))     --'播放器连接错误')
+
+        elseif errorCode == Player.errorCode.EPlayerError_UNSUPPORTED_CODEC then
+            Sprite:setProperty(statusLbl, 'text', Util:getTipsMsg(usrMsgFileName.floatMsg,152))     --'不支持的编码格式')
+        elseif errorCode == Player.errorCode.EPlayerError_UNSUPPORTED_FORMAT then
+            Sprite:setProperty(statusLbl, 'text', Util:getTipsMsg(usrMsgFileName.floatMsg,153))     --'不支持的文件封装格式')
+        elseif errorCode == Player.errorCode.EPlayerError_IO_FAILED then
+            Sprite:setProperty(statusLbl, 'text', Util:getTipsMsg(usrMsgFileName.floatMsg,154))     --'IO操作失败')
+        elseif errorCode == Player.errorCode.EPlayerError_IO_TIMEOUT then
+            Sprite:setProperty(statusLbl, 'text', Util:getTipsMsg(usrMsgFileName.floatMsg,155))     --'IO操作超时')
+        elseif errorCode == Player.errorCode.EPlayerError_PROTOCOL_SPEC then
+            Sprite:setProperty(statusLbl, 'text', Util:getTipsMsg(usrMsgFileName.floatMsg,156))     --'网络协议的特定错误')
+        elseif errorCode == Player.errorCode.EPlayerError_PARSE_FAILED then
+            Sprite:setProperty(statusLbl, 'text', Util:getTipsMsg(usrMsgFileName.floatMsg,157))     --'解析文件或网络协议失败')
+        elseif errorCode == Player.errorCode.EPlayerError_DECRYPTOR_FAILED then
+            Sprite:setProperty(statusLbl, 'text', Util:getTipsMsg(usrMsgFileName.floatMsg,158))     --'解密失败')
+        elseif errorCode == Player.errorCode.EPlayerError_INTERNAL then
+            Sprite:setProperty(statusLbl, 'text', Util:getTipsMsg(usrMsgFileName.floatMsg,159))     --'播放器内部错误')
+        elseif errorCode == Player.errorCode.EPlayerError_EXTERNAL then
+            Sprite:setProperty(statusLbl, 'text', Util:getTipsMsg(usrMsgFileName.floatMsg,160))     --'播放器外部错误')
+        end
+    elseif status == Player.status.Timeout then
+        WriteLogs("----------------->Timeout<--------------------")
+        Sprite:setProperty(statusLbl, 'text', Util:getTipsMsg(usrMsgFileName.floatMsg,105))     --'网络不给力..请稍后再试或切换网络')
+        errorDispose(55,sceneName .. 'player status is timeout errors')
+    elseif status == Player.status.InvalidUrl then
+        WriteLogs("----------------->InvalidUrl<--------------------")
+        Sprite:setProperty(curTimeLbl, 'text', '00:00')
+        Sprite:setProperty(statusLbl, 'text', Util:getTipsMsg(usrMsgFileName.floatMsg,90))     --'无效的播放地址')
+        errorDispose(14,sceneName .. 'invalid player url')
+    end
+end
+
+
+--[[ 网络流量统计 ]]--
+function initNetFlowData()
+    lastTotalFlow = 0
+    oneBufferFlag = 0
+    lastbufferReadyTime = 0
+    lastbufferBeginTime = 0
+    tipsCount = 3
+    bufferOffset = 0
+    flowData = ''
+    LOGIN2GLIMIT = Config:get('netTip_login2GLimit')~='' and tonumber(Config:get('netTip_login2GLimit')) or 0
+    LOGIN3GLIMIT = Config:get('netTip_login3GLimit')~=''  and tonumber(Config:get('netTip_login3GLimit')) or 0
+    LOGIN4GLIMIT = Config:get('netTip_login4GLimit')~='' and tonumber(Config:get('netTip_login4GLimit')) or 0
+    LOGINWLANLIMIT = Config:get('netTip_loginWLANLimit')~='' and tonumber(Config:get('netTip_loginWLANLimit')) or 0
+    Log:write('LOGIN2GLIMIT,LOGIN3GLIMIT,LOGIN4GLIMIT,LOGINWLANLIMIT=',LOGIN2GLIMIT,LOGIN3GLIMIT,LOGIN4GLIMIT,LOGINWLANLIMIT)
+end
+
+-- 计算网络数据流量,>7秒计算实际流量，<7秒缓冲完成认为网络可以。
+function calculateNetData()
+    --按照流量计算网络状况
+    local curTotalflow = (GetTotalBytes~=nil) and GetTotalBytes() or 0
+    -- Log:write('--------111--------calculateNetData(),curTotalflow=',curTotalflow)
+    -- -1表示接口存在，但手机不支持，取不到数据。
+    if curTotalflow ~=-1 and tipsCount>=0 then
+        local flowIncrease = 0
+        if lastTotalFlow and lastTotalFlow > 0 then
+            local timeOffset = (Util:getServerTime()-lastbufferBeginTime)/1000 --单位s
+            local a,b = math.modf((curTotalflow - lastTotalFlow)/(1024 * timeOffset))
+            -- Log:write('111 calculateNetData()  a,b,timeOffset=',a,b,timeOffset)
+            if b > 0.0 then
+                local c = string.sub(b,4,4)
+                b = string.sub(b,3,3)
+                b = b + (c > '4' and 1 or 0)
+                if b == 10 then
+                    a = a + 1
+                    b = 0
+                end
+            end
+            flowIncrease = a + b/10
+        end
+        -- Log:write('---kevin1022---- last=' .. lastTotalFlow .. ' ,cur=' .. curTotalflow .. ' ,Incr=' .. flowIncrease ..',length='..string.len(flowData))
+       
+        --获取网络类型, 设置网络类型标志0-2G,1-3G,2-WLAN,3-4G
+        local commonNetworkFlag = Util:getNetworkType()
+        Log:write('222 calculateNetData(),commonNetworkFlag=,flowIncrease=',commonNetworkFlag,flowIncrease)
+
+        -- 2G：100kbps;3G：200kbps;WLAN：200kbps
+        local curBufferBeginTime = Util:getServerTime()
+        if commonNetworkFlag == '2G' then
+            if flowIncrease>0 and flowIncrease < LOGIN2GLIMIT then
+                tipsCount = tipsCount - 1
+                flowData = flowData .. flowIncrease .. ';'
+                Tips:show('网络不给力..请稍后再试或切换网络')
+            end
+        elseif commonNetworkFlag == '3G' then
+            if flowIncrease>0 and flowIncrease < LOGIN3GLIMIT then
+                tipsCount = tipsCount - 1
+                flowData = flowData .. flowIncrease .. ';'
+                Tips:show('网络不给力..请稍后再试或切换网络')
+            end
+        elseif commonNetworkFlag == 'WLAN' then
+            if flowIncrease>0 and flowIncrease < LOGINWLANLIMIT then
+                tipsCount = tipsCount - 1
+                flowData = flowData .. flowIncrease .. ';'
+                Tips:show('网络不给力..请稍后再试或切换网络')
+            end
+        elseif commonNetworkFlag == '4G' then
+            if flowIncrease>0 and flowIncrease < LOGIN4GLIMIT then
+                tipsCount = tipsCount - 1
+                flowData = flowData .. flowIncrease .. ';'
+                Tips:show('网络不给力..请稍后再试或切换网络6')
+            end
+        end
+    end
+
+    if string.len(flowData) > 1000 then
+        local contparam = playerJson.param
+        local _,_,contentId = string.find(contparam, 'contentId=(%d+);')
+        local _,_,nodeId = string.find(contparam, 'nodeId=(%d+);')
+        local connectType = Http:getCurConnect() == 'WLAN' and '0' or '1'
+        local phoneNum = Config:get('phone_number')
+        flowData = ''
+    end
+end
+
+-- @brief 设置进度条point按钮状态
+function setPointImgStatus(pSprite,pStatus)
+    if pStatus == 0 then
+        Sprite:setProperty(pSprite, 'src', 'file://image/player_point_n.png')
+    else
+        Sprite:setProperty(pSprite, 'src', 'file://image/player_point_f.png')
+    end
+    resChoose(pSprite)
+end
+
+-- @brief 初始化
+function initPlayer()
+    objType = playerJson.objType
+    -- symbian手机请求的播放地址不知为何会带&amp;字符串 导致open后play死机 在这里统一替换
+    playUrl = string.gsub(playerJson.playUrl,"&amp;","&")
+    if objType == 'content' then
+    elseif objType == 'live' then
+        liveUrl = playUrl
+        liveList = {}
+        for i = 0, #playerJson.liveList do
+            table.insert(liveList, {startTime = playerJson.liveList[i].sTime, endTime = playerJson.liveList[i].eTime, programName = playerJson.liveList[i].name})
+        end
+    elseif objType == 'review' then
+        --重设直播回放Totaltime
+        Log:write('initPlayer 1111,playerJson=',playerJson)
+        Sprite:setProperty(curTimeLbl, 'text', playerJson and playerJson.sTime or '0:00')
+        Sprite:setProperty(totalTimeLbl, 'text', playerJson and playerJson.eTime or '0:00')
+    end
+    lastBufTime = Util:getServerTime()
+    regplayer = Reg:create(Reg.com_wondertek_mobileaudio.player)
+    minFlag = Reg:getInteger(regplayer, 'minFlag') --客户端状态，0表示在应用里，1表示在后台 由于可能在后台切换player界面 所以用reg记录
+    if Reg:getInteger(regplayer, 'isScreenLock') == 0 then  -- 是否为锁屏状态
+        isScreenLock = false
+    else
+        isScreenLock = true
+    end
+    createPlayer()
+end
+-- @brief 设置进度条
+function setProgressBarPos(sprite, x, seek)
+    local bg_w
+    if objType ~= 'live' then
+        _, _, bg_w = Sprite:getRect(progressBgImg)
+    else
+        _, _, bg_w = Sprite:getRect(bufferingBarImg)
+    end
+    local _, point_y, point_w, point_h = Sprite:getRect(progressPointImg)
+    if x > bg_w then
+        if playUrl == liveUrl then
+            return
+        end
+        x = bg_w
+    elseif x < 0 then
+        x = 0
+    end
+    local bar_x, bar_y, _, bar_h = Sprite:getRect(progressBarImg)
+    Sprite:setRect(progressBarImg, bar_x, bar_y, x, bar_h)
+    Sprite:setRect(progressPointImg, x-(point_w/2), point_y, point_w, point_h)
+    if seek then
+        Log:write(">>>>>>>>>>>>>seek--------")
+        local bar_x, bar_y, _, bar_h = Sprite:getRect(bufferingBarImg)
+        Sprite:setRect(bufferingBarImg, bar_x, bar_y, x, bar_h)
+
+        local statusBeforeSeek = status
+        status = Player.status.Buffering
+        _, _, bg_w = Sprite:getRect(progressBgImg)
+        local pct = x / bg_w
+        WriteLogs("objType**********"..objType)
+        WriteLogs("playerType**********"..playerType)
+        if objType == 'live' then
+            local ct = Util:getServerTime()
+            local t = os.date('*t', math.floor(ct / 1000))
+            local curPlayTime = (t.hour < 10 and '0' .. t.hour or t.hour) .. ':' .. (t.min < 10 and '0' .. t.min or t.min)
+            local playTime
+            local endTime
+            local curPlaySecond = 0
+            local startTimeLbl = Sprite:getText(curTimeLbl)
+            local endTimeLbl = Sprite:getText(totalTimeLbl)
+            WriteLogs("startTimeLbl*****************"..startTimeLbl)
+            WriteLogs("endTimeLbl*****************"..endTimeLbl)
+            playTime,endTime,curPlaySecond,timeOffset = liveSeekTimeFormat(ct,t,startTimeLbl,endTimeLbl,pct,playerType)
+            lastBufTime = ct
+            --以下做法是错误的，当节目放到下一个时 startTime和endTime会取的是下个节目的时间。
+--            for i, v in ipairs(liveList) do
+--                if v.startTime <= curPlayTime and v.endTime > curPlayTime then
+--                    playTime,endTime,curPlaySecond,timeOffset = liveSeekTimeFormat(ct,t,v.startTime,v.endTime,pct,playerType)
+--                    lastBufTime = ct
+--                    break
+--                end
+--            end
+            if (t.hour * 60 + t.min) * 60 - curPlaySecond  <= 180 then
+                playUrl = liveUrl
+            else
+                if playerType == PEplayer then
+                    local j = string.find(playUrl,"playbackbegin")
+                    if j then
+                        playUrl = string.gsub(playUrl,"&playbackbegin=%d+&playbackend=%d+","&playbackbegin="..playTime.."&playbackend="..endTime)
+                    else
+                        playUrl = playUrl.."&playbackbegin="..playTime.."&playbackend="..endTime
+                    end
+                elseif playerType == TMPCplayer then
+                    if string.find(playUrl, '^tmss') then
+                        playUrl = string.gsub(playUrl, '^tmss(://[^%?]+)', 'file%1@' .. playTime)
+                    else
+                        playUrl = string.gsub(playUrl, '^(file://[^@]+@)[^%?]+', '%1' .. playTime)
+                    end
+                end
+            end
+            Log:write('live playUrl ============== ', playUrl)
+            Timer:cancel(TimerId.status)
+            Player:stop()
+            Player:show(0)
+            --标志复位
+            local reg = Reg:create(Reg.com_wondertek_mobileaudio.player)
+            Reg:setInteger(reg, 'bFSUIFlag',0)
+            createPlayer()
+
+        elseif objType == 'review' and playerType == PEplayer then
+            local ct = Util:getServerTime()
+            local t = os.date('*t', math.floor(ct / 1000))
+            local playTime,endTime = liveSeekTimeFormat(ct,t,Sprite:getText(curTimeLbl),Sprite:getText(totalTimeLbl),pct,playerType)
+            local j = string.find(playUrl,"playbackbegin")
+            if j then
+                playUrl = string.gsub(playUrl,"&playbackbegin=%d+&playbackend=%d+","&playbackbegin="..playTime.."&playbackend="..endTime)
+            else
+                playUrl = playUrl.."&playbackbegin="..playTime.."&playbackend="..endTime
+            end
+            Log:write('review PEplayer playUrl ============== ', playUrl)
+            Player:stop()
+            Player:show(0)
+            --标志复位
+            local reg = Reg:create(Reg.com_wondertek_mobileaudio.player)
+            Reg:setInteger(reg, 'bFSUIFlag',0)
+            createPlayer()
+
+        elseif objType == 'review' and playerType == TMPCplayer then
+            local ct = Util:getServerTime()
+            local t = os.date('*t', math.floor(ct / 1000))
+            local playTime = liveSeekTimeFormat(ct,t,Sprite:getText(curTimeLbl),Sprite:getText(totalTimeLbl),pct,playerType)
+            Log:write("playTime=======================",playTime)
+            local time = string.sub(playTime, 10)
+            Log:write("time=======================",time)
+            local url = playUrl
+            local i,j = string.find(url, "%-%d%d%d%d%d%d%?")                --找到形如-083800的字符串
+            local originTime = string.sub(url, i+1, j-1)
+            url = string.gsub(url, originTime, time)                        -- 只需要改变时间戳
+            Log:write("Review Seek Url ================== "..url)
+            playUrl = url
+            Log:write('review TMPCplayer playUrl ============== ', playUrl)
+            Player:stop()
+            Player:show(0)
+            --标志复位
+            local reg = Reg:create(Reg.com_wondertek_mobileaudio.player)
+            Reg:setInteger(reg, 'bFSUIFlag',0)
+            createPlayer()
+
+        elseif objType == 'review' and playerType == HLSplayer then
+            Log:write("-----------------cj----------------")
+            local totalTime = Player:getTotalTime()
+            if totalTime then
+                local curTime = math.floor(totalTime * pct)
+                if statusBeforeSeek == Player.status.Paused then
+                    judgeShow()
+                    Player:play()
+                    Timer:set(curTime, 80, 'seekOnTimer')
+                    Timer:cancel(TimerId.status)
+                    curTime = tempCurTime
+                    useTempCurTimeFlag = false
+                else
+                    Player:seek(curTime)
+                    PEReviewCurTime = curTime
+                end
+            end
+        else
+            local totalTime = Player:getTotalTime()
+            Log:write('111111111@@@@setProgressBarPos()@@@@@@@ totalTime=',totalTime)
+            if totalTime then
+                local curTime = math.floor(totalTime * pct)
+                if statusBeforeSeek == Player.status.Paused then
+                    judgeShow()
+                    Player:play()
+                    Timer:set(curTime, 80, 'seekOnTimer')
+                    Timer:cancel(TimerId.status)
+                    curTime = tempCurTime
+                    useTempCurTimeFlag = false
+                else
+                    Log:write('22222222@@@@setProgressBarPos()@@@@@@@ curTime=',curTime)
+                    Player:seek(curTime)
+                    tempCurTime = curTime
+                    useTempCurTimeFlag = true
+                end
+            end
+        end
+    end
+end
+
+function liveSeekTimeFormat(ct,t,startT,endT,pct,playerType)
+    local s = Util:split(startT, ':')
+    local e = Util:split(endT, ':')
+    local startTime = (s[1] * 60 + s[2]) * 60
+    local endTime = (e[1] * 60 + e[2]) * 60
+    local curSecond = math.floor(pct * (endTime - startTime))
+    if objType == 'review' then  --华为播放器直播回放seek后以与起始时间相差多少秒的方式记录当前seek时间点
+        PEReviewCurTime = curSecond
+    end
+    local curPlaySecond = startTime + curSecond
+    local hour = math.floor((startTime + curSecond) / 60 / 60)
+    local min = math.floor((startTime + curSecond - hour * 60 * 60) / 60)
+    local sec = startTime + curSecond - hour * 60 * 60 - min * 60
+    hour = hour < 10 and 0 .. hour or hour
+    min = min < 10 and 0 .. min or min
+    sec = sec < 10 and 0 .. sec or sec
+    local year = t.year < 10 and 0 .. t.year or t.year
+    local month = t.month < 10 and 0 .. t.month or t.month
+    local day = t.day < 10 and 0 .. t.day or t.day
+    local timeOffset = (t.hour * 60 * 60 + t.min * 60 + t.sec - curSecond - startTime) * 1000
+    if playerType == PEplayer or playerType == PEplayer_HLS then
+        return curDay..hour..min..sec,year..month..day..e[1]..e[2].."00",curPlaySecond,timeOffset
+    elseif playerType == TMPCplayer then
+        return curDay..'-'..hour..min..sec,year..month..day..'-'..e[1]..e[2].."00",curPlaySecond,timeOffset
+    end
+end
+
+function setBufferingBarPos(sprite, x)
+    local _, _, bg_w = Sprite:getRect(progressBgImg)
+    if x > bg_w then
+        x = bg_w
+    elseif x < 0 then
+        x = 0
+    end
+    local bar_x, bar_y, bar_w, bar_h = Sprite:getRect(bufferingBarImg)
+    Sprite:setRect(bufferingBarImg, bar_x, bar_y, x, bar_h)
+
+end
+
+-- @brief 延迟seek
+function seekOnTimer(curTime)
+    Log:write('totalTime', 'yaoxiangyin : do seekOnTimer')
+    Player:seek(curTime)
+    Timer:set(TimerId.status,80,"getStatus")
+end
+
+--上报历史记录
+--function uploadMyHistory()
+--    Log:write('uploadMyHistory =====================================1')
+--    if isPlayerCreate and gContparam and gContparam ~=''then
+--        Log:write('uploadMyHistory 2 gContparam=',gContparam)
+--        local breakPoint
+--        if status == Player.status.Finished or status == Player.status.Stopped then -- 当播放结束时，断点记录为空
+--            breakPoint = ''
+--        else
+--            local curTimeStr = Sprite:getText(curTimeLbl)
+--            local curTimeTable = Util:split(curTimeStr, ':')
+--            if curTimeTable[1] and curTimeTable[2] and tonumber(curTimeTable[1]) and tonumber(curTimeTable[2]) then
+--                breakPoint = curTimeTable[1] * 60 + curTimeTable[2]
+--            else
+--                breakPoint = Player:getCurTime() or 0
+--            end
+--        end
+--        local _,_,contentId = string.find(gContparam, 'contentId=(%d+);')
+--        local _,_,nodeId = string.find(gContparam, 'nodeId=(%d+);')
+--        local _,_,objType = string.find(gContparam, 'objType=([%a%d]+);')
+--        -- Http:request('History_upLoad', Util:getServer() .. 'msp/addHistory.msp?contId=' .. contentId .. '&nodeId=' .. nodeId .. '&totalTime=' .. Player:getTotalTime() .. '&currTime=' .. (breakPoint=='' and Player:getTotalTime() or breakPoint) .. '&playType=1' .. '&isLive=' .. (objType == 'live' and 1 or 0), 109, {useCache=0})
+--
+--        --播放历史增加了离线记录功能,先记录再发请求
+--        local totalTime = Player:getTotalTime()
+--        local currTime = (breakPoint=='' and Player:getTotalTime() or breakPoint)
+--
+--        --本地记录并发请求
+--        --参数('isAudio=true;objType=freePlay;contentId=xxx;nodeId=xxx' / 'isAudio=true;objType=live;contentId=xxx;nodeId=xxx'/'isAudio=true;objType=content;contentId=xxx;nodeId=xxx'/'isAudio=true;objType=0;contentId=xxx;nodeId=xxx')
+--        local hisParam = 'isAudio=true;'..gContparam
+--
+--        saveNetHistory(hisParam,totalTime,tonumber(currTime))
+--        setHisDataUpdate()
+--    end
+--end
+
+----------------------------------------------剧集处理---------------------------------------------------------
+
+-- 加载随心听直播内容列表
+function setFreePlayGroupData()
+    if ListView:getItemCount(groupListview) > 0 then
+        ListView:removeAllItems(groupListview,1)
+    end
+
+    Log:write('setFreePlayGroupData 11111')
+    Log:write('catalogueAudioData2.livePlayLis= ',catalogueAudioData2.livePlayLis)
+    if catalogueAudioData2.freePlayList and catalogueAudioData2.freePlayList[0] and #catalogueAudioData2.freePlayList >= 0 then
+        ListView:loadItem(groupListview, groupListItem, #catalogueAudioData2.freePlayList+1, 'freePlayGroupListViewBuildItem')
+        --Sprite:setProperty(groupListview,"data","0")
+        refreshGroupListItemStatus(1)
+    end
+end
+
+function freePlayGroupListViewBuildItem(list, item, index)
+    Log:write('freePlayGroupListViewBuildItem(),index=,name= ',index,catalogueAudioData2.freePlayList[index].name)
+    local btn = Sprite:findChildByClass(item,"button")
+    local p = Sprite:findChild(item,"programName")
+    local pf = Sprite:findChild(item,"programNameF")
+    local text = catalogueAudioData2.freePlayList[index].name
+    Sprite:setProperty(p,'text',text)
+    Sprite:setProperty(pf,'text',text)
+    Sprite:setProperty(btn,'data',catalogueAudioData2.freePlayList[index].param)
+    local _,_,w,h = Sprite:getRect(btn)
+    Sprite:setRect(item,0,0,w,h)
+    Sprite:setProperty(item,"extendstyle","0000")
+    local s = Sprite:findChild(item,"s")
+    resChoose(s)
+    Sprite:setEnable(item,0)
+end
+
+
+
+-- 加载电台直播内容列表
+function setLiveGroupData()
+    if ListView:getItemCount(groupListview) > 0 then
+        ListView:removeAllItems(groupListview,1)
+    end
+
+    Log:write('setLiveGroupData 11111')
+    Log:write('catalogueAudioData2.livePlayLis= ',catalogueAudioData2.livePlayLis)
+    if catalogueAudioData2.livePlayList and catalogueAudioData2.livePlayList[0] and #catalogueAudioData2.livePlayList >= 0 then
+        ListView:loadItem(groupListview, groupListItem, #catalogueAudioData2.livePlayList+1, 'liveGroupListViewBuildItem')
+        --Sprite:setProperty(groupListview,"data","0")
+        refreshGroupListItemStatus(1)
+    end
+
+end
+
+function liveGroupListViewBuildItem(list, item, index)
+    Log:write('liveGroupListViewBuildItem(),index=,name= ',index,catalogueAudioData2.livePlayList[index].name)
+    local btn = Sprite:findChildByClass(item,"button")
+    local pt = Sprite:findChild(item,"programTime")
+    local pn = Sprite:findChild(item,"programName")
+    local timeText = catalogueAudioData2.livePlayList[index].sTime ..'-'..catalogueAudioData2.livePlayList[index].eTime
+    local programText = catalogueAudioData2.livePlayList[index].name
+    Log:write('---------liveGroupListViewBuildItem---------timeText=,programText=',timeText,programText)
+    Sprite:setProperty(pt,'text',timeText)
+    Sprite:setProperty(pn,'text',programText)
+    Sprite:setProperty(btn,'data',catalogueAudioData2.livePlayList[index].param)
+    local _,_,w,h = Sprite:getRect(btn)
+    Sprite:setRect(item,0,0,w,h)
+    Sprite:setProperty(item,"extendstyle","0000")
+    local s = Sprite:findChild(item,"s")
+    resChoose(s)
+    Sprite:setEnable(item,0)
+end
+
+
+-- 加载剧集播放内容列表
+function setGroupData()
+    if ListView:getItemCount(groupListview) > 0 then
+        ListView:removeAllItems(groupListview,1)
+        subListTable = {}
+    end
+
+    Log:write('setGroupData(),playerJson=',playerJson)
+    if playerJson.subList and playerJson.subList[0] and #playerJson.subList >= 0 then
+        subListTable = playerJson.subList
+
+        Sprite:setVisible(groupBtn,1)
+        Sprite:setEnable(groupBtn,1)
+        ListView:loadItem(groupListview, groupListItem, #playerJson.subList+1, 'groupListViewBuildItem')
+        Sprite:setProperty(groupListview,"data","0")
+        refreshGroupListItemStatus(1)
+    else
+        Sprite:setVisible(groupBtn,0)
+        Sprite:setEnable(groupBtn,0)
+    end
+end
+
+function groupListViewBuildItem(list, item, index)
+    local btn = Sprite:findChildByClass(item,"button")
+    local p = Sprite:findChild(item,"programName")
+    local pf = Sprite:findChild(item,"programNameF")
+    local text = playerJson.subList[index].name
+    Sprite:setProperty(p,'text',text)
+    Sprite:setProperty(pf,'text',text)
+    Sprite:setProperty(btn,'data',playerJson.subList[index].param)
+    local _,_,w,h = Sprite:getRect(btn)
+    Sprite:setRect(item,0,0,w,h)
+    Sprite:setProperty(item,"extendstyle","0000")
+    local s = Sprite:findChild(item,"s")
+    resChoose(s)
+end
+
+function groupBtnOnSelect(sprite)
+    if Sprite:isVisible(groupListNode) == 0 then
+        if status == Player.status.Playing or
+            status == Player.status.Paused or
+            status == Player.status.Stopped or
+            status == Player.status.Finished or
+            status == Player.status.Error or
+            status == Player.status.Timeout or
+            status == Player.status.InvalidUrl then
+            setGroupListNodeStatus(1)
+        end
+    else
+        setGroupListNodeStatus(0)
+    end
+end
+
+function setGroupListNodeStatus(isVisible)
+    setNodeState(groupListNode, 1)
+    if isVisible == 1 then
+        popEffectShow(groupListNode, "groupListFrame", "groupListShadow", "groupListbg", {"titleArea","bottomshadow","groupListview"},9,"refreshGroupListItemStatus")
+    else
+        popEffectClose(groupListNode, "groupListFrame", "groupListShadow", "groupListbg", {"titleArea","bottomshadow","groupListview"},9)
+    end
+end
+
+--刷新剧集列表focus状态
+function refreshGroupListItemStatus()
+    if gContparam and gContparam ~='' then
+        local curItemHandle = 0
+        if string.match(gContparam,'objType=live') then
+            local ct = Util:getServerTime()
+            local t = os.date('*t', math.floor(ct / 1000))
+            local curServerTime = (t.hour < 10 and '0' .. t.hour or t.hour) .. ':' .. (t.min < 10 and '0' .. t.min or t.min)
+            Log:write('refreshGroupListItemStatus,curServerTime = ',curServerTime)
+
+            local counts = ListView:getItemCount(groupListview)
+            for i=0,counts-1 do
+                local item = ListView:getItem(groupListview,i)
+                local programName = Sprite:findChild(item,"programName")
+                local programTime = Sprite:findChild(item,"programTime")
+
+                local playTime = Sprite:getText(programTime)
+                if playTime and playTime~='' then
+                    local curTimeTable = Util:split(playTime,'-')
+                    Log:write('curTimeTable=',curTimeTable)
+                    if curTimeTable and curTimeTable[0]~='' then
+                        local sTime = curTimeTable[1]
+                        local eTime = curTimeTable[2]
+                        Log:write('refreshGroupListItemStatus playTime=，sTime=,eTime=',playTime,sTime,eTime)
+                        local livingImg = Sprite:findChild(item,"livingImg")
+                        setSpriteStatus(livingImg,0)
+
+                        if (curServerTime >eTime ) then
+                            Sprite:setProperty(programName,'color','#A4ABA2')
+                            Sprite:setProperty(programTime,'color','#A4ABA2')
+                        elseif (curServerTime >= sTime and curServerTime < eTime) then
+                            Sprite:setProperty(programName,'color','#FFFFFF')
+                            Sprite:setProperty(programTime,'color','#FFFFFF')
+                            setSpriteStatus(livingImg,1)
+                            curItemHandle = item
+                        elseif (curServerTime < sTime ) then
+                            Sprite:setProperty(programName,'color','#5E7C64')
+                            Sprite:setProperty(programTime,'color','#5E7C64')
+                        end
+                    end
+                end
+            end
+        elseif string.match(gContparam,'objType=0') or string.match(gContparam,'objType=content') then
+            Log:write('refreshGroupListItemStatus 2222222')
+            local counts = ListView:getItemCount(groupListview)
+            for i=0,counts-1 do
+                local item = ListView:getItem(groupListview,i)
+                local programName = Sprite:findChild(item,"programName")
+                local playName = Sprite:getText(programName)
+
+                local livingImg = Sprite:findChild(item,"livingImg")
+                setSpriteStatus(livingImg,0)
+
+                if playName == playerJson.titleName then
+                    setSpriteStatus(livingImg,1)
+                    curItemHandle = item
+                end
+            end
+        end
+        if curItemHandle ~= 0 then
+            ListView:showItem(groupListview,curItemHandle)
+        end
+    end
+end
+
+-- @brief 【剧集列表隐藏】OnSelect事件
+function groupFullBtnOnSelect(sprite)
+    setGroupListNodeStatus(0)
+end
+
+-- 复位隐藏全屏窗口定时器(0 or nil -默认取消并重启定时器,1-仅关闭定时器)
+function resetFSTimer(onlyCancel)
+    if onlyCancel == 0 or onlyCancel == nil then
+        Timer:cancel(TimerId.screenHide)
+        Timer:set(TimerId.screenHide, 7000, 'hideFullScreenDialog')
+    elseif onlyCancel == 1 then
+        Timer:cancel(TimerId.screenHide)
+    end
+end
+
+-- 定时隐藏全屏页面
+function hideFullScreenDialog()
+end
+
+---------------------------------------------------Gallery加载使用-------------------------------------------------------
+function setGalleryData(spriteData)
+    if Gallery:getItemCount(gallery) > 0 then
+        Gallery:removeAllItems(gallery,1)
+        _gallerySprite = nil
+    end
+    coverflowData = spriteData.catalogueAudioList
+    Log:write('coverflowData=',coverflowData)
+    Gallery:loadItem(gallery, galleryItem, #coverflowData + 1, 'onLoadGalleryItem')
+
+    --查找跳转索引
+    local iFound = 0
+    for i=0,#coverflowData do
+        -- 格式 liveId=xxx   或 freePlayId=xxx
+        local cfParam = coverflowData[i].param
+        local cfNodeIds = Util:split(cfParam,'=')
+        if cfNodeIds and cfNodeIds[2]~='' then
+            Log:write('setGalleryData 111 ,cfNodeIds,YueTingJumpToNodeId=',cfNodeIds,YueTingJumpToNodeId)
+            if cfNodeIds[2] == YueTingJumpToNodeId then
+                Log:write('setGalleryData 333 i=',i)
+                --跳转到指定直播栏目
+                Gallery:setCurItem(gallery, i)
+                iFound = i
+            end
+        end
+    end
+    YueTingJumpToNodeId = ''  --重置
+
+    if coverflowData and coverflowData[iFound] and coverflowData[iFound].name then
+        --Sprite:setProperty(coverflowLbl,"text",coverflowData[iFound].name)
+    end
+end
+
+function onLoadGalleryItem(coverflow, item, index)
+    Log:write('onLoadGalleryItem,index=',index)
+    local lblNormal = Sprite:findChild(item,'lblNormal')
+    local lblFocus = Sprite:findChild(item,'lblFocus')
+    local lblMiddle = Sprite:findChild(item,'lblMiddle')
+    Sprite:setRect(item, 0, 0, 180,76)
+    Sprite:setProperty(item, 'extendstyle', '0000')
+    Sprite:setProperty(item, 'normal', 'sNormal')
+    Sprite:setProperty(item, 'focus', 'sFocus')
+    Sprite:setProperty(item, 'middle', 'sMiddle')
+    Sprite:setProperty(lblNormal, 'text', coverflowData[index].name)
+    Sprite:setProperty(lblFocus, 'text', coverflowData[index].name)
+    Sprite:setProperty(lblMiddle, 'text', coverflowData[index].name)
+
+end
+
+function galleryOnSelect(sprite)
+    ChannelOnSetFocus()
+end
+
+
+function dftResChoose(sprite)
+    local minResolution = SCREEN_WIDTH < SCREEN_HEIGHT and SCREEN_WIDTH or SCREEN_HEIGHT
+    if Sprite:getData(sprite) == "" then
+        local src = Sprite:getProperty(sprite,"dftsrc")
+        Log:write('dftResChoose 1111111,src=',src)
+        if not src then
+            return
+        end
+
+
+        local newsrc = ""
+        if minResolution >= 720 then
+            if string.match(src, 'exdpi') then return end
+            newsrc = string.gsub(src,"image","image/exdpi")
+            Sprite:setProperty(sprite,"dftsrc",newsrc)
+        elseif minResolution >= 480 then
+            if string.match(src, 'hdpi') then return end
+            newsrc = string.gsub(src,"image","image/hdpi")
+            Sprite:setProperty(sprite,"dftsrc",newsrc)
+        else
+            if string.match(src, 'mdpi') then return end
+            newsrc = string.gsub(src,"image","image/mdpi")
+            Sprite:setProperty(sprite,"dftsrc",newsrc)
+        end
+    end
+end
+
+function ChannelOnSetFocus(sprite)
+    _gallerySprite = sprite
+    local index = Gallery:getCurItem(gallery)
+    Log:write('ChannelOnSetFocus  222222,index=',index)
+    if coverflowData and coverflowData[index] and coverflowData[index].name then
+        -- Sprite:setProperty(coverflowLbl,"text",coverflowData[index].name)
+        radioPlayOnSelect()
+    end
+    Log:write('ChannelOnSetFocus  3333333333')
+end
+
+function livePlayChannelOnselect(sprite)
+    local index = Gallery:getCurItem(gallery)
+    local _,_,nodeId = string.find(coverflowData[index].param, 'liveId=(%d+)')
+    Log:write('livePlayChannelOnselect index= ,liveId=',index,nodeId)
+    if nodeId then
+        Http:request('catalogueAudioData2', Util:getServer() .. Alias.catalogueAudioData2 .. '?nodeId=' .. nodeId .. '&objType=live', 131,{ useCache=0})
+    else
+        Tips:show("数据错误")
+    end
+end
+
+
+function radioPlayOnSelect(sprite)
+    local index = Gallery:getCurItem(gallery)
+    local _,_,liveId = string.find(coverflowData[index].param, 'liveId=(%d+)')
+    local _,_,freePlayId = string.find(coverflowData[index].param, 'freePlayId=(%d+)')
+
+    Log:write('radioPlayOnSelect 1111111 liveId= freePlayId=',liveId,freePlayId)
+    if liveId and liveId ~= '' then
+        Log:write('radioPlayOnSelect 3333 ')
+        livePlayChannelOnselect(sprite)
+    end
+end
+
+--单条通知点击时直接播放，不返回
+function doMessageReturn()
+    if Config:get('sdk_version') > '04.00.01.01' then
+        local regI = Reg:create(Reg.com_wondertek_mobileaudio.index)
+        local setReturn = Reg:getString(regI,'setReturn')
+        if setReturn and setReturn == 'false' then
+            Scene:removeLastPageStack()
+            Reg:setString(regI,'setReturn','true')
+        end
+    end
+end
+
+function listadjust(sprite)
+    List:adjust(sprite)
+end
+
+function showLeftNavigationOnSelect(sprite)
+    local item = Sprite:getParent(Sprite:getParent(sprite))
+    if Panorama:getCurNavigation(item) == 0 then
+        Panorama:showNavigation(item, 1)
+    else
+        Panorama:showNavigation(item, 0)
+    end
+end
+
+function LoginStatusChange(isLogin)
+    if isLogin then
+        setNodeState(loginNode,0)
+        setNodeState(userNode,1)
+        Http:request('loginPhoneNum', Util:getWeiBoServer() .. Alias.phonenumber, Msg.phoneNumber, {useCache = 0})
+    else
+        setNodeState(loginNode,1)
+        setNodeState(userNode,0)
+    end
+end
+
+function uploadBtnOS(sprite)
+    Popup:show({title="上传方式",funcList={{funcName="录制一段",funcCallBack="recordOS"},{funcName="本地音频",funcCallBack="localvideoOS"}}})
+end
+
+function settingBtnOS(sprite)
+    Scene:go(Alias.syssetting)
+end
+
+function loginBtnOS(sprite)
+    Scene:go(Alias.myaccount)
+end
+
+function myspaceBtnOS(sprite)
+    local reg = Reg:create(Reg.com_wondertek_mobileaudio.community)
+    Reg:setString(reg ,'userId',Sprite:getData(sprite))
+    Scene:go(Alias.mycommunity)
+end
+
+function recordOS(sprite)
+    Scene:go(Alias.uploadrecording)
+    Popup:close()
+end
+
+function localvideoOS(sprite)
+    Scene:go(Alias.uploadlocalsearch)
+    Popup:close()
+end
+
+function homeDataUse()
+    Loading:close()
+    homeData = Http:jsonDecode('homeData')
+    Log:write("homeData",homeData)
+    if homeData.channelList and #homeData.channelList > 0 then
+        createChannelList()
+    end
+    setSideGuideBtnDisabled(1)
+end
+
+function setSideGuideBtnDisabled(index)
+    for i=0,2 do
+        local item = ListView:getItem(sideguideListview,i)
+        local guideBtn = Sprite:findChild(item,"guideBtn")
+        Sprite:setEnable(guideBtn,1)
+    end
+    local item = ListView:getItem(sideguideListview,index)
+    local guideBtn = Sprite:findChild(item,"guideBtn")
+    Sprite:setEnable(guideBtn,0)
+end
+
+function createChannelList()
+    List:removeAllItems(moreList,1,1)
+    local count = #homeData.channelList+1
+    List:loadItem(moreList, channelItem, count, "onLoadchannelItem")
+    local linecount = math.ceil((#homeData.channelList+1)/2)
+    Sprite:setProperty(moreList,"line",linecount)
+    List:adjust(moreList)
+    Sprite:setRect(moreContentItem,0,0,720,140*linecount+60)
+    ListView:adjust(sideguideListview)
+end
+
+function onLoadchannelItem(list,item,index)
+    Sprite:setProperty(item,"extendstyle","0000")
+    Sprite:setRect(item,0,0,220,140)
+    local channelBtn,conts_n,conts_s,channelname = Sprite:findChild(item,"channelBtn"),Sprite:findChild(item,"conts_n"),Sprite:findChild(item,"conts_s"),Sprite:findChild(item,"channelname")
+    Sprite:setProperty(channelBtn,"data",homeData.channelList[index].param)
+    Sprite:setProperty(conts_n,"text",homeData.channelList[index].prop)
+    Sprite:setProperty(conts_s,"text",homeData.channelList[index].prop)
+    Sprite:setProperty(channelname,"text",homeData.channelList[index].name)
+    local i1,i2,i3,i4 = Sprite:findChild(item,"i1"),Sprite:findChild(item,"i2"),Sprite:findChild(item,"i3"),Sprite:findChild(item,"i4")
+    resChoose(i1) resChoose(i2) resChoose(i3) resChoose(i4)
+end
+
+function channelBtnOS(sprite)
+    local data = Sprite:getData(sprite)
+    local reg = Reg:create(Reg.com_wondertek_mobileaudio.home)
+    Reg:setString(reg,"activateParam",data)
+    local item = Panorama:getItem(mainPanorama,0)
+    if Panorama:getCurNavigation(item) == 1 then Panorama:showNavigation(item, 0) end
+    Loading:show()
+    Timer:set(TimerId.once,500,"resetNaviDelay")
+end
+
+function guideBtnOnSelect(sprite)
+    local item = Sprite:getParent(sprite)
+    local index = ListView:getItemIndex(item)
+    if index == 0 then
+        local reg = Reg:create(Reg.com_wondertek_mobileaudio.home)
+        Reg:setString(reg,"activateParam","recommend")
+        local item = Panorama:getItem(mainPanorama,0)
+        if Panorama:getCurNavigation(item) == 1 then Panorama:showNavigation(item, 0) end
+        Loading:show()
+        Timer:set(TimerId.once,500,"resetNaviDelay")
+    end
+end
+
+function resetNaviDelay()
+    Scene:go(Alias.home)
+end
+]]>
+

@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ == ============================================================================
+ == | WonderTek [ 网络无处不在，沟通及时到达 ]
+ == ============================================================================
+ == | Copyright (c) 2011, WonderTek, Inc. All Rights Reserved.
+ == ============================================================================
+ == | Author: wangweipeng <wangweipeng@wondertek.com.cn>
+ == ============================================================================
+ == | Desc: 社区
+ == ============================================================================
+-->
+<root>
+    <header/>
+    <body  BuildChildrenFinished="bodyBuildChildrenFinished" OnSpriteEvent="bodyOnSpriteEvent" OnPluginEvent="bodyOnPluginEvent" resolution="720,1280">
+        <node name="mainNode" rect="0,0,720,1280" OnKeyUp="mainNodeOnKeyUp" layouttype="1" extendstyle="1111">            
+            <node name="topTitle" rect="0,0,720,1280" layouttype="1" extendstyle="1111">        
+                <shadow rect="0,0,720,1280" color="#F7FDF3" alpha="255" extendstyle="1111" />
+                <shadow rect="0,76,720,4" color="#BADE9E" alpha="255" extendstyle="1114" />
+                <button name="backBtn" rect="10,0,76,76" style="autosize" OnSelect="backOnSelect" extendstyle="1010" normal="n" sel="s">
+                    <image name="n" rect="15,21,15,35" src="file://image/backarrow_n.png" extendstyle="1010"  style="autosize" BuildChildrenFinished=""><node/></image>
+                    <image name="s" rect="15,21,15,35" src="file://image/backarrow_s.png" extendstyle="1010"  style="autosize" BuildChildrenFinished=""><node/></image>
+                </button>
+                <label name="label1" rect="0,12,720,50" extendstyle="1010" text="填写报名表" font-size="30" v-align="center" h-align="center" color="#516856"/>                
+                <image rect="0,80,720,360" style="sudoku-auto" sudoku="12,12,12,12" src="file://image/whitebg.png" extendstyle="1010"/>
+                <image rect="0,80,720,360" style="autosize" src="http://c22.cmvideo.cn/music/publish/clt/image/10/567/99.jpg" extendstyle="1010"/>
+                <shadow rect="25,360,124,60" color="#ffffff" alpha="255" extendstyle="0000" />
+                <label name="label2" rect="25,356,124,60" extendstyle="0000" text="CNR" font-size="40" v-align="center" h-align="center" shadow="true" color="#00ff00" shadow-alpha="150" shadow-offset="1,1"/>                                
+              
+                <list rect="30,480,660,400" extendstyle="1010" col="1" line="5" auto-adjust="true">    
+                    <list-item rect="0,0,694,80" extendstyle="1111">
+                        <label rect="35,15,95,50" extendstyle="1111" text="姓名 :" font-size="25" font-family="黑体" shadow="true" shadow-color="#ffffff" shadow-offset="0,1" color="#565656" />
+                        <label name="nametips" rect="130,15,450,50" extendstyle="1111" text="填写您的真实姓名(必填)" font-size="25" font-family="黑体" shadow="true" shadow-color="#ffffff" shadow-offset="0,1" color="#bcbcbc" />
+                        <edit name="username" rect="130,15,450,50" extendstyle="1111" max-size="15" OnSetFocus="nameFocus" OnLostFocus="nameLostFocus" OnTextChanged="nameTextChanged" font-size="30" color="#817b7b" />
+                        <node visible="0" rect="585,23,85,34" extendstyle="1111">
+                            <image rect="0,0,0,0" src="file://image/volume_progress_bf.png" style="sudoku-auto" sudoku="5,5,5,5" extendstyle="1177" />
+                            <label name="addressPrompt" rect="0,0,0,0" text="10字" extendstyle="1177" font-size="20" color="#FFFFFF" v-align="center" h-align="center" />
+                        </node>
+                        <shadow rect="0,0,0,2" color="#cccccc" extendstyle="1574" />
+                    </list-item>                    
+                    <list-item rect="0,0,694,80" extendstyle="1111">
+                        <label rect="35,15,95,50" extendstyle="1111" text="性别 :" font-size="25" font-family="黑体" shadow="true" shadow-color="#ffffff" shadow-offset="0,1" color="#565656" />
+                        <label name="gendertips" rect="130,15,450,50" extendstyle="1111" text="填写您的性别(必填)" font-size="25" font-family="黑体" shadow="true" shadow-color="#ffffff" shadow-offset="0,1" color="#bcbcbc" />
+                        <edit name="usergender" rect="130,15,450,50" extendstyle="1111" max-size="15" OnSetFocus="genderFocus" OnLostFocus="genderLostFocus" OnTextChanged="genderTextChanged" font-size="30" color="#817b7b" />                        
+                        <shadow rect="0,0,0,2" color="#cccccc" extendstyle="1574" />
+                    </list-item>    
+                    <list-item rect="0,0,694,80" extendstyle="1111">
+                        <label rect="35,15,95,50" extendstyle="1111" text="年龄 :" font-size="25" font-family="黑体" shadow="true" shadow-color="#ffffff" shadow-offset="0,1" color="#565656" />
+                        <label name="agetips" rect="130,15,450,50" extendstyle="1111" text="填写您的年龄" font-size="25" font-family="黑体" shadow="true" shadow-color="#ffffff" shadow-offset="0,1" color="#bcbcbc" />
+                        <edit name="userage" rect="130,15,450,50" extendstyle="1111" max-size="15" OnSetFocus="ageFocus" OnLostFocus="ageLostFocus" OnTextChanged="ageTextChanged" font-size="30" color="#817b7b" />
+                        <node visible="0" rect="585,23,85,34" extendstyle="1111">
+                            <image rect="0,0,0,0" src="file://image/volume_progress_bf.png" style="sudoku-auto" sudoku="5,5,5,5" extendstyle="1177" />
+                            <label name="addressPrompt" rect="0,0,0,0" text="0-999" extendstyle="1177" font-size="20" color="#FFFFFF" v-align="center" h-align="center" />
+                        </node>
+                        <shadow rect="0,0,0,2" color="#cccccc" extendstyle="1574" />
+                    </list-item>
+                    <list-item rect="0,0,694,80" extendstyle="1111">
+                        <label rect="35,15,95,50" extendstyle="1111" text="证件 :" font-size="25" font-family="黑体" shadow="true" shadow-color="#ffffff" shadow-offset="0,1" color="#565656" />
+                        <label name="idnumbertips" rect="130,15,450,50" extendstyle="1111" text="填写您的身份证号(必填)" font-size="25" font-family="黑体" shadow="true" shadow-color="#ffffff" shadow-offset="0,1" color="#bcbcbc" />
+                        <edit name="useridnumber" rect="130,15,450,50" extendstyle="1111" max-size="18" OnSetFocus="idnumberFocus" OnLostFocus="idnumberLostFocus" OnTextChanged="idnumberTextChanged" font-size="30" color="#817b7b" />
+                        <shadow rect="0,0,0,2" color="#cccccc" extendstyle="1574" />
+                    </list-item>
+                </list>
+                
+                <button name="rulecheck" rect="25,900,670,70" OnSelect="rulecheckOnSelect" data="camera" extendstyle="1010" sel="s" normal="n">
+                    <image name="n" rect="40,10,44,44" style="autosize" src="file://image/check_bg_sel.png" extendstyle="1000" ><node/></image>
+                    <image name="s" rect="40,10,44,44" style="autosize" src="file://image/check_bg_sel.png" extendstyle="1000" ><node/></image>
+                    <label rect="100,10,570,50" extendstyle="1010" text="我已阅读活动须知,并且同意遵守相关条款" h-align="left" v-align="center" font-size="25" color="#565656" />
+                </button>
+                
+                <button rect="42,1030,636,70" OnSelect="singupOnSelect" data="camera" extendstyle="1010" sel="s" normal="n" h-align='center' v-align="center">
+                    <node name="s" rect="0,0,636,70" extendstyle="1010" >
+                        <image name="s" rect="0,0,636,70" src="file://image/sg_btngreen.png" BuildChildrenFinished="resChoose" extendstyle="1010" style="sudoku-auto" sudoku="5,5,5,5" ><node/></image>
+                        <label rect="0,0,636,0" text="提交并且报名" color="#1C9FE2"  font-size="30" h-align='center' v-align="center" extendstyle="1077" />
+                    </node>
+                    <node name="n" rect="0,0,636,70" extendstyle="1010" >
+                        <image name="s" rect="0,0,636,70" src="file://image/sg_btngreen.png" BuildChildrenFinished="resChoose" extendstyle="1010" style="sudoku-auto" sudoku="5,5,5,5" ><node/></image>                        
+                        <label rect="0,0,636,0" text="提交并且报名" color="#ffffff"  font-size="30" h-align='center' v-align="center" extendstyle="1077" />
+                    </node>
+                </button>    
+            </node>        
+            
+            <node name="popupNode" rect="0,0,720,1280" extendstyle="1111" border=3 />
+            <node name="tipsNode" rect="0,1070,720,210" extendstyle="0017"/>
+        </node>
+    </body>
+</root>
+<![CDATA[
+
+require('com_wondertek_mobileaudio.commonlocal')
+
+local rootSprite
+local contentList1
+local readchecked = 1
+
+function bodyBuildChildrenFinished(sprite)
+    rootSprite=sprite
+    contentList1 = Sprite:findChild(sprite, 'contentList1')
+end
+
+function bodyOnSpriteEvent(msg, param)
+   if msg == MSG_ACTIVATE then        
+    elseif msg == MSG_DEACTIVATE then       
+    elseif msg == MSG_STRINGEVENT then       
+    else        
+    end
+end
+
+function bodyOnPluginEvent(msg, param)
+    Log:write('registerform.wdml -- bodyOnPluginEvent =',msg,param)
+    if msg == 103 then
+        local signupdata = Http:jsonDecode('signupdata')
+        Log:write(' signupdata = ' ,signupdata)
+        if signupdata.result == '9' then
+            Tips:show(' 您已经报名了 ')
+            Timer:set( 1,800,'backscene')
+            --Scene:go(Alias.uploadworks)
+        elseif signupdata.result == '0000' then
+            Tips:show(' 报名成功了 ~')
+            Timer:set( 1,800,'backscene')
+            --Scene:go(Alias.uploadworks)
+        elseif signupdata.result == '2002' then
+            Tips:show(' 您没有登录 ~')
+            
+            Dialog:show(dialogTitle, dialogContent, 'ok_cancel', 'UI_exit')
+            --Net:goToMyAccount()
+        end
+
+    else
+
+    end
+
+end
+
+function mainNodeOnKeyUp(sprite, kc)
+    if kc == Key.F2 then
+        Scene:back()
+    elseif kc == F1 then
+        Log:write('mainNodeOnKeyUp','--------')        
+    end
+end
+
+function backOnSelect(sprite)
+    Scene:back()
+end
+
+function backscene()
+    Scene:back()
+end
+
+function singupOnSelect(sprite)
+    local names = Sprite:getText( Sprite:findChild( rootSprite ,'username'))
+    local gender = Sprite:getText( Sprite:findChild( rootSprite ,'usergender'))
+
+    local idnumber = Sprite:getText( Sprite:findChild( rootSprite ,'useridnumber'))
+    if names == '' then
+        Tips:show(' 请输入名称 ~')
+        return
+    end
+    if gender == '' then
+        Tips:show(' 请输入性别 ~ ')
+        return
+    end
+    if idnumber == '' then
+        Tips:show(' 请输入身份证号码 ~ ')
+        return
+    end
+    if readchecked ~= 1 then
+        Tips:show(' 请先阅读活动须知 ~')
+        return
+    end
+
+    local sex = 2
+    if gender == '男' then
+        sex = 0
+    elseif gender == '女' then
+        sex = 1
+    end
+
+    local param = '?realName=' .. names .. '&sex='.. sex .. '&idCard=' .. idnumber
+    Http:request('signupdata', Util:getWeiBoServer() .. 'sup/signUp.msp' .. param , 103,{useCache=0})
+
+end
+
+function rulecheckOnSelect(sprite)
+    Log:write(' rulecheckOnSelect ==readchecked = ',readchecked )
+    local n,s =Sprite:findChild( sprite,'n'),Sprite:findChild( sprite,'s')
+    
+    if readchecked == 1 then
+        Sprite:setProperty( n,'src','file://image/check_bg.png')
+        Sprite:setProperty( s,'src','file://image/check_bg.png')
+        readchecked = 0
+    else
+        Sprite:setProperty( n,'src','file://image/check_bg_sel.png')
+        Sprite:setProperty( s,'src','file://image/check_bg_sel.png')
+        readchecked = 1
+    end
+
+end
+
+--提交上传 现用于测试底部菜单,菜单无法显示
+function videoUploadSel()
+    Popup:show()
+end
+
+function nameFocus(sprite)
+
+end
+function nameLostFocus(sprite)
+    --local text = Sprite:getText( sprite)
+    --if text == '' then
+        --local nametips =Sprite:findChild( Sprite:getParent( sprite),'nametips')
+        --setNodeState(nametips,1)
+    --end
+end
+function nameTextChanged(sprite)
+    local text = Sprite:getText( sprite)
+    local nametips = Sprite:findChild( Sprite:getParent( sprite),'nametips')
+    Log:write(' text = ',text )
+    if text ~= '' then
+        setNodeState(nametips,0)
+    else
+        setNodeState(nametips,1)
+    end
+end
+
+function ageFocus(sprite)
+
+end
+function ageLostFocus(sprite)
+
+end
+function ageTextChanged(sprite)
+    local text = Sprite:getText( sprite)
+    local nametips = Sprite:findChild( Sprite:getParent( sprite),'agetips')
+    Log:write(' text = ',text )
+    if text ~= '' then
+        setNodeState(nametips,0)
+    else
+        setNodeState(nametips,1)
+    end
+
+end
+
+function genderFocus(sprite)
+
+end
+function genderLostFocus(sprite)
+
+end
+function genderTextChanged(sprite)
+    local text = Sprite:getText( sprite)
+    local nametips = Sprite:findChild( Sprite:getParent( sprite),'gendertips')
+    Log:write(' text = ',text )
+    if text ~= '' then
+        setNodeState(nametips,0)
+    else
+        setNodeState(nametips,1)
+    end
+
+end
+
+function idnumberFocus(sprite)
+
+end
+function idnumberLostFocus(sprite)
+
+end
+function idnumberTextChanged(sprite)
+    local text = Sprite:getText( sprite)
+    local nametips = Sprite:findChild( Sprite:getParent( sprite),'idnumbertips')
+    Log:write(' text = ',text )
+    if text ~= '' then
+        setNodeState(nametips,0)
+    else
+        setNodeState(nametips,1)
+    end
+
+end
+
+
+]]>

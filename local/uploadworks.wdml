@@ -1,0 +1,626 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ == ============================================================================
+ == | WonderTek [ 网络无处不在，沟通及时到达 ]
+ == ============================================================================
+ == | Copyright (c) 2011, WonderTek, Inc. All Rights Reserved.
+ == ============================================================================
+ == | Author: cuiyizhou <cuiyizhou@wondertek.com.cn>
+ == ============================================================================
+ == | Desc: 社区
+ == ============================================================================
+-->
+<root>
+    <header/>
+    <body  BuildChildrenFinished="bodyBuildChildrenFinished" OnSpriteEvent="bodyOnSpriteEvent" OnPluginEvent="bodyOnPluginEvent" resolution="720,1280">
+    <node name="mainNode" rect="0,0,720,1280" OnKeyUp="mainNodeOnKeyUp" layouttype="1" extendstyle="1111">
+        <shadow rect="0,0,720,1280" color="#FFFFFF" alpha="255" extendstyle="1111" />
+        <node rect="0,0,720,76" extendstyle="1010">
+            <shadow rect="0,0,720,4" color="#BADE9E" alpha="255" extendstyle="1510" />
+        </node>
+        <label name="title" rect="0,0,720,76" text="上传" extendstyle="1010" h-align="center" v-align="center" font-size="28" color="#4F6855"/>
+        <button rect="0,8,100,59" style="autosize" OnSelect="backOnSelect" extendstyle="1010" normal="n" sel="s">
+            <image name="n" rect="22,12,15,35" src="file://image/backarrow_n.png" extendstyle="1000" style="autosize" />
+            <image name="s" rect="22,12,15,35" src="file://image/backarrow_n.png" extendstyle="1000" style="autosize" />
+        </button>
+        <panorama name="mainPanorama" rect="0,76,720,0" extendstyle="0017" foreground="foreground">
+            <panoramaitem name="foreground" rect="0,0,720,0" extendstyle="0017">
+                <node rect="0,0,720,111" extendstyle="0500">
+                    <image rect="0,0,720,111" extendstyle="0000" style='autosize' src="file://image/bottompannel.png" />
+                    <button name="uploadBtn" rect="270,21,180,69" style="autosize" OnSelect="uploadBtnOS" extendstyle="1010">
+                        <image rect="0,0,180,69" src="file://image/upload_start.png" extendstyle="1010"  style="sudoku-auto" sudoku="33,0,33,0" BuildChildrenFinished="resChoose"><node/></image>
+                        <label rect="0,0,180,69" extendstyle="1010" text="上传" font-size="25" color="#FFFFFF" v-align="center" h-align="center"/>
+                    </button>
+                </node>
+                <node name="popupNode" rect="0,0,720,1280" extendstyle="0017"/>
+                <node name="tipsNode" rect="0,0,720,210" extendstyle="0017"/>
+            </panoramaitem>
+            <panoramaitem rect="0,0,720,0" extendstyle="0017">
+                <listview name="mainListview" rect="0,0,720,0" padding="0,0,111,0" extendstyle="1016">
+                    <list-item  rect="0,0,720,400" extendstyle="1010">
+                        <shadow rect="0,0,720,400" color="#4A606D" alpha="255" extendstyle="1010" />
+                        <image rect="297,162,125,72" style="autosize" src="file://image/upload_logo.png" extendstyle="1010" BuildChildrenFinished="resChoose"><node/></image>
+                        <shadow rect="0,0,720,80" color="#000000" alpha="70" extendstyle="1510" >
+                            <label name="playtime" rect="100,0,720,80" extendstyle="1010" text="" font-size="25" color="#FFFFFF" v-align="center" />
+                        </shadow>
+                        <shadow rect="0,0,77,80" color="#4FB464" alpha="255" extendstyle="0500" />
+                        <node rect="0,0,77,80" extendstyle="0500" >
+                            <button name="pauseBtn" rect="0,0,77,80" visible="0" enable="0" extendstyle="0000" normal="normal" sel="focus" OnSelect="pauseBtnOnSelect" >
+                                <image name="normal" rect="18,18,41,43" extendstyle="0000" style="autosize" src="file://image/live_pause_n.png" BuildChildrenFinished="resChoose"><node/></image>
+                                <image name="focus" rect="18,18,41,43" extendstyle="0000" style="autosize" src="file://image/live_pause_f.png" BuildChildrenFinished="resChoose"><node/></image>
+                            </button>
+                            <button name="playBtn" rect="0,0,77,80" extendstyle="0000" normal="normal" sel="focus" OnSelect="playBtnOnSelect" >
+                                <image name="normal" rect="18,18,41,43" extendstyle="0000" style="autosize" src="file://image/live_play_n.png" BuildChildrenFinished="resChoose"><node/></image>
+                                <image name="focus" rect="18,18,41,43" extendstyle="0000" style="autosize" src="file://image/live_play_f.png" BuildChildrenFinished="resChoose"><node/></image>
+                            </button>
+                        </node>
+                    </list-item>
+                    <list-item rect="0,0,720,120" extendstyle="1010">
+                        <node rect="30,17,660,85" extendstyle="1010">
+                            <label rect="10,0,130,80" extendstyle="1010" text="标题:" font-size="25" color="#4F6855" v-align="center" />
+                            <label name="blankTip" rect="100,0,535,80" extendstyle="1010" text="为作品起一个响当当的名字吧" font-size="25" color="#C8C8C8" v-align="center" shadow="true" shadow-color="#ffffff" shadow-alpha="150" shadow-offset="0,1"/>
+                            <edit name="contentName" option="numeric" rect="100,0,535,85" v-align="center" extendstyle="1010" color="#BBC0B9" OnTextChanged="editOnTextChanged" font-size="28" max-size="10"/>
+                            <shadow rect="0,80,660,1" color="#D1DFC5" alpha="255" extendstyle="1014" />
+                        </node>
+                        <node rect="0,47,115,35" extendstyle="5010">
+                            <image rect="0,0,85,35" src="file://image/wordslimit.png" style="sudoku-auto" sudoku="12,0,24,0" extendstyle="1010" BuildChildrenFinished="resChoose"><node/></image>
+                            <label rect="12,0,85,35" text="10字" extendstyle="1010" font-size="18" color="#A5AAA4" v-align="center" />
+                        </node>
+                    </list-item>
+                    <list-item rect="0,0,720,270" extendstyle="1010">
+                        <node rect="30,17,660,235" extendstyle="1010">
+                            <label rect="10,30,130,80" extendstyle="1010" text="简介:" font-size="25" color="#4F6855"/>
+                            <label name="blankTip" rect="100,30,480,80" extendstyle="1010" text="精彩的简介可以让更多人关注哦" font-size="25" color="#C8C8C8" shadow="true" shadow-color="#ffffff" shadow-alpha="150" shadow-offset="0,1"/>
+                            <edit name="contentDesc" option="numeric" rect="100,30,480,215" extendstyle="1010" color="#BBC0B9" OnTextChanged="editOnTextChanged" font-size="25" multiline="true" max-size="50"/>
+                            <shadow rect="0,230,660,1" color="#D1DFC5" alpha="255" extendstyle="1014" />
+                        </node>
+                        <node rect="0,47,115,35" extendstyle="5010">
+                            <image rect="0,0,85,35" src="file://image/wordslimit.png" style="sudoku-auto" sudoku="12,0,24,0" extendstyle="1010" BuildChildrenFinished="resChoose"><node/></image>
+                            <label rect="12,0,85,35" text="50字" extendstyle="1010" font-size="18" color="#A5AAA4" v-align="center" />
+                        </node>
+                    </list-item>
+                    <list-item rect="0,0,720,150" extendstyle="1010">
+                        <node rect="30,17,660,150" extendstyle="1010">
+                            <label rect="10,0,130,80" extendstyle="1010" text="图片:" font-size="25" color="#4F6855" v-align="center"/>
+                            <node name="imgList" rect="100,0,530,80" col="2" line="10" auto-adjust="true" offset="0,0" extendstyle="1010">
+                                <node name="chooseNode" rect="0,0,530,100" extendstyle="1010">
+                                    <image rect="0,4,87,72" style="autosize" src="file://image/upload_selectpic.png" extendstyle="0000" BuildChildrenFinished="resChoose"><node/></image>
+                                    <button name="imgselectBtn" rect="0,0,90,80" extendstyle="0000" OnSelect="imgselectBtnOS"/>
+                                    <textarea name="imgselectTip" rect="100,0,430,100" extendstyle="1010" text="为自己的作品配个美图吧 不操作表示为默认图片" font-size="25" color="#C8C8C8" maxlines="2" autoextend="true"/>
+                                </node>
+                                <node name="imgNode" rect="0,0,530,100" extendstyle="1010" visible="0" enable="0">
+                                    <image name="userImg" rect="0,4,130,71" style="autosize" src="" extendstyle="0000" />
+                                </node>
+                            </node>
+                        </node>
+                    </list-item>
+                    <list-item rect="0,0,720,60" extendstyle="1010">
+                        <button name="contestBtn" rect="30,0,330,60" OnSelect="contestBtnOS" extendstyle="1010" normal="n" sel="s" visible="0" enable="0">
+                            <image name="checkBoxN" rect="9,9,40,40" extendstyle="1000" style="sudoku-tile" sudoku="6,6,6,6" src="file://image/check_bg.png" />
+                            <image name="checkBoxF" rect="9,9,40,40" extendstyle="1000" style='autosize' src="file://image/check_sel.png" BuildChildrenFinished="resChoose"><node/></image>
+                            <label name="n" rect="80,0,250,60" extendstyle="1010" text="参赛作品" font-size="24" color="#4F6855" v-align="center" shadow="true" shadow-color="#ffffff" shadow-alpha="150" shadow-offset="0,1"/>
+                            <label name="s" rect="80,0,250,60" extendstyle="1010" text="参赛作品" font-size="24" color="#1C9FE3" v-align="center" shadow="true" shadow-color="#ffffff" shadow-alpha="150" shadow-offset="0,1"/>
+                        </button>
+                    </list-item>
+                </listview>
+            </panoramaitem>
+        </panorama>
+    </node>
+    </body>
+</root>
+<![CDATA[
+require('com_wondertek_mobileaudio.commonlocal')
+require 'framework.upload'
+require('framework.player')
+
+function bodyBuildChildrenFinished(sprite)
+    rootSprite = sprite
+    contentName = Sprite:findChild(sprite,"contentName")
+    contentDesc = Sprite:findChild(sprite,"contentDesc")
+    chooseNode = Sprite:findChild(sprite,'chooseNode')
+    imgNode = Sprite:findChild(sprite,'imgNode')
+    userImg = Sprite:findChild(imgNode,'userImg')
+    contestBtn = Sprite:findChild(sprite,'contestBtn')
+    
+    pauseBtn = Sprite:findChild(sprite,'pauseBtn')
+    playBtn = Sprite:findChild(sprite,'playBtn')
+    playtime = Sprite:findChild(sprite,'playtime')
+    
+    local reg = Reg:create(Reg.com_wondertek_mobileaudio.upload)
+    desFilePath = Reg:getString(reg,"filepath")
+    Log:write("desFilePath",desFilePath)
+    Http:request('usersingup', Util:getWeiBoServer() .. Alias.userinfoData , 155,{useCache=0})
+end
+
+function bodyOnSpriteEvent(msg, param)
+   if msg == MSG_ACTIVATE then
+        local reg = Reg:create(Reg.com_wondertek_mobileaudio.upload)
+        imgpath = Reg:getString(reg,"imgpath")
+        if imgpath ~= "" then
+            Reg:setString(reg,"imgpath","")
+            Sprite:setProperty(userImg,"src",imgpath)
+            setNodeState(chooseNode,0)
+            setNodeState(imgNode,1)
+        end
+    elseif msg == MSG_DEACTIVATE then
+        commonDeactivate()
+        if bFree == 1 then
+            Scene:freeByHandle(rootSprite)
+            if isPlayerCreate then
+                Player:stop()
+                Player:show(0)
+            end
+        end
+    elseif msg == MSG_STRINGEVENT then
+        local paramEventID = Param:getInteger(param, 0)
+        if paramEventID == 9 then
+            local imgPath = Param:getString(param, 1)
+            if not string.find(imgPath, 'error=') then
+                clipImg(imgPath)
+            end
+            return
+        end
+        Util:onSpriteEvent(msg, param)
+    else
+        Util:onSpriteEvent(msg, param)
+    end
+end
+
+function bodyOnPluginEvent(msg, param)
+    if msg == 101 then
+        local URL, PARAM, videoId = OnGetUploadUrlSuccess()
+        if videoId then
+            local imgSrc = Sprite:getProperty(userImg,"src")
+            if imgSrc ~= "" then
+                local imgData = IO:fileRead(imgSrc)
+                local fileType = IO:fileExt(imgSrc)
+                imgData = '&imageStr=' .. Base64EncodeEX(imgData, IO:fileSize(imgSrc))
+                Http:request('uploadImage', Util:getWeiBoServer() .. 'sup/uploadImage.msp?videoId=' .. videoId .. "&fileType=" .. fileType, 102, {useCache=0, method='post', postData=imgData})
+                Tips:show("正在上传图片")
+            else
+                Loading:close()
+                _videoId = videoId
+                Upload:append(URL, PARAM, desFilePath, videoName, Sprite:getText(contentDesc), IO:fileExt(desFilePath))
+                UploadDialog:show('作品上传中', '取  消', videoName, 'uploadFinishCallback', 'uploadFailCallback', 'cancelUploadPackage')
+            end
+        else
+            Loading:close()
+            Tips:show('汗，上传失败，请再传下')
+        end
+    elseif msg == 102 then
+        local uploadImageData = Http:jsonDecode('uploadImage')
+        Log:write('uploadImageData', uploadImageData)
+        local URL, PARAM, videoId = OnGetUploadUrlSuccess()
+        Loading:close()
+        if URL and PARAM then
+            WriteLogs("upload URL:"..URL)
+            WriteLogs("upload PARAM:"..PARAM)
+            WriteLogs("upload videoId:"..videoId)
+            _videoId = videoId
+            Upload:append(URL, PARAM, desFilePath, videoName, Sprite:getText(contentDesc), IO:fileExt(desFilePath))
+            UploadDialog:show('作品上传中', '取  消', videoName, 'uploadFinishCallback', 'uploadFailCallback', 'cancelUploadPackage')
+        else
+            Tips:show('汗，上传失败，请再传下')
+        end
+    elseif msg == 103 then
+        local publishData = Http:jsonDecode('publish')
+        Log:write('publishData', publishData)
+        if publishData.description then
+            Tips:show('上传成功，请等待内容审核')
+            Timer:set(TimerId.once,2000,"backOnSelect")
+        else
+            Tips:show('发布异常')
+        end
+    elseif msg == 155 then
+        local usersingupData = Http:jsonDecode('usersingup')
+        Log:write("usersingupData",usersingupData)
+        if usersingupData.ifSignUp == "1" then
+            setNodeState(contestBtn,1)
+        end
+    else
+        Util:onPluginEvent(msg, param)
+    end
+end
+
+function mainNodeOnKeyUp(sprite, kc)
+    if kc == Key.F2 then
+        if commonF2KeyUp and commonF2KeyUp() then return end
+        deleteRecordingFile()
+        bFree = 1
+        Scene:back()
+    else
+        Util:mainNodeOnKeyUp(sprite, kc)
+    end
+end
+
+function uploadFinishCallback()
+    if not _videoId then Tips:show('参数异常') return end
+    --发微博
+    local check = Sprite:findChild(contestBtn,"checkBoxF")
+    local param = ""
+    if Sprite:isVisible(check) == 1 then
+        param = "&isContest=1"
+    end
+    Http:request('publish', Util:getWeiBoServer() .. 'sup/sup_Publish.msp?body=' .. Sprite:getText(contentDesc) .. '&videoId=' .. _videoId .. '&videoTitle=' .. Sprite:getText(contentName) .. '&topic=网络主播大赛' .. param, 103, {useCache=0})
+end
+
+function uploadFailCallback()
+    Tips:show('任务失败')
+end
+
+function cancelUploadPackage()
+    Tips:show('任务已取消')
+end
+
+function backOnSelect(sprite)
+    deleteRecordingFile()
+    bFree = 1
+    Scene:back()
+end
+
+function imgselectBtnOS()
+    Popup:show({title="图片选择",funcList={{funcName="拍摄一张",funcCallBack="cameraOS"},{funcName="本地图片",funcCallBack="localimgOS"}}})
+end
+
+function cameraOS()
+    dofunction(4, "", "", 0, 0)
+    Popup:close(1)
+end
+
+function localimgOS()
+    local flashCard = getFlashCardPath()
+    OpenAlbumDialog('getAlbumImg', flashCard, 'jpg')
+    Popup:close(1)
+end
+
+function getAlbumImg(imgPath, imgType)
+    Log:write('imgPath', imgPath)
+    local fileExt = string.lower(IO:fileExt(imgPath))
+    if imgPath and fileExt == "jpg" or fileExt == "png" then
+        clipImg(imgPath)
+    else
+        Tips:show('请使用jpg或png格式的图片')
+    end
+end
+
+function getFlashCardPath()
+    local path = ''
+    local flashCard = System:getFlashCardName(1)
+    local innerCard = System:getFlashCardName(0)
+    if flashCard and flashCard ~= '' then
+        path = flashCard
+    elseif innerCard and innerCard ~= '' then
+        path = innerCard
+    end
+    return path
+end
+
+function editOnTextChanged(sprite)
+    local p = Sprite:getParent(sprite)
+    local blankTip = Sprite:findChild(p,"blankTip")
+    if Sprite:getText(sprite) == "" then
+        setNodeState(blankTip,1)
+    else
+        setNodeState(blankTip,0)
+    end
+end
+
+function deleteRecordingFile()
+    if desFilePath and IO:fileExist(desFilePath) then
+        --IO:fileRemove(desFilePath)
+    end
+end
+
+function clipImg(imgPath)
+    local reg = Reg:create(Reg.com_wondertek_mobileaudio.upload)
+    Reg:setString(reg,"imgPath",imgPath)
+    Reg:setString(reg,"displaystyle","1")
+    Scene:go(Alias.uploadimgedit)
+end
+
+function uploadBtnOS()
+    if Http:getCurConnect() ~= 'WLAN' then
+        Dialog:show('提示', '亲，建议切换到WIFI下上传哦', 'ok_cancel', 'uploadfunc', '', '继续', '取消')
+        return
+    end
+    uploadfunc()
+end
+
+function uploadfunc()
+    if not IO:fileExist(desFilePath) then Tips:show("未找到文件") return end
+    local videoTitleText = Sprite:getText(contentName)
+    local videoDescText = Sprite:getText(contentDesc)
+    local imgSrc = Sprite:getProperty(userImg,"src")
+    local imgSize = IO:fileSize(imgSrc)
+    if videoTitleText == "" then
+        Tips:show("请输入内容名称")
+    elseif videoDescText == "" then
+        Tips:show("请输入内容描述信息")
+    elseif GetStringLen(videoTitleText) < 3 then
+        Tips:show("内容名称过短")
+    elseif GetStringLen(videoDescText) < 3 then
+        Tips:show("内容描述信息过短")
+    elseif imgSize > 102400 and Http:getCurConnect() ~= 'WLAN' then
+        Tips:show("图片过大，请重新裁剪")
+    else
+        local ct = Util:getServerTime()
+        local t = os.date('*t', math.floor(ct / 1000))
+        for i,v in pairs(t) do
+            local numv = tonumber(v)
+            if numv and numv < 10 then
+                t[i] = 0 .. v
+            end
+        end
+        videoName = 'file' .. t['year'] .. t['month'] .. t['day']  .. t['hour']  .. t['min']  .. t['sec']
+        local reg = Reg:create(Reg.com_wondertek_mobileaudio.upload)
+        imagePath = ''
+        Log:write('filePath==========', desFilePath)
+        local VideoCreatTime = t['year'] .. t['month'] .. t['day'] .. '_' .. t['hour']  .. t['min']  .. t['sec']
+        local videoType = IO:fileExt(desFilePath)
+        local MaxLen = IO:fileSize(desFilePath)
+        local threads = 1
+        local uploadType = "001"
+
+        local postData = string.format("FILE_NAME=%s&FILE_CREATE_TIME=%s&C_TITLE=%s&C_DESC=%s&C_TYPE=%s&C_LEN=%d&THREADS=%d&T_TYPE=%s",videoName,VideoCreatTime,videoTitleText,videoDescText, videoType, MaxLen,threads,uploadType)
+        local url = Util:getWeiBoServer() .. 'sup/UGC_GetUploadUrl.msp?' .. postData
+        WriteLogs("Upload Url : " .. url)
+        local cache = GetLocalFilename(url)
+        local regUpload = registerCreate("regUpload")
+        registerSetString(regUpload, "fileName", cache)
+        Tips:show("正在获取上传地址")
+        Loading:show()
+        Http:request('getuploadpath', url, 101, {useCache = 0, fileName = cache})
+    end
+end
+
+function OnGetUploadUrlSuccess()
+    local regUpload = registerCreate("regUpload")
+    Log:write('regUpload========', regUpload)
+    local fileCache = registerGetString(regUpload, "fileName")
+    Log:write('fileCache========', fileCache)
+    if '' ~= fileCache and IO:fileExist(fileCache) then
+        local data = IO:fileRead(fileCache)
+        if data then
+            local i,j,url = string.find(data,"<URL>(.-)</URL>")
+            local i,j,param = string.find(data,"<PARAM>(.-)</PARAM>")
+            local i,j,videoId = string.find(data,"<videoId>(.-)</videoId>")
+            param = string.gsub(param, "&amp;", "&")
+            return url, param, videoId
+        end
+    end
+    return nil
+end
+
+UploadDialog = {}
+
+UploadDialog.layout = [[
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <header/>
+    <body>
+        <node name="UploadDialogNode" rect="0,0,720,1280" extendstyle="1111" >
+            <shadow rect="0,0,720,1280" extendstyle="1111" color="#0" alpha="70" />
+            <button rect="0,0,720,1280" extendstyle="1111" OnSelect="" />
+            <node name="dframe" rect="50,306,620,410" extendstyle="1010">
+                <node rect="0,0,620,35" extendstyle="0510">
+                    <image rect="0,0,620,72" src="file://image/dialogShadow.png" style="autosize" extendstyle="1010" />
+                </node>
+                <image rect="0,0,620,410" src="file://image/commonbg.png"  style="sudoku-auto" sudoku="5,5,5,5" extendstyle="1017" BuildChildrenFinished="resChoose"><node/></image>
+                <image rect="0,0,620,85" src="file://image/orderDig_head.png"  style="sudoku-auto" sudoku="6,0,6,0" extendstyle="1010" BuildChildrenFinished="resChoose"><node/></image>
+                <label name="UploadDialogTitle" rect="0,0,620,85" text="提示" color="#212121" shadow="true" shadow-color="#ffffff" shadow-alpha="150" shadow-offset="0,1" font-size="40" v-align="center" h-align="center" extendstyle="1010"/>
+
+                <button name="UploadProgress" rect="100,200,420,20" extendstyle="1010" OnSelect="">
+                    <image name="progressBg" rect="0,0,420,20" extendstyle="1010" sudoku="4,4,4,4" style="sudoku-auto" src="file://image/commonbg.png"/>
+                    <node name="UploadDialogProgressImg" rect="0,0,0,20" extendstyle="1010" frame="true">
+                        <shadow rect="0,0,420,20" color="#84CD7C" alpha="255" extendstyle="1010"/>
+                    </node>
+                </button>
+                <label name="UploadDialogSpeedLbl" rect="100,240,210,40" extendstyle="1010" autoextend="true" text="0KB/S" font-size="25" color="#0" v-align="center" h-align="left" />
+                <label name="UploadDialogProLbl" rect="310,240,210,40" extendstyle="1010" autoextend="true" text="0MB/0MB" font-size="25" color="#0" v-align="center" h-align="right" />
+                <node name="btnArea" rect="0,0,620,150" extendstyle="0510">
+                    <button rect="222,75,200,100" style="autosize" OnSelect="UploadDialogCancelOnSelect" extendstyle="1010" normal="n" sel="s">
+                        <node name="n" rect="0,0,177,56" extendstyle="1010" >
+                            <image rect="0,0,177,56" src="file://image/episode_n.png" extendstyle="1010"  style="sudoku-auto" sudoku="11,11,11,11" BuildChildrenFinished="resChoose"><node/></image>
+                            <label name="textCancelN" rect="0,0,177,56" extendstyle="1010" text="取消" font-size="30" color="#565656" v-align="center" h-align="center"/>
+                        </node>
+                        <node name="s" rect="0,0,177,56" extendstyle="1010" >
+                            <image name="orderImgS" rect="0,0,177,56" src="file://image/episode_s.png"  style="sudoku-auto" sudoku="11,11,11,11" extendstyle="1010" BuildChildrenFinished="resChoose"><node/></image>
+                            <label name="textCancelF" rect="0,0,177,56" extendstyle="1010" text="取消" font-size="30" color="#FFFFFF" v-align="center" h-align="center"/>
+                        </node>
+                    </button>
+                </node>
+            </node>
+        </node>
+    </body>
+</root>
+]]
+
+function UploadDialog:show(title, btnName, fileName, UploadFinishCallback, UploadFailCallback, UploadCancelCallback)
+    _UploadFileName = fileName
+    _UploadFinishCallback = UploadFinishCallback
+    _UploadFailCallback = UploadFailCallback
+    _UploadCancelCallback = UploadCancelCallback
+    local rootSprite = Sprite:getCurScene()
+    local UploadDialogSprite = Sprite:findChild(rootSprite, 'UploadDialogNode')
+    if UploadDialogSprite ~= 0 then
+        Sprite:setVisible(UploadDialogSprite, 1)
+        Sprite:setEnable(UploadDialogSprite, 1)
+        Sprite:setActive(UploadDialogSprite, 1)
+    else
+        UploadDialogSprite = Sprite:create('node', Sprite:findChild(rootSprite, 'mainNode'))
+        Sprite:setProperty(UploadDialogSprite, 'name', 'UploadDialogNode')
+        Sprite:loadFromString(UploadDialogSprite, UploadDialog.layout)
+    end
+    local UploadDialogTitle = Sprite:findChild(UploadDialogSprite, 'UploadDialogTitle')
+    Sprite:setProperty(UploadDialogTitle, 'text', title)
+    local textCancelN = Sprite:findChild(UploadDialogSprite, 'textCancelN')
+    Sprite:setProperty(textCancelN, 'text', btnName)
+    local textCancelF = Sprite:findChild(UploadDialogSprite, 'textCancelF')
+    Sprite:setProperty(textCancelF, 'text', btnName)
+    UploadDialogSpeedLbl = Sprite:findChild(UploadDialogSprite, 'UploadDialogSpeedLbl')
+    UploadDialogProLbl = Sprite:findChild(UploadDialogSprite, 'UploadDialogProLbl')
+    UploadDialogProgressImg = Sprite:findChild(UploadDialogSprite, 'UploadDialogProgressImg')
+    UploadTime = 0
+    Timer:set(101, 1000, 'onGetUploadDialogStatus')
+end
+
+function UploadDialog:close()
+    local rootSprite = Sprite:getCurScene()
+    local UploadDialogSprite = Sprite:findChild(rootSprite, 'UploadDialogNode')
+    if UploadDialogSprite ~= 0 then
+        Sprite:setVisible(UploadDialogSprite, 0)
+        Sprite:setEnable(UploadDialogSprite, 0)
+        Sprite:setActive(UploadDialogSprite, 0)
+    end
+end
+
+function UploadDialog:isShow()
+    local rootSprite = Sprite:getCurScene()
+    local UploadDialogSprite = Sprite:findChild(rootSprite, 'UploadDialogNode')
+    if UploadDialogSprite ~= 0 and Sprite:isVisible(UploadDialogSprite) == 1 then
+        return true
+    end
+    return false
+end
+
+function UploadDialogCancelOnSelect(sprite)
+    Sprite:releaseCapture(sprite)
+    Sprite:killFocus(sprite)
+    setUploadingProgress(0)
+    Sprite:setProperty(UploadDialogSpeedLbl, 'text', '0KB/S')
+    Sprite:setProperty(UploadDialogProLbl, 'text', '0KB/0KB')
+    UploadDialog:close()
+    Upload:delete(1)
+    Timer:cancel(101)
+    if _UploadCancelCallback then
+        loadstring(_UploadCancelCallback..'()')()
+    end
+end
+
+function setUploadingProgress(percent)
+    local x, y, _, h = Sprite:getRect(UploadDialogProgressImg)
+    Sprite:setRect(UploadDialogProgressImg, x, y, 420 * percent / 100, h)
+end
+
+function onGetUploadDialogStatus()
+    local count = Upload:getCount()
+    for i = 1, count do
+        local task = Upload:getStatus(i)
+        if task.title == _UploadFileName then
+            local percent = 0
+            if task.size and task.maxsize and task.maxsize ~= 0 then
+                percent = math.floor((task.maxsize - task.size) / task.maxsize * 100)
+            end
+            UploadTime = UploadTime + 1
+            if task.status == Upload.status.Uploading then
+                setUploadingProgress(percent)
+                Sprite:setProperty(UploadDialogSpeedLbl, 'text', math.floor((task.maxsize - task.size) / 1024 / UploadTime) .. 'KB/S')
+                Sprite:setProperty(UploadDialogProLbl, 'text', math.floor((task.maxsize - task.size) / 1024) .. 'KB/' .. math.floor(task.maxsize / 1024) .. 'KB')
+            elseif task.status == Upload.status.Finished then
+                UploadTime = 0
+                setUploadingProgress(0)
+                Sprite:setProperty(UploadDialogSpeedLbl, 'text', '0KB/S')
+                Sprite:setProperty(UploadDialogProLbl, 'text', '0KB/0KB')
+                Upload:delete(i)
+                UploadDialog:close()
+                if _UploadFinishCallback then
+                    loadstring(_UploadFinishCallback..'()')()
+                end
+                return
+            elseif task.status == Upload.status.Paused then
+                Upload:start(i)
+            elseif task.status == Upload.status.Failed or task.status == Upload.status.LoadFailed then
+                UploadTime = 0
+                setUploadingProgress(0)
+                Sprite:setProperty(UploadDialogSpeedLbl, 'text', '0KB/S')
+                Sprite:setProperty(UploadDialogProLbl, 'text', '0KB/0KB')
+                Upload:delete(i)
+                UploadDialog:close()
+                if _UploadFailCallback then
+                    loadstring(_UploadFailCallback..'()')()
+                end
+                return
+            end
+        end
+    end
+    Timer:set(101, 1000, 'onGetUploadDialogStatus')
+end
+
+function uiPlay()
+    setNodeState(pauseBtn, 0)
+    setNodeState(playBtn, 1)
+end
+
+function uiPause()
+    setNodeState(pauseBtn, 1)
+    setNodeState(playBtn, 0)
+end
+
+function playBtnOnSelect()
+    if getAudioPlayFlag() ~= 0 then
+        local curAudioScene = getAudioScene()
+        Log:write('Msg.getJsonPlayer CurScene =',curAudioScene )
+        Sprite:sendEvent(curAudioScene, Msg.stopAudioTimer)
+        Player:stop()
+        Player:show(0)
+        resetAudioPlayFlag() 
+    end
+    if not isPlayerCreate then
+        Player:create(0, -1, 1, 1)
+        isPlayerCreate = true
+        openUrl()
+    else
+        Player:play()
+        uiPause()
+    end
+end
+
+function pauseBtnOnSelect()
+    Player:pause()
+    uiPlay()
+end
+
+function openUrl()
+    Log:write('openUrl', desFilePath)
+    Player:open(desFilePath)
+    Player:show(0)
+    Timer:cancel(TimerId.status)
+    Timer:set(TimerId.status, 500, 'getStatus')
+end
+
+function getStatus()
+    lastStatus = status
+    status, errorCode = Player:getStatus()
+    Log:write("status, errorCode",status, errorCode)
+    if status == Player.status.Idle or
+        status == Player.status.Connecting or
+        status == Player.status.Buffering or
+        status == Player.status.Playing then
+        uiPause()
+        Sprite:setProperty(playtime,"text",Util:timeFormat(Player:getCurTime()) .. "/" .. Util:timeFormat(Player:getTotalTime()))
+    elseif status == Player.status.Paused or status == Player.status.Ready then
+        uiPlay()
+    elseif status == Player.status.Paused then
+        uiPlay()
+    elseif status == Player.status.Stopped or status == Player.status.Finished then
+        uiPlay()
+        Player:stop()
+        Player:show(0)
+        isPlayerCreate = nil
+        return
+    end
+    Timer:set(TimerId.status, 500, 'getStatus')
+end
+
+function contestBtnOS(sprite)
+    setCheck(sprite)
+end
+
+function setCheck(sprite, forceShow)
+    local checkBoxF = Sprite:findChild(sprite, "checkBoxF")
+    local isVisible = Sprite:isVisible(checkBoxF)
+    local status = isVisible == 0 and 1 or  0
+    Sprite:setVisible(checkBoxF, forceShow and forceShow or status)
+    return status
+end
+]]>

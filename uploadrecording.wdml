@@ -1,0 +1,298 @@
+<%@ page language="java" contentType="text/plain" pageEncoding="UTF-8"%>
+<%@ include file="/common/taglibs.jsp"%>
+<c:set var="common" value="/resource/mobileaudio3/common/common.wdml" /><%//定义common模板路径%>
+<c:set var="lua" value="/resource/mobileaudio3/upload/uploadrecording.wdml" /><%//定义本文件lua部分模板路径%>
+<cms:lastModified var="lastModifiedCommon" path="${common}"/><%//取common模板最后发布时间，并作模板存在性检查%>
+<cms:lastModified var="lastModifiedLua" path="${lua}"/><%//取本文件lua部分模板最后发布时间，并作模板存在性检查%>
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ == ============================================================================
+ == | WonderTek [ 网络无处不在，沟通及时到达 ]
+ == ============================================================================
+ == | Copyright (c) 2011, WonderTek, Inc. All Rights Reserved.
+ == ============================================================================
+ == | Author: wangweipeng <wangweipeng@wondertek.com.cn>
+ == ============================================================================
+ == | Desc: 社区
+ == ============================================================================
+-->
+<root>
+    <header>
+        <script src="${cpath}/publish/clt${common}?time=${lastModifiedCommon}" /><%//远程加载common模板,实现common修改后下载最新common%>
+    </header>
+    <body  BuildChildrenFinished="bodyBuildChildrenFinished" OnSpriteEvent="bodyOnSpriteEvent" OnPluginEvent="bodyOnPluginEvent" resolution="720,1280">
+        <node name="mainNode" rect="0,0,720,1280" OnKeyUp="mainNodeOnKeyUp" layouttype="1" extendstyle="1111">
+        <shadow rect="0,0,720,1280" color="#FFFFFF" alpha="255" extendstyle="1111" />
+        <node rect="0,0,720,76" extendstyle="1010">
+            <shadow rect="0,0,720,4" color="#BADE9E" alpha="255" extendstyle="1510" />
+        </node>
+        <label name="title" rect="0,0,720,76" text="音频录制" extendstyle="1010" h-align="center" v-align="center" font-size="28" color="#4F6855"/>
+        <button rect="0,8,100,59" style="autosize" OnSelect="backOnSelect" extendstyle="1010" normal="n" sel="s">
+            <image name="n" rect="22,12,15,35" src="file://image/backarrow_n.png" extendstyle="1000" style="autosize" />
+            <image name="s" rect="22,12,15,35" src="file://image/backarrow_n.png" extendstyle="1000" style="autosize" />
+        </button>
+        <panorama name="mainPanorama" rect="0,76,720,0" extendstyle="0017" foreground="foreground">
+            <panoramaitem name="foreground" rect="0,0,720,0" extendstyle="0017">
+                <node name="tipsNode" rect="0,0,720,210" extendstyle="0017"/>
+            </panoramaitem>
+            <panoramaitem rect="0,0,720,0" extendstyle="0017">
+                <node name="recordingNode" rect="0,0,720,0" extendstyle="0017">
+                    <image rect="0,0,720,396" extendstyle="0000" style='autosize' src="file://image/record_bg.jpg" />
+                    <image rect="296,105,128,229" style="autosize" src="file://image/recorder.png" extendstyle="1010"/>
+                    <animate name="animaterecording" rect="296,105,128,229" delay="6" loop="true" extendstyle="1000" visible="0" enable="0" active="0">
+                        <animate-frame rect="0,0,128,229" extendstyle="1010" start="$(start)" delay="2">
+                            <image rect="0,0,128,229" style="autosize" src="file://image/recording$(index).png" extendstyle="1010"/>
+                        </animate-frame>
+                        <dataset>
+                            <set start="0" index="3"/><set start="2" index="2"/><set start="4" index="1"/>
+                        </dataset>
+                    </animate>
+                    <button rect="246,510,228,69" style="autosize" OnSelect="startBtnOS" extendstyle="1010">
+                        <image rect="0,0,228,69" src="file://image/upload_time.png" extendstyle="1010"  style="sudoku-auto" sudoku="33,0,33,0" BuildChildrenFinished="resChoose"><node/></image>
+                        <label name="timeTicking" rect="0,0,228,69" extendstyle="1010" text="00:00" font-size="25" color="#4F6855" v-align="center" h-align="center"/>
+                    </button>
+                    <node rect="0,0,720,111" extendstyle="0500">
+                        <image rect="0,0,720,111" extendstyle="0000" style='autosize' src="file://image/bottompannel.png" />
+                        <button name="startBtn" rect="270,21,180,69" style="autosize" OnSelect="startBtnOS" extendstyle="1010">
+                            <image rect="0,0,180,69" src="file://image/upload_start.png" extendstyle="1010"  style="sudoku-auto" sudoku="33,0,33,0" BuildChildrenFinished="resChoose"><node/></image>
+                            <label rect="0,0,180,69" extendstyle="1010" text="开始" font-size="25" color="#FFFFFF" v-align="center" h-align="center"/>
+                        </button>
+                        <button name="stopBtn" rect="270,21,180,69" style="autosize" OnSelect="stopBtnOS" extendstyle="1010" visible="0" enable="0">
+                            <image rect="0,0,180,69" src="file://image/upload_stop.png" extendstyle="1010"  style="sudoku-auto" sudoku="33,0,33,0" BuildChildrenFinished="resChoose"><node/></image>
+                            <label rect="0,0,180,69" extendstyle="1010" text="停止" font-size="25" color="#FFFFFF" v-align="center" h-align="center"/>
+                        </button>
+                    </node>
+                </node>
+                <node name="previewNode" rect="0,0,720,0" extendstyle="0017" visible="0" enable="0">
+                    <node rect="0,0,720,396" extendstyle="1010">
+                        <shadow rect="0,0,720,396" color="#4A606D" alpha="255" extendstyle="0000" />
+                        <image rect="297,162,125,72" style="autosize" src="file://image/upload_logo.png" extendstyle="1010" BuildChildrenFinished="resChoose"><node/></image>
+                        <shadow rect="0,0,720,80" color="#000000" alpha="70" extendstyle="1510" >
+                            <label name="playtime" rect="100,0,720,80" extendstyle="1010" text="" font-size="25" color="#FFFFFF" v-align="center" />
+                        </shadow>
+                        <shadow rect="0,0,77,80" color="#4FB464" alpha="255" extendstyle="0500" />
+                        <node rect="0,0,77,80" extendstyle="0500" >
+                            <button name="pauseBtn" rect="0,0,77,80" visible="0" enable="0" extendstyle="0000" normal="normal" sel="focus" OnSelect="pauseBtnOnSelect" >
+                                <image name="normal" rect="18,18,41,43" extendstyle="0000" style="autosize" src="file://image/live_pause_n.png" BuildChildrenFinished="resChoose"><node/></image>
+                                <image name="focus" rect="18,18,41,43" extendstyle="0000" style="autosize" src="file://image/live_pause_f.png" BuildChildrenFinished="resChoose"><node/></image>
+                            </button>
+                            <button name="playBtn" rect="0,0,77,80" extendstyle="0000" normal="normal" sel="focus" OnSelect="playBtnOnSelect" >
+                                <image name="normal" rect="18,18,41,43" extendstyle="0000" style="autosize" src="file://image/live_play_n.png" BuildChildrenFinished="resChoose"><node/></image>
+                                <image name="focus" rect="18,18,41,43" extendstyle="0000" style="autosize" src="file://image/live_play_f.png" BuildChildrenFinished="resChoose"><node/></image>
+                            </button>
+                        </node>
+                    </node>
+                    <node rect="0,0,720,111" extendstyle="0500">
+                        <image rect="0,0,720,111" extendstyle="0000" style='autosize' src="file://image/bottompannel.png" />
+                        <button rect="55,21,130,69" style="autosize" OnSelect="backOnSelect" extendstyle="1010">
+                            <image rect="0,0,130,69" src="file://image/upload_time.png" extendstyle="1010"  style="sudoku-auto" sudoku="33,0,33,0" BuildChildrenFinished="resChoose"><node/></image>
+                            <label rect="0,0,130,69" extendstyle="1010" text="取消" font-size="25" color="#4F6855" v-align="center" h-align="center"/>
+                        </button>
+                        <button rect="295,21,130,69" style="autosize" OnSelect="againBtnOS" extendstyle="1010">
+                            <image rect="0,0,130,69" src="file://image/upload_time.png" extendstyle="1010"  style="sudoku-auto" sudoku="33,0,33,0" BuildChildrenFinished="resChoose"><node/></image>
+                            <label rect="0,0,130,69" extendstyle="1010" text="重录" font-size="25" color="#4F6855" v-align="center" h-align="center"/>
+                        </button>
+                        <button rect="535,21,130,69" style="autosize" OnSelect="confirmBtnOS" extendstyle="1010">
+                            <image rect="0,0,130,69" src="file://image/upload_time.png" extendstyle="1010"  style="sudoku-auto" sudoku="33,0,33,0" BuildChildrenFinished="resChoose"><node/></image>
+                            <label rect="0,0,130,69" extendstyle="1010" text="确认" font-size="25" color="#4F6855" v-align="center" h-align="center"/>
+                        </button>
+                    </node>
+                </node>
+            </panoramaitem>
+        </panorama>
+        </node>
+    </body>
+</root>
+<cms:include filepath="${lua}" />
+<![CDATA[
+require('framework.player')
+
+function bodyBuildChildrenFinished(sprite)
+    rootSprite=sprite
+    startBtn = Sprite:findChild(sprite,"startBtn")
+    stopBtn = Sprite:findChild(sprite,"stopBtn")
+    title = Sprite:findChild(sprite,"title")
+    animaterecording = Sprite:findChild(sprite,"animaterecording")
+    timeTicking = Sprite:findChild(sprite,"timeTicking")
+    recordingNode = Sprite:findChild(sprite,"recordingNode")
+    previewNode = Sprite:findChild(sprite,"previewNode")
+    
+    pauseBtn = Sprite:findChild(sprite,'pauseBtn')
+    playBtn = Sprite:findChild(sprite,'playBtn')
+    playtime = Sprite:findChild(sprite,'playtime')
+end
+
+function bodyOnSpriteEvent(msg, param)
+   if msg == MSG_ACTIVATE then
+        
+    elseif msg == MSG_DEACTIVATE then
+        Timer:cancel(TimerId.once)
+        commonDeactivate()
+        Scene:freeByHandle(rootSprite)
+        if isPlayerCreate then
+            Player:stop()
+            Player:show(0)
+        end
+    elseif msg == MSG_STRINGEVENT then
+       WriteLogs("----------MSG_STRINGEVENT---------")
+    else
+        Util:onSpriteEvent(msg, param)
+    end
+end
+
+function bodyOnPluginEvent(msg, param)
+    Util:onPluginEvent(msg, param)
+end
+
+function mainNodeOnKeyUp(sprite, kc)
+    if kc == Key.F2 then
+        if commonF2KeyUp and commonF2KeyUp() then return end
+        deleteRecordingFile()
+        Scene:back()
+    else
+        Util:mainNodeOnKeyUp(sprite, kc)
+    end
+end
+
+function startBtnOS()
+    local flashCard = System:getFlashCardName(1)
+    local innerCard = System:getFlashCardName(0)
+    local desPath = ""
+    if flashCard and flashCard ~= "" then
+        desPath = flashCard .. "audiodownload/"
+    elseif innerCard and innerCard ~= "" then
+        desPath = innerCard .. "audiodownload/"
+    else
+        Tips:show("sd卡没插吧？")
+        return
+    end
+    if not IO:dirExist(desPath) then
+        IO:dirCreate(desPath)
+    end
+    local ct = Util:getServerTime()
+    local t = os.date('*t', math.floor(ct / 1000))
+    for i,v in pairs(t) do
+        local numv = tonumber(v)
+        if numv and numv < 10 then
+            t[i] = 0 .. v
+        end
+    end
+    desFilePath = desPath .. t["year"] .. t["month"] .. t["day"] .. t["hour"] .. t["min"] .. t["sec"] .. ".mp3"
+    dofunction(8, desFilePath, "", 1, 0)
+    setNodeState(startBtn,0)
+    setNodeState(stopBtn,1)
+    setNodeState(animaterecording,1)
+    timeTickingStart = GetTickTime()
+    Timer:set(TimerId.once,500,"OnTimeTicking")
+end
+
+function OnTimeTicking()
+    local tick = math.floor((GetTickTime() - timeTickingStart)/1000)
+    local t = Util:timeFormat(tick)
+    WriteLogs("-----------------" .. t)
+    Sprite:setProperty(timeTicking,"text",t)
+    Timer:cancel(TimerId.once)
+    Timer:set(TimerId.once,500,"OnTimeTicking")
+end
+
+function stopBtnOS()
+    if not desFilePath then return end
+    dofunction(8, "", "", 0, 0)
+    setNodeState(recordingNode,0)
+    setNodeState(previewNode,1)
+    Sprite:setProperty(title,"text","预览")
+    Timer:cancel(TimerId.once)
+end
+
+function againBtnOS()
+    deleteRecordingFile()
+    setNodeState(recordingNode,1)
+    setNodeState(previewNode,0)
+    Sprite:setProperty(timeTicking,"text","00:00")
+    startBtnOS()
+end
+
+function confirmBtnOS()
+    if not IO:fileExist(desFilePath) then Tips:show("未找到文件") return end
+    local reg = Reg:create(Reg.com_wondertek_mobileaudio.upload)
+    Reg:setString(reg,"filepath",desFilePath)
+    Scene:go(Alias.uploadworks,{setReturn = false})
+end
+
+function backOnSelect(sprite)
+    deleteRecordingFile()
+    Scene:back()
+end
+
+function deleteRecordingFile()
+    if desFilePath and IO:fileExist(desFilePath) then
+        IO:fileRemove(desFilePath)
+    end
+end
+
+function uiPlay()
+    setNodeState(pauseBtn, 0)
+    setNodeState(playBtn, 1)
+end
+
+function uiPause()
+    setNodeState(pauseBtn, 1)
+    setNodeState(playBtn, 0)
+end
+
+function playBtnOnSelect()
+    if getAudioPlayFlag() ~= 0 then
+        local curAudioScene = getAudioScene()
+        Log:write('Msg.getJsonPlayer CurScene =',curAudioScene )
+        Sprite:sendEvent(curAudioScene, Msg.stopAudioTimer)
+        Player:stop()
+        Player:show(0)
+        resetAudioPlayFlag() 
+    end
+    if not isPlayerCreate then
+        Player:create(0, -1, 1, 1)
+        isPlayerCreate = true
+        openUrl()
+    else
+        Player:play()
+        uiPause()
+    end
+end
+
+function pauseBtnOnSelect()
+    Player:pause()
+    uiPlay()
+end
+
+function openUrl()
+    Log:write('openUrl', desFilePath)
+    Player:open(desFilePath)
+    Player:show(0)
+    Timer:cancel(TimerId.status)
+    Timer:set(TimerId.status, 500, 'getStatus')
+end
+
+function getStatus()
+    lastStatus = status
+    status, errorCode = Player:getStatus()
+    Log:write("status, errorCode",status, errorCode)
+    if status == Player.status.Idle or
+        status == Player.status.Connecting or
+        status == Player.status.Buffering or
+        status == Player.status.Playing then
+        uiPause()
+        Sprite:setProperty(playtime,"text",Util:timeFormat(Player:getCurTime()) .. "/" .. Util:timeFormat(Player:getTotalTime()))
+    elseif status == Player.status.Paused or status == Player.status.Ready then
+        uiPlay()
+    elseif status == Player.status.Paused then
+        uiPlay()
+    elseif status == Player.status.Stopped or status == Player.status.Finished then
+        uiPlay()
+        Player:stop()
+        Player:show(0)
+        isPlayerCreate = nil
+        return
+    end
+    Timer:set(TimerId.status, 500, 'getStatus')
+end
+]]>

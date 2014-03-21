@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ == ============================================================================
+ == | WonderTek [ 网络无处不在，沟通及时到达 ]
+ == ============================================================================
+ == | Copyright (c) 2011, WonderTek, Inc. All Rights Reserved.
+ == ============================================================================
+ == | Author: kevin <>
+ == ============================================================================
+ == | Desc: 排行榜页面
+ == ============================================================================
+-->
+<root>
+    <header/>
+    <body BuildChildrenFinished="bodyBuildChildrenFinished" OnSpriteEvent="bodyOnSpriteEvent" OnPluginEvent="bodyOnPluginEvent" resolution="720,1280">
+    <node name="mainNode" rect="0,0,720,1280" enable="true" active="true" layouttype="1" OnKeyUp="mainNodeOnKeyUp" extendstyle="1111">
+        <shadow rect="0,0,720,1280" color="#FFFFFF" alpha="255" extendstyle="1111" />
+        <node rect="0,0,720,76" extendstyle="1010">
+            <shadow rect="0,0,720,76" alpha="255" color="#ffffff" extendstyle="1010" />
+            <shadow rect="0,0,720,4" alpha="255" color="#bade9e" extendstyle="1510" />
+            <label name="title" rect="100,0,520,76" text="排行榜" postfix="." extendstyle="1010" h-align="center" v-align="center" font-size="30" color="#4e6a53" />
+            <button name="backBtn" rect="10,0,76,76" style="autosize" OnSelect="backOnSelect" extendstyle="1010" normal="n" sel="s">
+                <image name="n" rect="15,21,15,35" src="file://image/backarrow_n.png" extendstyle="1010"  style="autosize" BuildChildrenFinished=""><node/></image>
+                <image name="s" rect="15,21,15,35" src="file://image/backarrow_s.png" extendstyle="1010"  style="autosize" BuildChildrenFinished=""><node/></image>
+            </button>
+        </node>
+        <node rect="0,77,720,77" extendstyle="1010">
+            <shadow rect="0,0,720,77" alpha="255" color="#ffffff" extendstyle="1010" />
+            <shadow rect="0,0,720,2" alpha="255" color="#bade9e" extendstyle="1510" />
+            <list name="selectlist" rect="209,0,302,75" col="2" auto-adjust="true" offset="0,0" extendstyle="1010">
+                <list-item rect="0,0,151,75" extendstyle="0010">
+                    <button name="$(name)" rect="0,0,151,75" enable="$(isEnable)" normal="n" disabled="d" extendstyle="1010" OnSelect="$(onSelect)">
+                        <node name="n" rect="0,0,151,75" extendstyle="1010">
+                            <label rect="0,0,151,75" text="$(text)" font-size="25" color="#afafaf" h-align="center" v-align="center" extendstyle="1010"/>
+                        </node>
+                        <node name="d" rect="0,0,151,75" extendstyle="1010">
+                            <label rect="0,0,151,75" text="$(text)" font-size="25" color="#6c7773" h-align="center" v-align="center" extendstyle="1010"/>
+                            <shadow rect="0,0,151,7" alpha="255" color="#bade9e" extendstyle="1510"/>
+                        </node>
+                    </button>
+                </list-item>
+                <dataset>
+                    <set name="lBtn" text="节目" isEnable="0" onSelect="lBtnOnSelect"/>
+                    <set name="rBtn" text="悦客" isEnable="1" onSelect="rBtnOnSelect"/>
+                </dataset>
+            </list>
+        </node>
+        <panorama name="mainPanorama" rect="0,156,720,0" extendstyle="1017" style="circle" foreground="foreground">
+            <panoramaitem name="foreground" rect="0,0,720,0" extendstyle="1017">
+            </panoramaitem>
+            <panoramaitem name="panoramaItem1" rect="0,0,720,788" padding="0,0,10,0" extendstyle="0016" OnSelect="lBtnPanoramaOnSel">
+                <listview name="subListview1"  rect="0,0,720,788" auto-adjust="true" extendstyle="0017" scroll="auto" OnOverTrail="lv1OOT" scrollbar_slider="file://image/slider.png,5,30" BuildChildrenFinished="listviewResChoose">
+                    <node name="subListview1Tips" rect="0,0,720,500" extendstyle="1010" visible="false">
+                    <textarea name="" rect="100,200,520,100" extendstyle="1010" text="暂无节目单" color="#575757" font-size="30" h-align="center" shadow="true" shadow-color="#ffffff" shadow-alpha="150" shadow-offset="0,1" />
+                    <image rect="265,400,189,63" src="file://image/mvlogo.png" extendstyle="1010" style="autosize"/>
+                    </node>
+                </listview>
+            </panoramaitem>
+            <panoramaitem name="panoramaItem2" rect="0,0,720,788" padding="0,0,10,0" extendstyle="0016" OnSelect="rBtnPanoramaOnSel">
+                <listview name="subListview2"  rect="0,0,720,788" auto-adjust="true" extendstyle="0017" scroll="auto" OnOverTrail="lv2OOT" scrollbar_slider="file://image/slider.png,5,30" BuildChildrenFinished="listviewResChoose">
+                    <node name="subListview2Tips" rect="0,0,720,500" extendstyle="1010" visible="false">
+                    <textarea name="" rect="100,200,520,100" extendstyle="1010" text="暂无悦客名单" color="#575757" font-size="30" h-align="center" shadow="true" shadow-color="#ffffff" shadow-alpha="150" shadow-offset="0,1" />
+                    <image rect="265,400,189,63" src="file://image/mvlogo.png" extendstyle="1010" style="autosize"/>
+                    </node>
+                </listview>
+            </panoramaitem>
+        </panorama>
+        <node name="progItem" rect="0,0,720,179" visible="0" enable="0" extendstyle="1010">
+            <image rect="45,18,630,152" src="file://image/whitebg.png" style="sudoku-auto" sudoku="11,11,11,11" BuildChildrenFinished="resChoose" extendstyle="1010">
+                <image rect="6,6,220,140" src="file://image/whitebg.png" style="sudoku-auto" sudoku="11,11,11,11" BuildChildrenFinished="resChoose" extendstyle="1010">
+                    <image name="progPic" rect="0,0,220,140" src="" style="autosize" extendstyle="1010"/>
+                    <image name="mask" rect="0,0,220,140" src="file://image/userimgmask.png" style="sudoku-auto" sudoku="5,5,5,5" extendstyle="1010" BuildChildrenFinished="resChoose"><node/></image>
+                    <node name="rankTip" rect="0,0,78,59" visible="0" extendstyle="1010">
+                        <image rect="0,0,78,59" dftsrc="file://image/shade.png" src="http://c22.cmvideo.cn/music//publish/clt/resource/mobileaudio3/pic/shadow.png" style="sudoku-auto" sudoku="7,7,7,7" extendstyle="1010"/>
+                        <label name="rankNum" rect="0,0,78,59" text="1" font-size="34" color="#ffffff" v-align="center" h-align="center" extendstyle="1010" />
+                    </node>
+                </image>
+                <label name="progName" rect="229,2,100,36" autoextend="true" postfix="." font-size="26" color="#677169" v-align="center" extendstyle="1010"/>
+                <image name="progType" rect="360,8,34,29" style="autosize" src="file://image//share.png" extendstyle="1010"/>
+                <textarea name="progDesc" rect="229,43,394,73" text="" postfix="." line-height="35" font-size="22" color="#82917c" maxlines="2" extendstyle="1010"/>
+                <image rect='234,126,50,26' src='file://image/sg_playcounts.png' BuildChildrenFinished="resChoose" extendstyle="1010" />--播放次数图片
+                <label rect='286,120,80,50'name="listentimes" text="0" extendstyle='1010'  color="#8b8a8a"  font-size="22" v-align="top"/>
+                <image rect='381,119,50,30' src='file://image/comment_s.png' extendstyle="1010" />--评论次数图片
+                <label rect='435,120,80,50'name="commenttimes" text="0" extendstyle='1010'  color="#8b8a8a"  font-size="22" v-align="top"/>
+            </image>
+            <button name="progBtn" rect="45,18,630,152" sel="s" OnSelect="progOnSelect" extendstyle="1010">
+                <shadow name="s" rect="0,0,630,152" alpha="100" color="#202020" extendstyle="1010"/>
+                <image name="" rect="0,0,630,152" src="file://image/userimgmask.png" style="sudoku-auto" sudoku="5,5,5,5" extendstyle="1010" BuildChildrenFinished="resChoose"><node/></image>
+            </button>
+        </node>
+        <node name="userItem" rect="0,0,720,121" visible="0" enable="0" extendstyle="1010">
+            <image rect="6,12,707,103" src="file://image/whitebg.png" style="sudoku-auto" sudoku="11,11,11,11" BuildChildrenFinished="resChoose" extendstyle="1010">
+                <image rect="6,6,91,91" src="file://image/whitebg.png" style="sudoku-auto" sudoku="11,11,11,11" BuildChildrenFinished="resChoose" extendstyle="1010">
+                    <image rect="0,0,91,91" src="file://image/dft_headimg_mid.jpg" style="autosize" extendstyle="1010" BuildChildrenFinished="resChoose"><node/></image>
+                    <image name="userPic" rect="0,0,91,91" src="" style="autosize" extendstyle="1010"/>
+                    <image name="mask" rect="0,0,91,91" src="file://image/userimgmask.png" style="sudoku-auto" sudoku="5,5,5,5" extendstyle="1010" BuildChildrenFinished="resChoose"><node/></image>
+                    <node name="rankTip" rect="0,0,78,59" visible="0" extendstyle="1010">
+                        <image rect="0,0,78,59" dftsrc="file://image/shade.png" src="http://c22.cmvideo.cn/music//publish/clt/resource/mobileaudio3/pic/shadow.png" style="sudoku-auto" sudoku="7,7,7,7" extendstyle="1010"/>
+                        <label name="rankNum" rect="0,0,78,59" text="1" font-size="34" color="#ffffff" v-align="center" h-align="center" extendstyle="1010" />
+                    </node>
+                </image>
+                <label name="userName" rect="112,2,100,36" autoextend="true" font-size="26" color="#677169" v-align="center" extendstyle="1010"/>
+                <label rect="112,38,60,30" text="简介:" font-size="22" color="#82917c" extendstyle="1010"/>
+                <textarea name="userDesc" rect="172,38,418,62" text="" postfix="." line-height="32" font-size="22" color="#82917c" maxlines="2" extendstyle="1010"/>
+                <shadow rect="594,12,1,80" color="#d8cfd0" alpha="200" extendstyle="1040"/>
+            </image>
+            <button name="userBtn" rect="6,12,593,103" sel="s" OnSelect="userOnSelect" extendstyle="1010">
+                <shadow name="s" rect="0,0,707,103" alpha="100" color="#202020" extendstyle="1010"/>
+                <image name="" rect="0,0,707,103" src="file://image/userimgmask.png" style="sudoku-auto" sudoku="5,5,5,5" extendstyle="1010" BuildChildrenFinished="resChoose"><node/></image>
+            </button>
+            <button name="addBtn" rect='604,12,106,103' extendstyle="1010" normal='n' sel='f' visible='false' enable='false' OnSelect="addOnSelect">
+                <node name="n" rect='5,5,95,92' extendstyle="1010">
+                    <image rect="25,2,47,46" src="file://image/follow_n.png" style="autosize" />
+                    <label rect="0,42,100,50" text="加关注" font-size='22' color="#78c672" v-align="center" h-align="center"/>
+                </node>
+                <image name="f" rect='5,5,100,92' src="file://image/greenbg.png" style="sudoku-auto" sudoku="8,8,8,8" extendstyle="1010" BuildChildrenFinished="resChoose">
+                    <image rect="25,2,47,46" src="file://image/follow_s.png"  style="autosize"  />
+                    <label rect="0,42,100,50" text="加关注" font-size='22' color="#ffffff" v-align="center" h-align="center"/>
+                </image>
+            </button>
+            <button name="cancelBtn" rect='604,12,106,103' extendstyle="1010" normal='n' sel='f' OnSelect="cancelOnSelect">
+                <node name="n" rect='5,5,95,92' extendstyle="1010">
+                    <image rect="25,2,47,46" src="file://image/unfollow_n.png"  style="autosize"  />
+                    <label rect="0,42,100,50" text="取消关注" font-size='22' color="#78c672" v-align="center" h-align="center"/>
+                </node>
+                <image name="f" rect='5,5,100,92' src="file://image/greenbg.png" style="sudoku-auto" sudoku="8,8,8,8" extendstyle="1010" BuildChildrenFinished="resChoose">
+                    <image rect="25,2,47,46" src="file://image/unfollow_s.png"  style="autosize"  />
+                    <label rect="0,42,100,50" text="取消关注" font-size='22' color="#ffffff" v-align="center" h-align="center"/>
+                </image>
+            </button>
+        </node>
+    </node>
+    </body>
+</root>
+<![CDATA[
+require('com_wondertek_mobileaudio.commonlocal')
+
+
+local workPageSize = 20
+local workPageIdx = 1
+local userPageSize = 20
+local userPageIdx = 1
+
+-- @brief 场景根节点的BuildChildrenFinished事件
+function bodyBuildChildrenFinished(sprite)
+    rootSprite = sprite
+    lBtn =Sprite:findChild( rootSprite ,'lBtn')
+    rBtn =Sprite:findChild( rootSprite ,'rBtn')
+    mainPanorama =Sprite:findChild( rootSprite ,'mainPanorama')
+    subListview1 =Sprite:findChild( rootSprite ,'subListview1')
+    subListview2 =Sprite:findChild( rootSprite ,'subListview2')
+    progItem =Sprite:findChild( rootSprite ,'progItem')
+    userItem =Sprite:findChild( rootSprite ,'userItem')
+end
+
+function bodyOnSpriteEvent(msg, param)
+    if msg == MSG_ACTIVATE then
+        Log:write(' MSG_ACTIVATE ')
+        if not Reg.com_wondertek_mobileaudio.ranklist then
+            Reg.com_wondertek_mobileaudio.ranklist = 'com_wondertek_mobileaudio_ranklist'
+        end
+        reg =  Reg:create( Reg.com_wondertek_mobileaudio.ranklist)
+        if Reg:getString(reg,'haveWorksData') ~= '1' then
+            requestData('work')
+        else
+            initWorks()
+        end
+    elseif msg == MSG_DEACTIVATE then
+        commonDeactivate()
+    elseif msg == MSG_STRINGEVENT then
+        Util:onSpriteEvent(msg, param)
+    else
+        Util:onSpriteEvent(msg, param)
+    end
+end
+
+function bodyOnPluginEvent(msg, param)
+    if msg == 101 then
+        Loading:close()
+        local tempworksData = Http:jsonDecode('worksData')
+        Log:write(' worksData =',tempworksData)
+        if tempworksData and tempworksData.worksList then
+            Reg:setString( reg,'haveWorksData','1')
+            worksData = tempworksData.worksList
+            initWorks()
+        else
+            Tips:show(' 未获取到作品数据~ ')
+        end
+
+    elseif msg == 102 then
+        Loading:close()
+        local tempusersData = Http:jsonDecode('usersData')
+        Log:write(' usersData = ',tempusersData )
+        if tempusersData and tempusersData.userInfoList then
+            Reg:setString( reg,'haveUserData','1')
+            usersData = tempusersData.userInfoList
+            initUsers()
+        else
+            Tips:show(' 未获取用户数据~')
+        end
+    elseif msg == 103 then
+        Loading:close()
+        local resultData=Http:jsonDecode('addFocus_data')
+        Log:write("addFocus_data===================",resultData)
+        if resultData.result=='0000' then
+            changeUserStatus('remove')
+            Tips:show("关注成功")
+        elseif resultData.result=='0028' then
+            Tips:show("您已关注")
+        end
+    elseif msg == 104 then
+        Loading:close()
+        local resultData=Http:jsonDecode('removeFocus_data')
+        Log:write("removeFocus_data===================",resultData)
+        if resultData.result=='0000' then
+            changeUserStatus('add')
+            Tips:show("取消成功")
+        end
+
+    elseif msg == 105 then
+        loadWorkPageData()
+    elseif msg == 106 then
+        loadUserPageData()
+    else
+        Util:onPluginEvent(msg, param)
+    end
+end
+
+function mainNodeOnKeyUp(sprite, kc)
+    if kc == Key.F2 then
+        Scene:back()
+    end
+end
+
+function backOnSelect(sprite)
+    bFree = 1
+    Scene:back()
+end
+
+function requestData(data)
+    Loading:show(rootSprite) 
+    if not Alias.ranklistData then
+        Alias.ranklistData = '/publish/clt/resource/mobileaudio3/ranklist/ranklistData.jsp'
+    end
+    if data == 'work' then
+        local workids = 'data=7510;7509;7508;7507;7506;7505;7504;7503;7502;7501;7500;7499;7498;7497;7496;7495;7494;7493;7492;7491;7490;7489;7488;7487;'
+        Http:request('worksData',Util:getWeiBoServer() .. Alias.ranklistData .. '?type=work&pageidx=1', 101,{method='post',postData=workids,useCache=0})
+    else
+        local userids = 'data=49;197039;99999994;99999993;99999992;99999991;99999990;99999989;99999988;99999987;99999986;99999985;99999984;99999983;99999982;99999981;99999980;99999979;99999978;99999977;99999976;99999975;99999974;99999973;99999972;99999971;99999970;99999969;99999968;99999967;99999966;99999965;99999964;99999963;99999962;99999961;99999960;99999959;99999958;'
+        Http:request('usersData',Util:getWeiBoServer() .. Alias.ranklistData .. '?type=user&pageidx=1', 102,{method='post',postData=userids,useCache=0})
+    end
+end
+
+function initWorks()
+    ListView:removeAllItems(subListview1,1,1 )
+    ListView:loadItem( subListview1,progItem,#worksData+1, 'onloadWorksItem')
+    ListView:adjust( subListview1)
+
+end
+
+function initUsers()
+    ListView:removeAllItems( subListview2,1,1)
+    ListView:loadItem( subListview2, userItem,#usersData+1 , 'onloadUsersItem')
+    ListView:adjust( subListview2)
+
+end
+
+function onloadWorksItem(list,item,index)
+    Log:write(' onloadWorksItem index =',index)
+    Sprite:setProperty( item,'extendstyle','1010')
+    Sprite:setRect( item,0,0,720,179)
+    local progPic =Sprite:findChild( item,'progPic')
+    local rankTip =Sprite:findChild( item,'rankTip')
+    local rankNum =Sprite:findChild( item,'rankNum')
+    local progName =Sprite:findChild( item,'progName')
+    local progType =Sprite:findChild( item,'progType')
+    local progDesc =Sprite:findChild( item,'progDesc')
+    local listentimes =Sprite:findChild( item,'listentimes')
+    local commenttimes =Sprite:findChild( item,'commenttimes')
+    local progBtn = Sprite:findChild( item,'progBtn')
+
+    if index < 5 then
+        Sprite:setVisible( rankTip,1)
+        Sprite:setProperty( rankNum,'text',index + 1)
+    else
+        Sprite:setVisible( rankTip,0)
+    end
+    Sprite:setProperty( progName,'text',worksData[index].title)
+    Sprite:setProperty( progDesc,'text', '简介: ' .. worksData[index].body)
+    if worksData[index].blogType ~= '2' then
+        Sprite:setProperty( progType,'src','file://image/edit.png')
+    end
+    Sprite:setProperty( progPic,'src',worksData[index].videoImg)
+    Sprite:setProperty( listentimes,'text',worksData[index].playTimes)
+    Sprite:setProperty( commenttimes,'text',worksData[index].commentTimes)
+
+    Sprite:setProperty( progBtn,'data',worksData[index].param)
+    Sprite:setProperty( item,'data',worksData[index].blogId)
+    Sprite:setProperty( progName,'data',worksData[index].userId)
+
+    local rect1 ={Sprite:getRect( progName)}
+    local rect2 ={Sprite:getRect( progType)}
+    local x = rect1[3]
+    if x > 340 then 
+        x = 340
+        Sprite:setProperty( progName,'autoextend','false')
+    end
+    Sprite:setRect( progName,rect1[1],rect1[2],x,rect1[4])
+    Sprite:setRect( progType,x + rect1[1] + 10,rect2[2],rect2[3],rect2[4])
+
+end
+
+function onloadUsersItem(list,item,index)
+    Sprite:setProperty( item,'extendstyle','1010')
+    Sprite:setRect( item,0,0,720,121)
+    local userPic = Sprite:findChild( item,'userPic')
+    local rankTip =Sprite:findChild( item,'rankTip')
+    local rankNum =Sprite:findChild( item,'rankNum')
+    local userName =Sprite:findChild( item,'userName')
+    local userDesc =Sprite:findChild( item,'userDesc')
+    local addBtn =Sprite:findChild( item,'addBtn')
+    local cancelBtn =Sprite:findChild( item,'cancelBtn')
+    local userBtn =Sprite:findChild( item,'userBtn')
+
+    Sprite:setProperty( userPic,'src',usersData[index].picture)
+    if index < 5 then
+        Sprite:setVisible( rankTip,1)
+        Sprite:setProperty( rankNum,'text',index +1)
+    else
+        Sprite:setVisible( rankTip,0)
+    end
+
+    Sprite:setProperty( userName,'text','昵称:' .. usersData[index].sname)
+    Sprite:setProperty( userDesc,'text',usersData[index].sign)
+    if usersData[index].isFocused == '1' then
+        setNodeState(addBtn,0)
+        setNodeState(cancelBtn,1)
+    else
+        setNodeState(addBtn,1)
+        setNodeState(cancelBtn,0)
+    end
+    --Sprite:setProperty( addBtn,'data',usersData[index].userId)
+    --Sprite:setProperty( cancelBtn,'data',usersData[index].userId)
+    --Sprite:setProperty( userBtn,'data',usersData[index].userId)
+    if usersData[index].userId == usersData[index].LoginUserId then
+        setNodeState(addBtn,0)
+        setNodeState(cancelBtn,0)
+        Sprite:setProperty( item,'data','')
+    else
+        Sprite:setProperty( item,'data',usersData[index].userId)
+    end
+end
+
+function lBtnOnSelect(sprite)
+    Panorama:setCurItem(mainPanorama, 0)    
+end
+
+function rBtnOnSelect(sprite)
+    Panorama:setCurItem(mainPanorama, 1)
+end
+
+function lBtnPanoramaOnSel(sprite)
+    Sprite:setEnable( lBtn,0)
+    Sprite:setEnable( rBtn,1)
+end
+
+function rBtnPanoramaOnSel(sprite)
+    Sprite:setEnable( lBtn,1)
+    Sprite:setEnable( rBtn,0)
+    if Reg:getString(reg,'haveUserData') ~= '1' then
+        requestData('user')
+    else
+        initUsers()
+    end
+end
+
+function progOnSelect(sprite)
+    local data = Sprite:getData( sprite)
+    local userId = Sprite:getData( Sprite:findChild( Sprite:getParent( sprite),'progName'))
+    local blogId =Sprite:getData( Sprite:getParent( sprite))
+    Log:write("data , blogId ,userId=",data,blogId ,userId)
+
+    local reg = Reg:create( Reg.com_wondertek_mobileaudio.home)
+    Reg:setString(reg,'audioplayData',data)
+    Reg:setString(reg,'microBlogId',blogId)
+    Reg:setString(reg,'userId',userId)
+    Scene:go(Alias.audioplay ,{freeDestScene = true})
+    
+end
+
+function userOnSelect(sprite)
+    local userId = Sprite:getData( Sprite:getParent( sprite) )
+    Log:write(' userId = ' ,userId)
+    local reg = Reg:create( Reg.com_wondertek_mobileaudio.community)
+    Reg:setString(reg ,'userId',userId)
+    Scene:go( Alias.mycommunity,{freeDestScene=true})
+end
+
+function addOnSelect(sprite)
+    changeItem = Sprite:getParent( sprite)
+    local userId =Sprite:getData(changeItem)
+    Log:write(' addOnSelect userId = ',userId)
+    Loading:show(rootSprite) 
+    Http:request('addFocus_data',Util:getWeiBoServer() .. '/sup/addNoticer.msp?noticerId='.. userId, 103, {useCache = 0})
+end
+
+function cancelOnSelect(sprite)
+    changeItem = Sprite:getParent( sprite)
+    local userId =Sprite:getData( changeItem)
+    Log:write(' cancelOnSelect userId = ',userId)
+    Loading:show(rootSprite) 
+    Http:request('removeFocus_data',Util:getWeiBoServer() .. '/sup/supRemoveNoticer.msp?noticerId='.. userId, 104, {useCache = 0})
+end
+
+function changeUserStatus(status)
+    local addBtn = Sprite:findChild( changeItem,'addBtn')
+    local cancelBtn =Sprite:findChild( changeItem,'cancelBtn')
+    local index = ListView:getItemIndex( changeItem)
+    if status == 'add' then
+        setNodeState(addBtn,1)
+        setNodeState(cancelBtn,0)
+        usersData[index].isFocused = '0'
+    elseif status == 'remove' then
+        setNodeState(addBtn,0)
+        setNodeState(cancelBtn,1)
+        usersData[index].isFocused = '1'
+    end
+
+end
+
+function lv1OOT(sprite ,x)
+    if x ~=0 or isLoadingMore == 1 then
+        return
+    end
+    if workPageIdx ~= -1 then
+        workPageIdx = workPageIdx +1
+        insertLoading(sprite)
+        Http:request('workpageData',Util:getWeiBoServer() .. Alias.ranklistData .. '?type=work&pageidx=' .. workPageIdx, 105,{useCache=0})
+    else
+        Tips:show('到底啦~')
+    end
+end
+
+function lv2OOT(sprite ,x)
+    if x ~=0 or isLoadingMore == 1 then
+        return
+    end
+    if userPageIdx ~= -1 then
+        userPageIdx = userPageIdx +1
+        insertLoading(sprite)
+        Http:request('userpageData',Util:getWeiBoServer() .. Alias.ranklistData .. '?type=user&pageidx=' .. userPageIdx, 106,{useCache=0})
+    else
+        Tips:show('到底啦~')
+    end
+
+end
+
+function loadWorkPageData()
+    isLoadingMore = 0
+    local workpageData = Http:jsonDecode('workpageData')
+    Log:write(' workpageData = ',workpageData)
+    local lvitemcount = ListView:getItemCount(subListview1)
+    if lvitemcount > 0 then
+        local lastItem = ListView:getItem(subListview1,ListView:getItemCount(subListview1)-1)
+        ListView:removeItem(subListview1,lastItem,1,1)
+    end
+    if workpageData and workpageData.worksList then
+        worksData = workpageData.worksList
+        local pageCount = #worksData + 1
+        ListView:loadItem( subListview1,progItem,pageCount, 'onloadWorksItem')
+        ListView:adjust( subListview1)
+        if pageCount < workPageSize then
+            workPageIdx = -1
+        end
+    else
+        workPageIdx = -1
+    end
+end
+
+function loadUserPageData()
+    isLoadingMore = 0
+    local userpageData = Http:jsonDecode('userpageData')
+    Log:write(' userpageData = ',userpageData)
+    local lvitemcount = ListView:getItemCount(subListview2)
+    if lvitemcount > 0 then
+        local lastItem = ListView:getItem(subListview2,ListView:getItemCount(subListview2)-1)
+        ListView:removeItem(subListview2,lastItem,1,1)
+    end
+    if userpageData and userpageData.userInfoList then
+        usersData = userpageData.userInfoList
+        local pageCount = #usersData + 1
+        ListView:loadItem( subListview2,userItem,pageCount, 'onloadUsersItem')
+        ListView:adjust( subListview2)
+        if pageCount < userPageSize then
+            userPageIdx = -1
+        end
+    else
+        userPageIdx = -1
+    end
+
+end
+
+function insertLoading(sprite)
+    isLoadingMore = 1
+    local item = Sprite:create("listitem",0)
+    local node = Sprite:create("node",item)
+    -- Sprite:loadFromString(node,Interloading.layout)
+    local spriteRect = {Sprite:getRect(sprite)}
+    Log:write(' spriteRect = ',spriteRect)
+    local xoffset = math.floor( (spriteRect[3] - 60) / 2)
+    local label = Sprite:create('label',node)
+    Sprite:setProperty( label,'text','加载中...')
+    Sprite:setProperty( label,'rect',xoffset .. ',0,120,50')
+    Sprite:setProperty( label,'h-align','center')
+    Sprite:setProperty( label,'font-size',26)
+    Sprite:setProperty( label,'color','#262626')
+    Sprite:setProperty( label,'extendstyle','1010')
+
+    Sprite:setRect(node,0,20,800,50)
+    Sprite:setProperty(node, 'extendstyle', '1010')
+
+    Sprite:setRect(item,0,0,800,90)
+    Sprite:setProperty(item, 'extendstyle', '1010')
+    Sprite:setProperty(sprite,"data","1")
+    ListView:insertItem(sprite, ListView:getItemCount(sprite)+1, item)
+end
+
+]]>

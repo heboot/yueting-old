@@ -1,0 +1,970 @@
+<%@ page language="java" contentType="text/plain" pageEncoding="UTF-8"%>
+<%@ include file="/common/taglibs.jsp"%>
+<c:set var="common" value="/resource/mobileaudio3/common/common.wdml" /><%//定义common模板路径%>
+<c:set var="lua" value="/resource/mobileaudio3/home/home.wdml" /><%//定义本文件lua部分模板路径%>
+<cms:lastModified var="lastModifiedCommon" path="${common}"/><%//取common模板最后发布时间，并作模板存在性检查%>
+<cms:lastModified var="lastModifiedLua" path="${lua}"/><%//取本文件lua部分模板最后发布时间，并作模板存在性检查%>
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ == ============================================================================
+ == | WonderTek [ 网络无处不在，沟通及时到达 ]
+ == ============================================================================
+ == | Copyright (c) 2011, WonderTek, Inc. All Rights Reserved.
+ == ============================================================================
+ == | Author: wangweipeng <wangweipeng@mantis.com>
+ == ============================================================================
+ == | Desc: 首页
+ == ============================================================================
+-->
+<root>
+    <header>
+        <script src="${cpath}/publish/clt${common}?time=${lastModifiedCommon}" /><%//远程加载common模板,实现common修改后下载最新common%>
+    </header>
+    <body resolution="720,1280" BuildChildrenFinished="bodyBuildChildrenFinished" OnSpriteEvent="bodyOnSpriteEvent" OnPluginEvent="bodyOnPluginEvent">
+    <node name="mainNode" rect="0,0,720,1280" enable="true" active="true" OnKeyUp="mainNodeOnKeyUp" layouttype="1" extendstyle="1111">
+        <shadow rect="0,0,720,1280" color="#FFFFFF" alpha="255" extendstyle="1111"/>
+        <panorama name="mainPanorama" rect="0,0,720,1280" extendstyle="1017" foreground="foreground">
+            <panoramaitem name="foreground" rect="0,0,720,0" extendstyle="0017">
+                <node name="popupNode" rect="0,0,720,1280" extendstyle="1111"/>
+                <node name="tipsNode" rect="0,0,720,210" extendstyle="0017"/>
+            </panoramaitem>
+            <panoramaitem rect="0,0,720,1280" extendstyle="1017" navigation_l="sideguideNode" navigation_auto="true" preview="270"
+                OnNavigationL="itemOnNavigationL" OnNavigationC="itemOnNavigationC" frame="false">
+                <node name="sideguideNode" rect="0,0,720,1280" padding="0,270,0,0" extendstyle="1061">
+                    <shadow rect="0,0,720,1280" alpha="255" color="#585B54" extendstyle="1071"/>
+                    <node rect="0,0,720,243" extendstyle="1070">
+                        <shadow rect="0,0,720,77" alpha="255" color="#F5FDF0" extendstyle="1070"/>
+                        <image rect="10,18,78,44" style="autosize" src="file://image/exdpi/sg_logo.png" extendstyle="1000"/>
+                        <button name="settingBtn" rect="0,0,77,77" extendstyle="5000" normal="n" sel="d" OnSelect="settingBtnOS">
+                            <image name="n" rect="23,21,31,34" style="autosize" src="file://image/sg_setting_n.png" extendstyle="0000" BuildChildrenFinished="resChoose"><node/></image>
+                            <image name="d" rect="23,21,31,34" style="autosize" src="file://image/sg_setting_f.png" extendstyle="0000" BuildChildrenFinished="resChoose"><node/></image>
+                        </button>
+                        <button name="searchBtn" rect="0,0,77,77" extendstyle="5000" normal="n" sel="d" OnSelect="" visible="0" enable="0">
+                            <image name="n" rect="23,21,31,34" style="autosize" src="file://image/sg_search_n.png" extendstyle="0000" BuildChildrenFinished="resChoose"><node/></image>
+                            <image name="d" rect="23,21,31,34" style="autosize" src="file://image/sg_search_f.png" extendstyle="0000" BuildChildrenFinished="resChoose"><node/></image>
+                        </button>
+                        <node rect="0,77,720,166" extendstyle="1077">
+                            <image rect="0,0,720,18" style="autosize" src="file://image/sg_spacebg.jpg" extendstyle="1077"/>
+                            <node name="loginNode" rect="0,0,720,166" extendstyle="1077">
+                                <image rect="22,48,252,69" style="autosize" src="file://image/logintip.png" extendstyle="0000" BuildChildrenFinished="resChoose"><node/></image>
+                                <button rect="0,0,300,166" extendstyle="0007" OnSelect="loginBtnOS"/>
+                            </node>
+                            <node name="userNode" rect="0,0,720,166" extendstyle="1077" visible="0" enable="0">
+                                <shadow rect="0,0,120,166" alpha="255" color="#FFFFFF" extendstyle="0000"/>
+                                <image rect="8,41,90,90" style="autosize" src="file://image/dft_headimg_mid.jpg" extendstyle="0000" BuildChildrenFinished="resChoose"><node/></image>
+                                <image name="userPic" rect="8,41,90,90" style="autosize" src="" extendstyle="0000" />
+                                <image rect="0,0,120,166" style="autosize" src="file://image/sg_spacemask.png" extendstyle="0000" />
+                                <label name="userName" rect="120,41,500,90" extendstyle="0000" text="" color="#ffffff" v-align="center" font-size="25"/>
+                                <button name="myspaceBtn" rect="0,0,300,166" extendstyle="0007" OnSelect="myspaceBtnOS"/>
+                            </node>
+                            <button name="" visible="0" rect="0,0,86,82" extendstyle="5000" normal="n" sel="d" OnSelect="">
+                                <shadow name="n" rect="0,0,86,82" alpha="75" color="#000000" padding="0,0,1,0" extendstyle="0076"/>
+                                <shadow name="d" rect="0,0,86,82" alpha="150" color="#000000" padding="0,0,1,0" extendstyle="0076"/>
+                                <image rect="25,22,36,37" style="autosize" src="file://image/sg_download.png" extendstyle="0000" BuildChildrenFinished="resChoose"><node/></image>
+                            </button>
+                            <button name="" visible="0" rect="0,0,86,82" extendstyle="5500" normal="n" sel="d" OnSelect="">
+                                <shadow name="n" rect="0,1,86,82" alpha="75" color="#000000" extendstyle="0077"/>
+                                <shadow name="d" rect="0,1,86,82" alpha="150" color="#000000" extendstyle="0077"/>
+                                <image rect="25,23,36,37" style="autosize" src="file://image/sg_fav.png" extendstyle="0000" BuildChildrenFinished="resChoose"><node/></image>
+                            </button>
+                            <image rect="0,0,720,32" style="autosize" src="file://image/shadow_top.png" extendstyle="1070"/>
+                        </node>
+                    </node>
+                    <listview name="sideguideListview" rect="0,243,720,0" padding="0,0,90,0" extendstyle="1076" auto-adjust="true" >
+                        <list-item rect="0,0,720,95" extendstyle="1070">
+                            <shadow rect="0,0,720,1" alpha="255" color="#6E7168" extendstyle="1574"/>
+                            <button name="guideBtn" rect="0,0,720,95" extendstyle="1070" disabled="d" OnSelect="guideBtnOnSelect">
+                                <image name="n" rect="15,25,63,44" style="autosize" src="$(src)" extendstyle="0000" BuildChildrenFinished="resChoose"><node/></image>
+                                <label name="lblName" rect="110,0,500,95" extendstyle="0000" text="$(txt)" color="#ffffff" v-align="center" font-size="30"/>
+                                <shadow name="d" rect="0,0,10,95" alpha="255" color="#0BBE5A" extendstyle="0000"/>
+                            </button>
+                        </list-item>
+                        <dataset>
+                            <set src="file://image/sg_recommend.png" txt="精彩推荐"/><set src="file://image/sg_radio.png" txt="电台直播"/><set src="file://image/sg_content.png" txt="金牌栏目"/>
+                        </dataset>
+                        <list-item name="moreContentItem" rect="0,0,720,620" extendstyle="1010">
+                            <shadow rect="0,0,720,2" alpha="255" color="#6E7168" extendstyle="1074"/>
+                            <label rect="15,0,500,60" extendstyle="0000" text="更多内容" color="#ffffff" v-align="center" font-size="20"/>
+                            <list name="moreList" rect="0,60,720,560" col="2" line="10" auto-adjust="true" offset="0,0" extendstyle="1010"/>
+                        </list-item>
+                    </listview>
+                    <node name="bottomNode" rect="0,0,720,90" extendstyle="0570">
+                        <shadow rect="0,0,720,90" alpha="255" color="#B7BFA8" extendstyle="1070"/>
+                        <image rect="22,27,252,35" style="autosize" src="file://image/uploadtip.png" extendstyle="1000" BuildChildrenFinished="resChoose"><node/></image>
+                        <button name="uploadBtn" rect="0,0,106,90" extendstyle="5000" normal="n" sel="d" OnSelect="uploadBtnOS">
+                            <shadow rect="0,0,106,90" alpha="255" color="#1BB05E" extendstyle="0000"/>
+                            <image name="n" rect="22,10,62,70" style="autosize" src="file://image/sg_upload_n.png" extendstyle="0000" BuildChildrenFinished="resChoose"><node/></image>
+                            <image name="d" rect="22,10,62,70" style="autosize" src="file://image/sg_upload_f.png" extendstyle="0000" BuildChildrenFinished="resChoose"><node/></image>
+                        </button>
+                    </node>
+                </node>
+                <shadow rect="0,0,720,1280" color="#FFFFFF" alpha="255" extendstyle="1111"/>
+                <node name="titleNode" rect="0,0,720,77" extendstyle="1010">
+                    <shadow rect="0,0,720,4" alpha="255" color="#BADE9E" extendstyle="1510"/>
+                    <button name="moreBtn" rect="0,0,134,77" extendstyle="0000" normal="n" sel="d" OnSelect="showLeftNavigationOnSelect">
+                        <image name="n" rect="23,21,11,34" style="autosize" src="file://image/sg_more_n.png" extendstyle="0000" BuildChildrenFinished="resChoose"><node/></image>
+                        <image name="d" rect="23,21,11,34" style="autosize" src="file://image/sg_more_f.png" extendstyle="0000" BuildChildrenFinished="resChoose"><node/></image>
+                    </button>
+                    <button name="audioBtn" rect="592,0,77,77" extendstyle="1010" normal="n" sel="d" OnSelect="audioBtnOSS" visible="1" enable="1">
+                        <image name="n" rect="0,22,32,32" style="autosize" src="file://image/live_playing_n.png" extendstyle="1000" BuildChildrenFinished="resChoose"><node/></image>
+                        <image name="d" rect="0,22,32,32" style="autosize" src="file://image/live_playing_f.png" extendstyle="1000" BuildChildrenFinished="resChoose"><node/></image>
+                    </button>
+                    <button name="searchBtn" rect="0,0,77,77" extendstyle="5000" normal="n" sel="d" visible="0" enable="0" OnSelect="">
+                        <image name="n" rect="23,21,31,34" style="autosize" src="file://image/sg_search_n.png" extendstyle="0000" BuildChildrenFinished="resChoose"><node/></image>
+                        <image name="d" rect="23,21,31,34" style="autosize" src="file://image/sg_search_f.png" extendstyle="0000" BuildChildrenFinished="resChoose"><node/></image>
+                    </button>
+                </node>
+                <image rect="-32,0,32,0" style="autosize" src="file://image/shadow_right.png" extendstyle="0007"/>
+                <label name="mainTitle" rect="0,0,720,77" extendstyle="1110" text="精彩推荐" color="#647B69" v-align="center" h-align="center" font-size="30"/>
+                <listview name="mainListview" rect="0,77,720,0" extendstyle="1017" auto-adjust="true" scroll="auto" scrollbar_slider="file://image/slider.png,5,30" BuildChildrenFinished="listviewResChoose">
+                    <list-item rect="0,0,720,315" extendstyle="1010">
+                        <image rect="5,5,710,295" style="sudoku-auto" sudoku="7,7,7,7" src="file://image/commonbg.png" padding="0,5,0,0" extendstyle="0060" />
+                        <panorama name="recmPanorama" rect="5,5,710,295" padding="0,5,0,0" extendstyle="0060" foreground="foreground" style="circle" >
+                            <panoramaitem name="foreground" rect="0,0,720,295" extendstyle="0010">
+                                <list name="foregroundList" rect="0,0,720,45" line="1" col="3" auto-adjust="true" offset="0,0" extendstyle="1500"/>
+                                <button name="" rect="0,0,150,140" extendstyle="5000" normal="n" sel="d" OnSelect="ranklistOnSelect">
+                                    <shadow name="n" rect="0,0,86,82" alpha="128" color="#000000" padding="0,0,1,0" extendstyle="0076"/>
+                                    <shadow name="d" rect="0,0,86,82" alpha="160" color="#000000" padding="0,0,1,0" extendstyle="0076"/>
+                                    <image rect="43,30,64,45" style="autosize" src="file://image/home_ranking.png" extendstyle="0000" BuildChildrenFinished="resChoose"><node/></image>
+                                    <label name="lblName" rect="0,0,150,55" extendstyle="0500" text="排行榜" color="#ffffff" h-align="center" font-size="25"/>
+                                </button>
+                                <button name="" rect="0,0,150,140" extendstyle="5500" normal="n" sel="d" OnSelect="signupOS" visible="0" enable="0">
+                                    <shadow name="n" rect="0,1,86,82" alpha="128" color="#000000" extendstyle="0077"/>
+                                    <shadow name="d" rect="0,1,86,82" alpha="160" color="#000000" extendstyle="0077"/>
+                                    <image rect="43,30,64,45" style="autosize" src="file://image/home_participate.png" extendstyle="0000" BuildChildrenFinished="resChoose"><node/></image>
+                                    <label name="lblName" rect="0,0,150,55" extendstyle="0500" text="我要参赛" color="#ffffff" h-align="center" font-size="25"/>
+                                </button>
+                            </panoramaitem>
+                        </panorama>
+                        <node name="recmPanoramaItem" rect="0,0,720,330" OnSelect='recmPanoramaItemOnSelect' extendstyle="0010" visible="0" enable="0">
+                            <shadow rect="0,0,720,330" color="#eae8e9" extendstyle="0000" alpha="255" />
+                            <image rect="247,115,225,99" style="autosize" src="file://image/default_recmLogo.png" extendstyle="1000" BuildChildrenFinished="resChoose" ><node/></image>
+                            <button name="imgBtn" alphaeffect="true" rect="0,0,720,330" style="autosize" src="" data="" OnSelect="contentItemOnSelect" extendstyle="0010" />
+                        </node>
+                    </list-item>
+                </listview>
+                <node name="mainContent" rect="0,77,720,0"  visible="0" enable="0" extendstyle="1017">
+                    <shadow rect="0,0,720,95" color="#F8FDF6" alpha="255" extendstyle="1010">
+                        <shadow rect="0,0,720,1" color="#DEF1D1" alpha="255" extendstyle="1514"/>
+                    </shadow>
+                    <gallery name="channelgallery" rect="0,0,720,95" extendstyle="1010" spacing="0" middle-size="180,64" normal-size="180,64" focus-size="200,64" OnSelect="ChannelOnSelect"/>
+                    <listview name="mainListviewContent" rect="0,95,720,0" extendstyle="1017" auto-adjust="true" scroll="auto" scrollbar_slider="file://image/slider.png,5,30" OnOverTrail="contentListOnOverTrail" BuildChildrenFinished="listviewResChoose">
+                        <node/>
+                    </listview>
+                </node>
+            </panoramaitem>
+        </panorama>
+        <node name="channelItem" rect="0,0,220,140" extendstyle="0000" visible="0" enable="0" active="0">
+            <button name="channelBtn" rect="10,0,200,120" extendstyle="0000" normal="n" sel="s" OnSelect="channelBtnOS">
+                <node name="n" rect="0,0,200,120" extendstyle="0000">
+                    <image name="i1" rect="0,0,200,120" style="sudoku-auto" sudoku="7,7,7,7" src="file://image/sg_btngray.png" extendstyle="0000" BuildChildrenFinished="resChoose"><node/></image>
+                    <image name="i2" rect="15,80,25,21" style="autosize" src="file://image/sg_contentcounts_gray.png" extendstyle="0000" BuildChildrenFinished="resChoose"><node/></image>
+                    <label name="conts_n" rect="45,78,200,50" extendstyle="0000" text="N/A" color="#B3B3B1" font-size="18"/>
+                </node>
+                <node name="s" rect="0,0,200,120" extendstyle="0000">
+                    <image name="i2" rect="0,0,200,120" style="sudoku-auto" sudoku="7,7,7,7" src="file://image/sg_btngreen.png" extendstyle="0000" BuildChildrenFinished="resChoose"><node/></image>
+                    <image name="i4" rect="15,80,25,21" style="autosize" src="file://image/sg_contentcounts_white.png" extendstyle="0000" BuildChildrenFinished="resChoose"><node/></image>
+                    <label name="conts_s" rect="45,78,200,50" extendstyle="0000" text="N/A" color="#FFFFFF" font-size="18"/>
+                </node>
+                <label name="channelname" rect="15,0,500,55" extendstyle="0000" text="$(txt)" color="#ffffff" v-align="center" font-size="24"/>
+            </button>
+        </node>
+        <node name="channelContentItem" rect="0,0,720,255" extendstyle="1010" visible="0" enable="0" active="0">
+            <list name="contList" rect="0,0,720,255" col="2" line="2" auto-adjust="0" offset="0,0" extendstyle="1010">
+                <list-item rect="$(rect)" extendstyle="0000">
+                    <image rect="5,5,360,245" style="sudoku-auto" sudoku="7,7,7,7" src="file://image/commonbg.png" padding="0,5,5,0" extendstyle="0066" >
+                        <image name="contImg" rect="5,5,410,410" style="minsize" alphaeffect="true" src="" padding="0,5,48,0" extendstyle="0066">
+                            <image rect="0,0,410,86" style="autosize" src="file://image/shadow_content.png" extendstyle="0570"/>
+                        </image>
+                        <label name="contName" rect="5,0,247,48" padding="0,110,0,0" extendstyle="0560" text="" font-size="25" color="#585858" v-align="center" postfix="."/>
+                        <node rect="0,0,110,48" extendstyle="5500" >
+                            <image name="cpc_gray" rect="0,13,25,21" style="autosize" src="file://image/sg_playcounts.png" extendstyle="0000"/>
+                            <label name="counts" rect="30,0,80,48" extendstyle="0000" text="" font-size="20" color="#AEAEAE" v-align="center" h-align="center"/>
+                        </node>
+                    </image>
+                    <button name="contentBtn" rect="5,5,410,245" OnSelect="contentOnSelect" padding="0,5,5,0" extendstyle="0066" sel="s">
+                        <shadow name="s" rect="0,0,0,0" color="#000000" alpha="75" extendstyle="0077"/>
+                    </button>
+                </list-item>
+                <dataset>
+                    <set rect="0,0,360,255" /><set rect="0,0,360,255" />
+                </dataset>
+            </list>
+        </node>
+        <node name="recommendItem" rect="0,0,720,510" extendstyle="1010" visible="0" enable="0" active="0">
+            <list name="contList" rect="0,0,720,510" col="2" line="2" auto-adjust="0" offset="0,0" extendstyle="1010">
+                <list-item rect="$(rect)" extendstyle="0000">
+                    <image rect="5,5,410,245" style="sudoku-auto" sudoku="7,7,7,7" src="file://image/commonbg.png" padding="0,5,5,0" extendstyle="0066" >
+                        <image name="contImg" rect="5,5,410,410" style="minsize" alphaeffect="true" src="" padding="0,5,48,0" extendstyle="0066">
+                            <image rect="0,0,410,86" style="autosize" src="file://image/shadow_content.png" extendstyle="0570"/>
+                        </image>
+                        <label name="contName" rect="5,0,247,48" padding="0,110,0,0" extendstyle="0560" text="" font-size="25" color="#585858" v-align="center" postfix="."/>
+                        <node rect="0,0,110,48" extendstyle="5500" >
+                            <image name="cpc_gray" rect="0,13,25,21" style="autosize" src="file://image/sg_playcounts.png" extendstyle="0000"/>
+                            <label name="counts" rect="30,0,80,48" extendstyle="0000" text="" font-size="20" color="#AEAEAE" v-align="center" h-align="center"/>
+                        </node>
+                    </image>
+                    <button name="contentBtn" rect="5,5,410,245" OnSelect="contentOnSelect" padding="0,5,5,0" extendstyle="0066" sel="s">
+                        <shadow name="s" rect="0,0,0,0" color="#000000" alpha="75" extendstyle="0077"/>
+                    </button>
+                </list-item>
+                <dataset>
+                    <set rect="0,0,420,255" /><set rect="0,0,300,255" /><set rect="0,255,300,255" /><set rect="0,255,420,255" />
+                </dataset>
+            </list>
+        </node>
+        <node name="galleryItem" rect="0,0,180,76" normal="sNormal" focus="sFocus" middle="sMiddle" data="" visible="0" enable="0">
+            <node name="sNormal" rect="0,0,180,76" extendstyle="0000">
+                <label name="lblNormal" rect="0,0,180,76" extendstyle="0000" h-align="center" v-align="center"  text="" color="#A4ACA1" font-size="25"/>
+            </node>
+            <node name="sFocus" rect="0,0,200,76" extendstyle="0000">
+                <image rect="0,6,200,64" bodyalpha="255" extendstyle="0000" style="sudoku-auto" sudoku="32,0,32,0" src="file://image/live_selectbg.png" BuildChildrenFinished="resChoose"><node/></image>
+                <label name="lblFocus" rect="0,0,200,76" extendstyle="0000" h-align="center" v-align="center"  text="" color="#FFFFFF" font-size="30"/>
+            </node>
+            <node name="sMiddle" rect="0,0,180,76" extendstyle="0000">
+                <label name="lblMiddle" rect="0,0,180,76" extendstyle="0000" h-align="center" v-align="center"  text="" color="#A4ACA1" font-size="25"/>
+            </node>
+        </node>
+    </node>
+</body>
+</root>
+<cms:include filepath="${lua}" />
+<![CDATA[
+
+local rootSprite
+local panoramaIndex = 0
+homeTimeId = {
+    panoramaTimer = 30,
+    updateDelay = 31,
+    refreshRotate = 32,
+    refreshFinish = 33,
+    refreshTimeout = 34,
+}
+
+-- @brief root子节点创建完事件
+function bodyBuildChildrenFinished(sprite)
+    rootSprite = sprite
+    
+    audioBtn = Sprite:findChild(sprite,'audioBtn')
+    mainPanorama = Sprite:findChild(sprite,"mainPanorama")
+    mainListview = Sprite:findChild(sprite,"mainListview")
+    recmPanorama = Sprite:findChild(sprite,'recmPanorama')
+    recmPanoramaItem = Sprite:findChild(sprite,'recmPanoramaItem')
+    foregroundList = Sprite:findChild(sprite,'foregroundList')
+    mainTitle = Sprite:findChild(sprite,'mainTitle')
+    mainContent = Sprite:findChild(sprite,'mainContent')
+    mainListviewContent = Sprite:findChild(mainContent,"mainListviewContent")
+    channelgallery = Sprite:findChild(sprite,'channelgallery')
+    galleryItem = Sprite:findChild(sprite,'galleryItem')
+    channelContentItem = Sprite:findChild(sprite,'channelContentItem')
+    recommendItem = Sprite:findChild(sprite,'recommendItem')
+
+    loginNode = Sprite:findChild(sprite,'loginNode')
+    userNode = Sprite:findChild(sprite,'userNode')
+    userPic = Sprite:findChild(userNode,'userPic')
+    userName = Sprite:findChild(userNode,'userName')
+    myspaceBtn = Sprite:findChild(userNode,'myspaceBtn')
+
+    sideguideListview = Sprite:findChild(sprite,'sideguideListview')
+    moreContentItem = Sprite:findChild(sprite,'moreContentItem')
+    moreList = Sprite:findChild(moreContentItem,'moreList')
+    channelItem = Sprite:findChild(sprite,'channelItem')
+
+    local reg = Reg:create(Reg.com_wondertek_mobileaudio.home)
+    Reg:setString(reg, 'firstIn', "1")
+end
+
+--[[  插件消息方法  ]]--
+function bodyOnPluginEvent(msg, param)
+    if msg == 101 then
+        local sceneModifiedData = Http:jsonDecode('sceneModifiedData')
+        Log:write("sceneModifiedData",sceneModifiedData)
+        local reg = Reg:create(Reg.com_wondertek_mobileaudio.index)
+        Reg:setTable(reg, 'sceneModifiedData', sceneModifiedData)
+        if Alias.sdcfg then
+            local md5sceneName = Util:md5(Alias.sdcfg)
+            local regSceneModified = Reg:create("sceneModified")
+            local localModifiedTime = Reg:getString(regSceneModified, md5sceneName)
+            Log:write('localModifiedTime', tonumber(localModifiedTime))
+            Log:write('sceneModifiedData[md5sceneName]', tonumber(sceneModifiedData[md5sceneName]))
+            if tonumber(localModifiedTime) ~= tonumber(sceneModifiedData[md5sceneName]) then
+                Http:request('_sdcfg', Util:getServer() .. Alias.sdcfg .. '?ua=' .. System:getUserAgent(), Msg.sdcfg, {useCache = 0}) --sd卡路径配置请求
+            end
+        end
+        if Alias.tipfile then
+            local md5sceneName = Util:md5(Alias.tipfile)
+            local regSceneModified = Reg:create("sceneModified")
+            local localModifiedTime = Reg:getString(regSceneModified, md5sceneName)
+            Log:write('localModifiedTime', tonumber(localModifiedTime))
+            Log:write('sceneModifiedData[md5sceneName]', tonumber(sceneModifiedData[md5sceneName]))
+            if tonumber(localModifiedTime) ~= tonumber(sceneModifiedData[md5sceneName]) then
+                Http:request('_tipfile', Util:getServer() .. Alias.tipfile, 106, {fileName='MODULE:\\com_wondertek_mobileaudio\\tips.dat',useCache = 0}) ----Alias.tipfile
+            end
+        end
+    elseif msg == 103 then
+        homeDataUse()
+    elseif msg == 103 + MSG_CACHEDATA_RELOAD then
+        Timer:set(TimerId.once,1000,"homeDataReload")
+    elseif msg == 104 then
+        channelDataUse()
+    elseif msg == 105 then
+        channelTrailDataUse()
+        Sprite:setProperty(mainListviewContent,"data","")
+    elseif msg == 106 then  -- tipfile请求返回
+        local reg = Reg:create(Reg.com_wondertek_mobileaudio.index)
+        local sceneModifiedData = Reg:getTable(reg, 'sceneModifiedData')
+        local md5sceneName = Util:md5(Alias.tipfile)
+        local regSceneModified = Reg:create("sceneModified")
+        local localModifiedTime = Reg:getString(regSceneModified, md5sceneName)
+        localModifiedTime = localModifiedTime == "" and 0 or localModifiedTime
+        if tonumber(localModifiedTime) < tonumber(sceneModifiedData[md5sceneName]) then
+            Reg:setString(regSceneModified,md5sceneName,sceneModifiedData[md5sceneName])
+            Reg:save(regSceneModified, "WONDER:\\temp\\sceneModified.xml")
+            Log:write(md5sceneName .. ' has saved to file sceneModified.xml')
+        end
+    elseif msg == Msg.sdcfg then  --sd卡路径配置
+        local reg = Reg:create(Reg.com_wondertek_mobileaudio.index)
+        local sceneModifiedData = Reg:getTable(reg, 'sceneModifiedData')
+        local md5sceneName = Util:md5(Alias.sdcfg)
+        local regSceneModified = Reg:create("sceneModified")
+        local localModifiedTime = Reg:getString(regSceneModified, md5sceneName)
+        localModifiedTime = localModifiedTime == "" and 0 or localModifiedTime
+        if tonumber(localModifiedTime) < tonumber(sceneModifiedData[md5sceneName]) then
+            Reg:setString(regSceneModified,md5sceneName,sceneModifiedData[md5sceneName])
+            Reg:save(regSceneModified, "WONDER:\\temp\\sceneModified.xml")
+            Log:write(md5sceneName .. ' has saved to file sceneModified.xml')
+        end
+        local sdcfg = Http:xmlDecode('_sdcfg')
+        Log:write('sdcfg', sdcfg)
+        if type(sdcfg) == 'table' then --有配置信息
+            Net:changeSdcfg(sdcfg)
+        end
+    elseif msg == Msg.phoneNumber then
+        local loginPhoneNumData = Http:jsonDecode('loginPhoneNum')
+        Log:write("loginPhoneNumData",loginPhoneNumData)
+        if loginPhoneNumData and loginPhoneNumData.userInfo then
+            local img = Util:getWeiBoServer() ..'publish/clt' .. loginPhoneNumData.userInfo.picture
+            Sprite:setProperty(userPic,"src",img)
+            Sprite:setProperty(myspaceBtn,"data",'')
+            Sprite:setProperty(userName,"text",loginPhoneNumData.userInfo.sname .. " 欢迎您")
+
+            if ifSignUp == -1 then
+                Http:request('usersingup', Util:getWeiBoServer() .. Alias.userinfoData , 155,{useCache=0})
+            end
+        else
+            LoginStatusChange(false)
+        end
+    elseif msg == 155 then
+        local usersingup = Http:jsonDecode('usersingup')
+        Log:write('155 usersingup = ',usersingup)
+        if usersingup and usersingup.ifSignUp and usersingup.ifSignUp == '1' then
+            ifSignUp = 1
+            if ifwait == 1 then
+                Scene:go(Alias.uploadworks)
+            elseif ifwait == 0 then
+            end
+        else
+            ifSignUp = 0
+            if ifwait == 1 then
+                Scene:go(Alias.registerform)
+            else
+            end
+        end
+    elseif msg == 156 then
+        local usersingup = Http:jsonDecode('usersingup')
+        Log:write('156 usersingup = ',usersingup)
+        if usersingup and usersingup.ifSignUp and usersingup.ifSignUp == '1' then
+            ifSignUp = 1
+            Scene:go(Alias.uploadworks)
+        else
+            ifSignUp = 0
+            Scene:go(Alias.registerform)
+        end
+    else
+        Util:onPluginEvent(msg, param) -- 登录消息在此处理
+    end
+end
+
+--[[  节点消息方法  ]]--
+function bodyOnSpriteEvent(msg, param)
+    if msg == MSG_ACTIVATE then
+        commonActivate()
+        
+        --音频入口判定
+        if isAudioPlaying and isAudioPlaying() ~= 0 then
+            setSpriteStatus(audioBtn,1)
+        else
+            setSpriteStatus(audioBtn,0)
+        end
+        if not Alias.registerform then
+            Alias.registerform = '/publish/clt/resource/mobileaudio3/registerform/registerform.jsp'
+        end
+        ifSignUp = -1
+        ifwait = -1
+        local reg = Reg:create(Reg.com_wondertek_mobileaudio.home)
+        if Reg:getString(reg, 'firstIn') == "1" then
+            Reg:setString(reg, 'firstIn', "0")
+            Loading:show()
+            local localHome = Scene:getHandleByName("MODULE:\\com_wondertek_mobileaudio\\home.wdml")
+            Log:write("localHome handle",localHome)
+            Scene:freeByHandle(localHome)
+
+            mobileVideoVerTable = getLoginUpdateData()
+            Log:write('mobileVideoVerTable', mobileVideoVerTable)
+            Log:write('updateTips_setting', Config:get('updateTips_setting'))
+            if mobileVideoVerTable and mobileVideoVerTable.url and mobileVideoVerTable.url ~= "" then
+                if mobileVideoVerTable.flags == '2' or Config:get('updateTips_setting') == "1" then
+                    Timer:set(homeTimeId.updateDelay,500,"updateFunc")
+                end
+            end
+            local homeData = Http:jsonDecode('homeData')
+            if homeData and homeData.recommendList then
+                homeDataUse()
+            else
+                Http:request('homeData', Util:getServer() .. '/publish/clt/resource/mobileaudio3/home/homeData.jsp',103)
+            end
+            Http:request('sceneModifiedData', Util:getServer() .. Alias.sceneModifiedData, 101, {useCache=0})
+        end
+        local regI = Reg:create(Reg.com_wondertek_mobileaudio.index)
+        local phoneNumber = Reg:getString(regI, 'phoneNumber')
+        Log:write('phoneNumber', phoneNumber)
+        if Reg:getInteger(regI, 'accountLogin') == 1 then --已显式登录标志位
+            LoginStatusChange(true)
+        else
+            if phoneNumber == '' then
+                LoginStatusChange(true)
+            elseif phoneNumber == 'logout' then
+                LoginStatusChange(false)
+            else
+                LoginStatusChange(true)
+            end
+        end
+        local activateParam = Reg:getString(reg,"activateParam")
+        if activateParam ~= "" then
+            if activateParam == "recommend" then
+                setSideGuideBtnDisabled(0)
+                setNodeState(mainListview,1)
+                setNodeState(mainContent,0)
+            else
+                for i=0,List:getItemCount(moreList) - 1 do
+                    local item = List:getItem(moreList,i)
+                    local channelBtn = Sprite:findChild(item,"channelBtn")
+                    if Sprite:getData(channelBtn) == activateParam then
+                        ListView:removeAllItems(mainListviewContent,1,1)
+                        channelBtnOS(channelBtn)
+                        setSideGuideBtnDisabled(2)
+                        setNodeState(mainListview,0)
+                        setNodeState(mainContent,1)
+                        break
+                    end
+                end
+            end
+        end
+        Reg:setString(reg,"activateParam","")
+    elseif msg == MSG_DEACTIVATE then
+        commonDeactivate()
+    elseif msg == Msg.login then
+        LoginStatusChange(true)
+    else
+        Util:onSpriteEvent(msg, param)
+    end
+end
+
+function mainNodeOnKeyUp(sprite, kc)
+    if kc == Key.F2 then
+        if commonF2KeyUp and commonF2KeyUp() then return end
+        local item = Panorama:getItem(mainPanorama,0)
+        if Panorama:getCurNavigation(item) == 1 then
+            Panorama:showNavigation(item, 0)
+            return
+        end
+        dialogContent,dialogTitle = Util:getTipsMsg(usrMsgFileName.localDialogMsg,4) --or '确定要退出手机视频？','提示'
+        Dialog:show(dialogTitle, dialogContent, 'ok_cancel', 'UI_exit')
+    end
+end
+
+function showLeftNavigationOnSelect(sprite)
+    local item = Sprite:getParent(Sprite:getParent(sprite))
+    if Panorama:getCurNavigation(item) == 0 then
+        Panorama:showNavigation(item, 1)
+    else
+        Panorama:showNavigation(item, 0)
+    end
+end
+
+function changePageState(txt)
+    local item = Panorama:getItem(mainPanorama,0)
+    if Panorama:getCurNavigation(item) == 1 then
+        Panorama:showNavigation(item, 0)
+    end
+    Sprite:setProperty(mainTitle,"text",txt)
+    setNodeState(mainListview,0)
+    setNodeState(mainContent,0)
+end
+
+function itemOnNavigationL(sprite)
+    Log:write('itemOnNavigationL ============= ')
+end
+
+function itemOnNavigationR(sprite)
+    Log:write('itemOnNavigationR ============= ')
+end
+
+function itemOnNavigationC(sprite)
+    Log:write('itemOnNavigationC ============= ')
+end
+
+function homeDataUse()
+    Loading:close()
+    homeData = Http:jsonDecode('homeData')
+    Log:write("homeData",homeData)
+    if homeData.postList then
+        createPostPanorama(homeData.postList)
+        createPanoramaForeground(foregroundList, Panorama:getItemCount(recmPanorama))
+    end
+    if homeData.recommendList and #homeData.recommendList > 0 then
+        createListview()
+    end
+    if homeData.channelList and #homeData.channelList > 0 then
+        createChannelList()
+    end
+    setSideGuideBtnDisabled(0)
+    setNodeState(mainListview,1)
+    setNodeState(mainContent,0)
+end
+
+function homeDataReload()
+    Loading:close()
+    local homeData = Http:jsonDecode('homeData')
+end
+
+function uploadBtnOS(sprite)
+    Popup:show({title="上传方式",funcList={{funcName="录制一段",funcCallBack="recordOS"},{funcName="本地音频",funcCallBack="localvideoOS"}}})
+end
+
+function settingBtnOS(sprite)
+    Scene:go(Alias.syssetting)
+end
+
+function loginBtnOS(sprite)
+    Scene:go(Alias.myaccount)
+end
+
+function myspaceBtnOS(sprite)
+    local reg = Reg:create(Reg.com_wondertek_mobileaudio.community)
+    Reg:setString(reg ,'userId',Sprite:getData(sprite))
+    Scene:go(Alias.mycommunity)
+end
+
+function recordOS(sprite)
+    Scene:go(Alias.uploadrecording)
+    Popup:close()
+end
+
+function localvideoOS(sprite)
+    Scene:go(Alias.uploadlocalsearch)
+    Popup:close()
+end
+
+function createPostPanorama(panoramaData)
+    for i=Panorama:getItemCount(recmPanorama)-1,0,-1 do
+        local thisItem = Panorama:getItem(recmPanorama,i)
+        Panorama:removeItem(recmPanorama,thisItem,1,1)
+    end
+    _panoramaData = panoramaData
+    Panorama:loadItem(recmPanorama, recmPanoramaItem, #panoramaData+1, "onLoadRecmPanoramaItem")
+end
+
+function onLoadRecmPanoramaItem(list, item, index)
+    Sprite:setRect(item, 0,0,720,330)
+    Sprite:setProperty(item, 'extendstyle', '0010')
+    Sprite:setProperty(item, 'OnSelect', 'recmPanoramaItemOnSelect')
+    local imgBtn = Sprite:findChild(item,"imgBtn")
+    Sprite:setProperty(imgBtn, 'src', _panoramaData[index].cimage)
+    Sprite:setProperty(imgBtn, 'data', _panoramaData[index].cid)
+end
+
+-- @brief 创建panorama的标识点
+function createPanoramaForeground(list, count)
+    Sprite:setProperty(list,"col",count)
+    local s_w = 720
+    local point_w = 35
+    local offset = 0
+    local _, y, _, h = Sprite:getRect(list)
+    local w1 = point_w * count + offset * (count-1)
+    local x1 = (s_w - w1) / 2
+    List:removeAllItems(list, 1, 1)
+    for i = 1, count do
+        local item = Sprite:create('listitem', list)
+        local img = Sprite:create('image', item)
+        Sprite:setRect(item, 0, 0, point_w, point_w)
+        Sprite:setProperty(item, 'extendstyle', '0010')
+        Sprite:setRect(img, 0, 0, point_w, point_w)
+        Sprite:setProperty(img, 'extendstyle', '0000')
+        Sprite:setName(img, 'img')
+        Sprite:setProperty(img, 'src', 'file://image/panorama_point_n.png')
+        resChoose(img)
+        Sprite:setProperty(img, 'style', 'center')
+        List:addItem(list, item)
+    end
+    Sprite:setRect(list, x1, y, w1, h)
+    Sprite:setProperty(list, 'extendstyle', '1010')
+    List:adjust(list)
+    setPanoramaForeground(list, 0)
+end
+
+-- @brief 设置panorama当前第几页的标识点
+function setPanoramaForeground(list, index)
+    if lastPanoramaPointIndex then
+        local setSprite = Sprite:findChild(List:getItem(list, lastPanoramaPointIndex), 'img')
+        Sprite:setProperty(setSprite,'src','file://image/panorama_point_n.png')
+        resChoose(setSprite)
+    end
+    local setSprite = Sprite:findChild(List:getItem(list, index), 'img')
+    Sprite:setProperty(setSprite,'src','file://image/panorama_point_f.png')
+    resChoose(setSprite)
+    lastPanoramaPointIndex = index
+end
+
+function panoramaOnTimer()
+    local index = Panorama:getCurItem(recmPanorama)
+    local panoramaCount = Panorama:getItemCount(recmPanorama)
+    local panoramaIndex = index + 1 > panoramaCount and 0 or index + 1
+    Panorama:setCurItem(recmPanorama, panoramaIndex)
+    Timer:set(homeTimeId.panoramaTimer, 15000, 'panoramaOnTimer')
+end
+
+function recmPanoramaItemOnSelect(sprite)
+    local panorama = Sprite:getParent(sprite)
+    local index = Panorama:getCurItem(panorama)
+    setPanoramaForeground(foregroundList, index)
+    Timer:cancel(homeTimeId.panoramaTimer)
+    Timer:set(homeTimeId.panoramaTimer, 15000, 'panoramaOnTimer')
+    local leftNeighbour,_,rightNeighbour = getNeighbourIndex(index,Panorama:getItemCount(panorama))
+    local leftNeighbourPitem,rightNeighbourPitem = Panorama:getItem(panorama,leftNeighbour),Panorama:getItem(panorama,rightNeighbour)
+    local imgBtnl = Sprite:findChild(leftNeighbourPitem, 'imgBtn')
+    local imgBtnr = Sprite:findChild(rightNeighbourPitem, 'imgBtn')
+    --[[  这个动作可以触发下载图片  ]]--
+    Sprite:getProperty(imgBtnl,"src_size")
+    Sprite:getProperty(imgBtnr,"src_size")
+end
+
+function getNeighbourIndex(nCurIndex,nTotal)
+    return (nCurIndex-1)%nTotal,nCurIndex,(nCurIndex+1)%nTotal
+end
+
+function createListview()
+    for i=ListView:getItemCount(mainListview)-1,1,-1 do
+        local thisItem = ListView:getItem(mainListview,i)
+        ListView:removeItem(mainListview,thisItem,1,1)
+    end
+    local count = math.ceil(#homeData.recommendList/4)
+    ListView:loadItem(mainListview, recommendItem, count, "onLoadrecommendItem")
+end
+
+function onLoadrecommendItem(list,item,index)
+    Sprite:setProperty(item,"extendstyle","0010")
+    Sprite:setRect(item,0,0,720,510)
+    local contList = Sprite:findChild(item,"contList")
+    for i=0,3 do
+        local listitem = List:getItem(contList,i)
+        local contImg,contName = Sprite:findChild(listitem,"contImg"),Sprite:findChild(listitem,"contName")
+        local cpc_gray = Sprite:findChild(listitem,"cpc_gray")
+        resChoose(cpc_gray)
+        local counts = Sprite:findChild(listitem,"counts")
+        Sprite:setProperty(counts,"text",homeData.recommendList[index*4+i].count or "")
+        local contentBtn = Sprite:findChild(listitem,"contentBtn")
+        if homeData.recommendList[index*4+i] then
+            Sprite:setProperty(contImg,"src",homeData.recommendList[index*4+i].cimage)
+            Sprite:setProperty(contName,"text",homeData.recommendList[index*4+i].cname)
+            Sprite:setProperty(contentBtn,"data",homeData.recommendList[index*4+i].cid)
+        else
+            setNodeState(listitem,0)
+            Sprite:setRect(listitem,0,0,0,0)
+        end
+    end
+end
+
+function contentOnSelect(sprite)
+    local data = Sprite:getData(sprite)
+    Log:write("data",data)
+    local reg = Reg:create( Reg.com_wondertek_mobileaudio.home)
+    Reg:setString(reg,'audioplayData',data)
+    Reg:setString(reg,'userId','')
+    Scene:go(Alias.audioplay ,{freeDestScene = true})
+end
+
+function createChannelList()
+    List:removeAllItems(moreList,1,1)
+    local count = #homeData.channelList+1
+    List:loadItem(moreList, channelItem, count, "onLoadchannelItem")
+    local linecount = math.ceil((#homeData.channelList+1)/2)
+    Sprite:setProperty(moreList,"line",linecount)
+    List:adjust(moreList)
+    Sprite:setRect(moreContentItem,0,0,720,140*linecount+60)
+    ListView:adjust(sideguideListview)
+end
+
+function onLoadchannelItem(list,item,index)
+    Sprite:setProperty(item,"extendstyle","0000")
+    Sprite:setRect(item,0,0,220,140)
+    local channelBtn,conts_n,conts_s,channelname = Sprite:findChild(item,"channelBtn"),Sprite:findChild(item,"conts_n"),Sprite:findChild(item,"conts_s"),Sprite:findChild(item,"channelname")
+    Sprite:setProperty(channelBtn,"data",homeData.channelList[index].param)
+    Sprite:setProperty(conts_n,"text",homeData.channelList[index].prop)
+    Sprite:setProperty(conts_s,"text",homeData.channelList[index].prop)
+    Sprite:setProperty(channelname,"text",homeData.channelList[index].name)
+    local i1,i2,i3,i4 = Sprite:findChild(item,"i1"),Sprite:findChild(item,"i2"),Sprite:findChild(item,"i3"),Sprite:findChild(item,"i4")
+    resChoose(i1) resChoose(i2) resChoose(i3) resChoose(i4)
+end
+
+function channelBtnOS(sprite)
+    local data = Sprite:getData(sprite)
+    Log:write("data",data)
+    Http:request('channelData', Util:getServer() .. Alias.channelData .. "?" .. data ,104)
+    _channelParam = data
+    Loading:show()
+    local channelname = Sprite:findChild(sprite,"channelname")
+    changePageState(Sprite:getText(channelname))
+end
+
+function channelDataUse()
+    Loading:close()
+    channelData = Http:jsonDecode('channelData')
+    --Log:write("channelData",channelData)
+    if channelData.catalogueList then
+        channelCatalogue = channelData.catalogueList
+        _gGalleryIndex = 0
+        createGalleryContent()
+    end
+    if channelData.contentList then
+        createListviewContent()
+    end
+    setSideGuideBtnDisabled(2)
+    setNodeState(mainListview,0)
+    setNodeState(mainContent,1)
+    pageIndex = 1
+end
+
+function channelTrailDataUse()
+    Loading:close()
+    channelData = Http:jsonDecode('channelData')
+    --Log:write("channelData",channelData)
+    if channelData.contentList then
+        createListviewContent(1)
+    else
+        pageIndex = -1
+    end
+    setSideGuideBtnDisabled(2)
+    setNodeState(mainListview,0)
+    setNodeState(mainContent,1)
+end
+
+function createListviewContent(bKeepList)
+    if not bKeepList then
+        ListView:removeAllItems(mainListviewContent,1,1)
+    end
+    local count = math.ceil((#channelData.contentList+1)/2)
+    ListView:loadItem(mainListviewContent, channelContentItem, count, "onLoadchannelcontentItem")
+end
+
+function onLoadchannelcontentItem(list,item,index)
+    Sprite:setProperty(item,"extendstyle","0010")
+    Sprite:setRect(item,0,0,720,255)
+    local contList = Sprite:findChild(item,"contList")
+    for i=0,1 do
+        local listitem = List:getItem(contList,i)
+        local contImg,contName = Sprite:findChild(listitem,"contImg"),Sprite:findChild(listitem,"contName")
+        local cpc_gray = Sprite:findChild(listitem,"cpc_gray")
+        resChoose(cpc_gray)
+        local counts = Sprite:findChild(listitem,"counts")
+        local contentBtn = Sprite:findChild(listitem,"contentBtn")
+        if channelData.contentList[index*2+i] then
+            Sprite:setProperty(counts,"text",channelData.contentList[index*2+i].count or "")
+            Sprite:setProperty(contImg,"src",channelData.contentList[index*2+i].img)
+            Sprite:setProperty(contName,"text",channelData.contentList[index*2+i].name)
+            Sprite:setProperty(contentBtn,"data",channelData.contentList[index*2+i].param)
+        else
+            setNodeState(listitem,0)
+            Sprite:setRect(listitem,0,0,0,0)
+        end
+    end
+end
+
+function createGalleryContent()
+    Gallery:removeAllItems(channelgallery,1,1)
+    Gallery:loadItem(channelgallery, galleryItem, #channelData.catalogueList + 1, 'onLoadGalleryItem')
+end
+
+function onLoadGalleryItem(list, item, index)
+    local lblNormal = Sprite:findChild(item,'lblNormal')
+    local lblFocus = Sprite:findChild(item,'lblFocus')
+    local lblMiddle = Sprite:findChild(item,'lblMiddle')
+    Sprite:setProperty(item, 'extendstyle', '0000')
+    Sprite:setProperty(item, 'normal', 'sNormal')
+    Sprite:setProperty(item, 'focus', 'sFocus')
+    Sprite:setProperty(item, 'middle', 'sMiddle')
+    Sprite:setProperty(lblNormal, 'text', channelData.catalogueList[index].name)
+    Sprite:setProperty(lblFocus, 'text', channelData.catalogueList[index].name)
+    Sprite:setProperty(lblMiddle, 'text', channelData.catalogueList[index].name)
+end
+
+function ChannelOnSelect(sprite)
+    local index = Gallery:getCurItem(sprite)
+    if channelCatalogue[index].param ~= "" and index ~= _gGalleryIndex and channelData.nodeId ~= "" then
+        local _,_,focusId = string.find(channelCatalogue[index].param, 'nodeId=(%d+)')
+        if focusId then
+            Loading:show()
+            Http:request('channelData', Util:getServer() .. Alias.channelData .. "?nodeId=" .. channelData.nodeId .. "&focusId=" .. focusId ,104)
+            _channelParam = "nodeId=" .. channelData.nodeId .. "&focusId=" .. focusId
+            _gGalleryIndex = index
+            ListView:removeAllItems(mainListviewContent,1,1)
+        else
+            Tips:show("数据异常")
+        end
+    end
+end
+
+function setSideGuideBtnDisabled(index)
+    for i=0,2 do
+        local item = ListView:getItem(sideguideListview,i)
+        local guideBtn = Sprite:findChild(item,"guideBtn")
+        Sprite:setEnable(guideBtn,1)
+    end
+    local item = ListView:getItem(sideguideListview,index)
+    local guideBtn = Sprite:findChild(item,"guideBtn")
+    Sprite:setEnable(guideBtn,0)
+end
+
+function getLoginUpdateData()
+    local loginData = Http:xmlDecode('index_login')
+    Log:write('loginData', loginData)
+    if 'table' ~= type(loginData) then
+        return
+    end
+    for i=1, #loginData.body.response do
+        if loginData.body.response[i].type == 'CheckVersionResult' then
+            local checkVersionTable = loginData.body.response[i].component
+            if 'table' == type(checkVersionTable) then
+                if #checkVersionTable > 0 then
+                    for j=1, #checkVersionTable do
+                        if checkVersionTable[j].id == 'MobileVideo' then
+                            return checkVersionTable[j]
+                        end
+                    end
+                elseif #checkVersionTable == 0 and checkVersionTable.id then
+                    if checkVersionTable.id == 'MobileVideo' then
+                        return checkVersionTable
+                    end
+                end
+            end
+        end
+    end
+    return
+end
+
+function guideBtnOnSelect(sprite)
+    local item = Sprite:getParent(sprite)
+    local index = ListView:getItemIndex(item)
+    if index == 1 then
+        --判断是否音频正在播放，如在播放则停止
+        if getAudioPlayFlag then
+            if getAudioPlayFlag() ~= 0 then
+                Log:write(' commonlocal ,Msg.getJsonPlayer ----------- 00')
+                --保存历史记录
+                uploadMyHistory()
+
+                --停止定时器，防止视频停止后音频点播自动播放下一集，取悦听场景句柄
+                if getAudioScene then
+                    local curAudioScene = getAudioScene()
+                    Log:write('Msg.getJsonPlayer CurScene =',curAudioScene )
+                    Sprite:sendEvent(curAudioScene, Msg.stopAudioTimer)
+                end
+                pluginInvoke(Player:_getHandle(),'Stop')
+                pluginInvoke(Player:_getHandle(),'Show',0)
+                resetAudioPlayFlag()
+            end
+        end
+        local liveId = '10161416'  --电台栏目id
+        local param = 'isAudio=true;objType=live;nodeId='..liveId..';'
+        if setAudioParam then setAudioParam(param) end
+        local item = Panorama:getItem(mainPanorama,0)
+        if Panorama:getCurNavigation(item) == 1 then Panorama:showNavigation(item, 0) end
+        Loading:show()
+        Timer:set(TimerId.once,500,"resetNaviDelay")
+    elseif index == 0 then
+        setSideGuideBtnDisabled(0)
+        setNodeState(mainListview,1)
+        setNodeState(mainContent,0)
+        local item = Panorama:getItem(mainPanorama,0)
+        Panorama:showNavigation(item, 0)
+    end
+end
+
+function resetNaviDelay()
+    Scene:go(Alias.playeryue)
+end
+
+function signupOS()
+    local loginPhoneNumData = Http:jsonDecode('loginPhoneNum')
+    Log:write("loginPhoneNumData ",loginPhoneNumData)
+    Log:write(' ifSignUp = ' ,ifSignUp)
+    if ifSignUp == 1 then
+        --Scene:go(Alias.uploadworks)
+        local moreBtn =Sprite:findChild( rootSprite ,'moreBtn')
+        showLeftNavigationOnSelect(moreBtn)
+        uploadBtnOS()
+        
+    elseif ifSignUp == 0 then
+        Scene:go(Alias.registerform)
+    else
+        Tips:show('尚未获取到您的登录信息...')
+        Net:goToMyAccount()
+        --if loginPhoneNumData and loginPhoneNumData.phoneNum and loginPhoneNumData.phoneNum ~= '' then
+            --ifwait = 1
+        --else
+            --ifwait = 0
+            --Http:request('usersingup',Util:getWeiBoServer() .. Alias.userinfoData ,156,{useCache=0})
+        --end
+    end
+end
+
+function ranklistOnSelect(sprite)
+    if not Alias.ranklist then
+        Alias.ranklist = '/publish/clt/resource/mobileaudio3/ranklist/ranklist.jsp'
+    end
+    --Scene:go( Alias.ranklist,{freeDestScene=true})
+end
+
+--跳转到DJ大赛页面
+function contentItemOnSelect()
+    Scene:go(Alias.competition,{freeDestScene=true})
+end
+
+function LoginStatusChange(isLogin)
+    if isLogin then
+        setNodeState(loginNode,0)
+        setNodeState(userNode,1)
+        Http:request('loginPhoneNum', Util:getWeiBoServer() .. Alias.phonenumber, Msg.phoneNumber, {useCache = 0})
+    else
+        setNodeState(loginNode,1)
+        setNodeState(userNode,0)
+    end
+end
+
+function contentListOnOverTrail(sprite, x)
+    if x ~= 0  then
+       return 
+    end
+    if pageIndex and _channelParam and pageIndex ~= -1 then
+        if Sprite:getData(sprite) == "" then
+            pageIndex = pageIndex + 1
+            --insertLoading(sprite)
+            Sprite:setProperty(sprite,"data","1")
+            local param = _channelParam .. "&pageIndex=" .. pageIndex
+            Http:request('channelData', Util:getServer() .. Alias.channelData .. "?" .. param ,105)
+        end
+    else
+        Tips:show('到底啦')
+    end
+end
+]]>

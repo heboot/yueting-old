@@ -1,0 +1,928 @@
+<%@ page language="java" contentType="text/plain" pageEncoding="UTF-8"%>
+<%@ include file="/common/taglibs.jsp"%>
+<c:set var="common" value="/resource/mobileaudio3/common/common.wdml" /><%//定义common模板路径%>
+<c:set var="lua" value="/resource/mobileaudio3/mycommunity/mycommunitysetting.wdml" /><%//定义本文件lua部分模板路径%>
+<cms:lastModified var="lastModifiedCommon" path="${common}"/><%//取common模板最后发布时间，并作模板存在性检查%>
+<cms:lastModified var="lastModifiedLua" path="${lua}"/><%//取本文件lua部分模板最后发布时间，并作模板存在性检查%>
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ == ============================================================================
+ == | WonderTek [ 网络无处不在，沟通及时到达 ]
+ == ============================================================================
+ == | Copyright (c) 2011, WonderTek, Inc. All Rights Reserved.
+ == ============================================================================
+ == | Author: cuiyizhou <cuiyizhou@wondertek.com.cn>
+ == ============================================================================
+ == | Desc: 个人设置页面
+ == ============================================================================
+-->
+<root>
+    <header>
+        <script src="${cpath}/publish/clt${common}?time=${lastModifiedCommon}" /><%//远程加载common模板,实现common修改后下载最新common%>
+    </header>
+    <body BuildChildrenFinished="bodyBuildChildrenFinished" OnSpriteEvent="bodyOnSpriteEvent" OnPluginEvent="bodyOnPluginEvent" resolution="720,1280">
+    <node name="mainNode" rect="0,0,720,1280" enable="true" active="true" layouttype="1" OnKeyUp="mainNodeOnKeyUp" extendstyle="1111">
+        <shadow rect="0,0,720,1280" color="#FFFFFF" alpha="255" extendstyle="1111" />
+        <panorama name="mainPanorama" rect="0,0,720,0" extendstyle="1017" foreground="foreground">
+            <panoramaitem name="foreground" rect="0,0,720,0" extendstyle="1017">
+                <node name="popupNode" rect="0,0,720,1280" extendstyle="0017"/>
+                <node name="tipsNode" rect="0,0,720,210" extendstyle="0017"/>
+            </panoramaitem>
+            <panoramaitem rect="0,0,720,788" padding="0,0,0,0" extendstyle="1017">
+                <node rect="0,0,720,76" extendstyle="1010">
+                    <shadow rect="0,0,720,4" color="#BADE9E" alpha="255" extendstyle="1510" />
+                </node>
+                <label name="title" rect="0,0,720,76" text="个人信息编辑" extendstyle="1010" v-align="center" h-align="center" font-size="28" color="#4F6855"/>
+                <button rect="0,8,100,59" style="autosize" OnSelect="backOnSelect" extendstyle="1010" normal="n" sel="s">
+                    <image name="n" rect="22,12,15,35" src="file://image/backarrow_n.png" extendstyle="1000" style="autosize" />
+                    <image name="s" rect="22,12,15,35" src="file://image/backarrow_n.png" extendstyle="1000" style="autosize" />
+                </button>
+                <listview rect="0,76,720,0" extendstyle="1017">
+                    <list-item rect="0,0,720,800" extendstyle="1010">
+                        <list rect="0,0,720,800" line="8" col="1" extendstyle="1010" auto-adjust="true">
+                            <list-item rect="0,0,720,165" extendstyle="1010">
+                                <label rect="30,75,200,50" text="我的头像" color="#5E7C64" extendstyle="1010" font-size="25" />
+                                <label rect="30,115,400,50" text="点击头像选择喜欢的头像" extendstyle="1010" color="#A4AAA0" font-size="22" />
+                                <node rect="0,0,145,165" extendstyle="5000">
+                                    <image rect="0,17,130,130" style="sudoku-auto" sudoku="7,7,7,7" src="file://image/commonbg.png" extendstyle="0000" >
+                                        <image src="file://image/dft_headimg_big.jpg" rect="4,4,129,129" style="autosize" padding="0,4,4,0" extendstyle="0066" BuildChildrenFinished="resChoose"><node/></image>
+                                        <image name="myPictureBtn" src="" alphaeffect="true" rect="4,4,129,129" style="autosize" padding="0,4,4,0" extendstyle="0066"/>
+                                    </image>
+                                    <button rect="0,17,130,130" OnSelect="myPicSelect" extendstyle="0000"/>
+                                </node>
+                                <shadow rect="15,0,690,1" color="#D1DFC5" extendstyle="1514" />
+                            </list-item>
+                            <list-item rect="0,0,720,90" extendstyle="1010">
+                                <label rect="30,25,95,90" extendstyle="1010" text="昵称：" font-size="25" color="#5E7C64" />
+                                <label name="nameMsg" rect="130,25,550,90" extendstyle="1010" text="昵称2-10个字符" font-size="25" color="#bcbcbc" />
+                                <edit name="nameEdit" rect="130,25,550,90" extendstyle="1010" OnSetFocus="nameFocus" OnLostFocus="nameLostFocus" max-size="10" color="#A4AAA0" font-size="25" />
+                                <node rect="0,30,100,35" extendstyle="5010">
+                                    <image rect="0,0,85,35" src="file://image/wordslimit.png" style="sudoku-auto" sudoku="12,0,24,0" extendstyle="1010" BuildChildrenFinished="resChoose"><node/></image>
+                                    <label rect="12,0,85,35" text="10字" extendstyle="1010" font-size="18" color="#A5AAA4" v-align="center" />
+                                </node>
+                                <shadow rect="15,0,690,1" color="#D1DFC5" extendstyle="1514" />
+                            </list-item>
+                            <list-item rect="0,0,720,90" extendstyle="1010">
+                                <button rect="0,0,720,90" extendstyle="1010" OnSelect="sexDialogSel" />
+                                <label rect="30,25,95,90" extendstyle="1010" text="性别：" font-size="25" color="#5E7C64" />
+                                <label name="sexLbl" rect="130,25,550,90" extendstyle="1010" color="#A4AAA0" font-size="25" />
+                                <label name="sexMsg" rect="130,25,550,90" extendstyle="1010" text="点击选择性别" font-size="25" color="#bcbcbc" />
+                                <shadow rect="15,0,690,1" color="#D1DFC5" extendstyle="1514" />
+                            </list-item>
+                            <list-item rect="0,0,720,90" extendstyle="1010">
+                                <label rect="30,25,95,90" extendstyle="1010" text="年龄：" font-size="25" color="#5E7C64" />
+                                <label name="defaultText" rect="130,25,550,90" extendstyle="1010" text="请选择您的出生日期" font-size="25" color="#bcbcbc" />
+                                <label name="ageEdit" rect="130,25,550,90" extendstyle="1010" font-size="25" color="#A4AAA0"/>
+                                <button rect="0,0,720,90" extendstyle="1010" OnSelect="birthdayPickerShow" />
+                                <shadow rect="15,0,690,1" color="#D1DFC5" extendstyle="1514" />
+                            </list-item>
+                            <list-item rect="0,0,720,90" extendstyle="1010">
+                                <label rect="30,25,95,90" extendstyle="1010" text="来自：" font-size="25" color="#5E7C64" />
+                                <label name="defaultText" rect="130,25,450,90" extendstyle="1010" text="请选择您所在的区域" font-size="25" color="#bcbcbc" />
+                                <label name="addressEdit" rect="130,25,450,90" extendstyle="1010" font-size="25" color="#A4AAA0" />
+                                <button rect="0,0,720,90" extendstyle="1010" OnSelect="areaChooseShow" />
+                                <shadow rect="15,0,690,1" color="#D1DFC5" extendstyle="1514" />
+                            </list-item>
+                            <list-item rect="0,0,720,0" extendstyle="1010">
+                                <label rect="30,25,95,90" extendstyle="1010" text="教育：" font-size="25" color="#5E7C64" />
+                                <label name="educationMsg" rect="130,25,450,90" extendstyle="1010" text="求学历程(选填)" font-size="25" color="#bcbcbc" />
+                                <edit name="educationEdit" rect="130,25,450,90" extendstyle="1010" OnSetFocus="educationFocus" OnLostFocus="educationLostFocus" max-size="15" font-size="25" color="#A4AAA0" />
+                                <node visible="0" rect="585,23,85,34" extendstyle="1111">
+                                    <image rect="0,0,0,0" src="file://image/volume_progress_bf.png" style="sudoku-auto" sudoku="5,5,5,5" extendstyle="1177" />
+                                    <label name="educationPrompt" rect="0,0,0,0" text="限15字" extendstyle="1177" font-size="20" color="#FFFFFF" h-align="center" />
+                                </node>
+                                <shadow rect="15,0,690,1" color="#D1DFC5" extendstyle="1514" />
+                            </list-item>
+                            <list-item rect="0,0,720,200" extendstyle="1010">
+                                <label rect="30,25,95,50" extendstyle="1010" text="心情：" font-size="25" color="#5E7C64" />
+                                <label name="signMsg" rect="130,25,550,50" extendstyle="1010" text="写下你的心情(选填)" font-size="25" color="#bcbcbc" />
+                                <edit name="signEdit" rect="130,25,480,157" extendstyle="1010" multiline="true" direction="vertical" OnSetFocus="signFocus" OnLostFocus="signLostFocus" max-size="40" font-size="25" color="#A4AAA0"/>
+                                <node rect="0,30,100,35" extendstyle="5010">
+                                    <image rect="0,0,85,35" src="file://image/wordslimit.png" style="sudoku-auto" sudoku="12,0,24,0" extendstyle="1010" BuildChildrenFinished="resChoose"><node/></image>
+                                    <label rect="12,0,85,35" text="40字" extendstyle="1010" font-size="18" color="#A5AAA4" v-align="center" />
+                                </node>
+                                <shadow rect="15,195,690,1" color="#D1DFC5" extendstyle="1014" />
+                            </list-item>
+                        </list>
+                    </list-item>
+                    <list-item rect="0,0,720,135" extendstyle="1010">
+                        <button name="saveBtn" rect="15,0,690,85" normal="n" sel="s" disabled="d" style="autosize" data="" OnSelect="saveSelect" extendstyle="1010">
+                            <shadow name="n" rect="0,0,690,85" color="#84CD7C" alpha="255" extendstyle="1010">
+                                <label name="loginLblN" rect="0,0,690,85" extendstyle="1010" text="保存修改" font-size="28" color="#FFFFFF" v-align="center" h-align="center" />
+                            </shadow>
+                            <shadow name="s" rect="0,0,690,85" color="#1C9FE3" alpha="255" extendstyle="1010">
+                                <label name="loginLblS" rect="0,0,690,85" extendstyle="1010" text="保存修改" font-size="28" color="#FFFFFF" v-align="center" h-align="center" />
+                            </shadow>
+                            <shadow name="d" rect="0,0,690,85" color="#585858" alpha="255" extendstyle="1010">
+                                <label name="loginLblD" rect="0,0,690,85" extendstyle="1010" text="保存修改" font-size="28" color="#FFFFFF" v-align="center" h-align="center" />
+                            </shadow>
+                        </button>
+                    </list-item>
+                </listview>
+            </panoramaitem>
+        </panorama>
+        <node name="birthdayPickerNode" rect="0,0,720,1280" extendstyle="1111" visible="0" enable="0">
+            <shadow name="bpShadow" rect="0,0,720,1280" color="#000000" alpha="128" extendstyle="1111"/>
+            <button rect="0,0,720,1280" extendstyle="1111" OnSelect="birthdayPickerCloseOS"/>
+            <node name="birthdayPickerFrame" rect="50,400,620,400" extendstyle="1010">
+                <node name="bottomshadow" rect="0,0,620,35" extendstyle="0510">
+                    <image rect="0,0,620,72" src="file://image/dialogShadow.png" style="autosize" extendstyle="1010" />
+                </node>
+                <image name="birthdayPickerbg" rect="0,0,620,400" style="sudoku-auto" sudoku="7,7,7,7" src="file://image/commonbg.png" extendstyle="1010" BuildChildrenFinished="resChoose"><node/></image>
+                <node name="titleArea" rect="0,0,620,85" extendstyle="1010">
+                    <label name="dtitle" rect="0,0,620,85" text="出生日期选择" color="#4F6852" font-size="30" v-align="center" h-align="center" extendstyle="1010"/>
+                    <shadow rect="0,85,620,4" color="#B2DB93" alpha="255" extendstyle="1010"/>
+                </node>
+                <node name="galleryArea" rect="0,100,620,85" padding="0,0,105,0" extendstyle="1016">
+                    <shadow rect="230,0,1,90" color="#B2DB93" alpha="255" extendstyle="1047"/>
+                    <shadow rect="420,0,1,90" color="#B2DB93" alpha="255" extendstyle="1047"/>
+                    <shadow rect="40,67,170,60" color="#84CD7C" alpha="255" extendstyle="1010"/>
+                    <gallery name="galleryYear" rect="20,0,210,90" extendstyle="1017" spacing="0" sort="vertical" normal-size="210,60" middle-size="210,60" focus-size="210,60" OnSelect="galleryYearOS"/>
+                    <shadow rect="250,67,150,60" color="#84CD7C" alpha="255" extendstyle="1010"/>
+                    <gallery name="galleryMonth" rect="230,0,190,90" extendstyle="1017" spacing="0" sort="vertical" normal-size="190,60" middle-size="190,60" focus-size="190,60" OnSelect="galleryMonthOS"/>
+                    <shadow rect="440,67,150,60" color="#84CD7C" alpha="255" extendstyle="1010"/>
+                    <gallery name="galleryDay" rect="420,0,190,90" extendstyle="1017" spacing="0" sort="vertical" normal-size="190,60" middle-size="190,60" focus-size="190,60" OnSelect="galleryDayOS"/>
+                </node>
+                <node name="btnArea" rect="0,0,620,90" extendstyle="0510">
+                    <node rect="0,0,620,90" extendstyle="0510">
+                        <shadow rect="0,0,620,2" color="#B2DB93" alpha="255" extendstyle="0014"/>
+                        <shadow rect="310,0,1,90" color="#B2DB93" alpha="255" extendstyle="1040"/>
+                    </node>
+                    <button name="okBtn" rect="0,0,310,90" style="autosize" OnSelect="birthdayPickerProc" extendstyle="1510" normal="n" sel="s">
+                        <node name="n" rect="0,0,310,90" extendstyle="1010" >
+                            <label name="textOkN" rect="0,0,310,90" extendstyle="1010" text="确定" font-size="25" color="#4F6852" v-align="center" h-align="center"/>
+                        </node>
+                        <node name="s" rect="0,0,310,90" extendstyle="1010" frame="true">
+                            <image rect="0,0,315,90" src="file://image/bluebg.png"  style="sudoku-auto" sudoku="11,11,11,11" extendstyle="1010" BuildChildrenFinished="resChoose"><node/></image>
+                            <label name="textOkF" rect="0,0,310,90" extendstyle="1010" text="确定" font-size="25" color="#FFFFFF" v-align="center" h-align="center"/>
+                        </node>
+                    </button>
+                    <button name="cancelBtn" rect="310,0,310,90" OnSelect="birthdayPickerCloseOS" extendstyle="1570" normal="n" sel="s" disabled="d">
+                        <node name="n" rect="0,0,310,90" extendstyle="1010" >
+                            <label name="textCancelN" rect="0,0,310,90" extendstyle="1010" text="取消" font-size="25" color="#4F6852" v-align="center" h-align="center"/>
+                        </node>
+                        <node name="s" rect="0,0,310,90" extendstyle="1070" frame="true">
+                            <image rect="-5,0,310,90" src="file://image/bluebg.png" style="sudoku-auto" sudoku="11,11,11,11" extendstyle="1070" BuildChildrenFinished="resChoose"><node/></image>
+                            <label name="textCancelF" rect="0,0,310,90" extendstyle="1010" text="取消" font-size="25" color="#FFFFFF" v-align="center" h-align="center"/>
+                        </node>
+                    </button>
+                </node>
+            </node>
+        </node>
+        <node name="areaChooseNode" rect="0,0,720,1280" extendstyle="1111" visible="0" enable="0">
+            <shadow name="bpShadow" rect="0,0,720,1280" color="#000000" alpha="128" extendstyle="1111"/>
+            <button rect="0,0,720,1280" extendstyle="1111" OnSelect="areaChooseCloseOS"/>
+            <node name="areaChooseFrame" rect="90,150,540,900" extendstyle="1111">
+                <node name="bottomshadow" rect="0,0,540,35" extendstyle="0510">
+                    <image rect="0,0,620,72" src="file://image/dialogShadow.png" style="autosize" extendstyle="1010" />
+                </node>
+                <image name="areaChoosebg" rect="0,0,540,900" style="sudoku-auto" sudoku="7,7,7,7" src="file://image/commonbg.png" extendstyle="1111" BuildChildrenFinished="resChoose"><node/></image>
+                <node name="titleArea" rect="0,0,540,85" extendstyle="1010">
+                    <label name="dtitle" rect="0,0,540,85" text="地区选择" color="#4F6852" font-size="30" v-align="center" h-align="center" extendstyle="1010"/>
+                    <shadow rect="0,85,540,4" color="#B2DB93" alpha="255" extendstyle="1010"/>
+                </node>
+                <listview name="listviewArea" rect="0,100,540,85" padding="0,0,105,0" extendstyle="1016">
+                    <list-item rect="0,0,540,60" extendstyle="0010">
+                        <button name="areaBtn" rect="0,0,540,60" style="autosize" extendstyle="1010" normal="n" sel="s" disabled="d" OnSelect="areaChooseOS">
+                            <label name="n" rect="0,0,540,60" extendstyle="1010" text="$(txt)" font-size="25" color="#4F6852" v-align="center" h-align="center"/>
+                            <node name="s" rect="0,0,540,60" extendstyle="1010" frame="true">
+                                <shadow rect="20,0,500,60" color="#1C9FE3" alpha="255" extendstyle="1010" />
+                                <label name="textOkF" rect="0,0,540,60" extendstyle="1010" text="$(txt)" font-size="25" color="#FFFFFF" v-align="center" h-align="center"/>
+                            </node>
+                            <node name="d" rect="0,0,540,60" extendstyle="1010" frame="true">
+                                <shadow rect="20,0,500,60" color="#84CD7C" alpha="255" extendstyle="1010" />
+                                <label name="textOkF" rect="0,0,540,60" extendstyle="1010" text="$(txt)" font-size="25" color="#FFFFFF" v-align="center" h-align="center"/>
+                            </node>
+                        </button>
+                    </list-item>
+                    <dataset>
+                        <set txt="北京 "/><set txt="上海 "/><set txt="天津 "/>
+                        <set txt="重庆 "/><set txt="河北 "/><set txt="山西 "/>
+                        <set txt="内蒙古"/><set txt="辽宁 "/><set txt="吉林 "/>
+                        <set txt="黑龙江"/><set txt="江苏 "/><set txt="浙江 "/>
+                        <set txt="安徽 "/><set txt="福建 "/><set txt="江西 "/>
+                        <set txt="山东 "/><set txt="河南 "/><set txt="湖北 "/>
+                        <set txt="湖南 "/><set txt="广东 "/><set txt="广西 "/>
+                        <set txt="海南 "/><set txt="四川 "/><set txt="贵州 "/>
+                        <set txt="云南 "/><set txt="西藏 "/><set txt="陕西 "/>
+                        <set txt="甘肃 "/><set txt="青海 "/><set txt="宁夏 "/>
+                        <set txt="新疆 "/><set txt="台湾 "/><set txt="香港 "/>
+                        <set txt="澳门 "/><set txt="海外 "/>
+                    </dataset>
+                </listview>
+                <node name="btnArea" rect="0,0,540,90" extendstyle="0510">
+                    <node rect="0,0,540,90" extendstyle="0510">
+                        <shadow rect="0,0,540,2" color="#B2DB93" alpha="255" extendstyle="0014"/>
+                        <shadow rect="270,0,1,90" color="#B2DB93" alpha="255" extendstyle="1040"/>
+                    </node>
+                    <button name="okBtn" rect="0,0,270,90" style="autosize" OnSelect="areaChooseProc" extendstyle="1510" normal="n" sel="s">
+                        <node name="n" rect="0,0,270,90" extendstyle="1010" >
+                            <label name="textOkN" rect="0,0,270,90" extendstyle="1010" text="确定" font-size="25" color="#4F6852" v-align="center" h-align="center"/>
+                        </node>
+                        <node name="s" rect="0,0,270,90" extendstyle="1010" frame="true">
+                            <image rect="0,0,270,90" src="file://image/bluebg.png"  style="sudoku-auto" sudoku="11,11,11,11" extendstyle="1010" BuildChildrenFinished="resChoose"><node/></image>
+                            <label name="textOkF" rect="0,0,270,90" extendstyle="1010" text="确定" font-size="25" color="#FFFFFF" v-align="center" h-align="center"/>
+                        </node>
+                    </button>
+                    <button name="cancelBtn" rect="270,0,270,90" OnSelect="areaChooseCloseOS" extendstyle="1570" normal="n" sel="s" disabled="d">
+                        <node name="n" rect="0,0,270,90" extendstyle="1010" >
+                            <label name="textCancelN" rect="0,0,270,90" extendstyle="1010" text="取消" font-size="25" color="#4F6852" v-align="center" h-align="center"/>
+                        </node>
+                        <node name="s" rect="0,0,270,90" extendstyle="1070" frame="true">
+                            <image rect="-5,0,270,90" src="file://image/bluebg.png" style="sudoku-auto" sudoku="11,11,11,11" extendstyle="1070" BuildChildrenFinished="resChoose"><node/></image>
+                            <label name="textCancelF" rect="0,0,270,90" extendstyle="1010" text="取消" font-size="25" color="#FFFFFF" v-align="center" h-align="center"/>
+                        </node>
+                    </button>
+                </node>
+            </node>
+        </node>
+    </node>
+    <node name="pickerItem" visible="0" enable="0" active="0">
+        <node name="sNormal" rect="0,0,210,60" extendstyle="1010">
+            <label name="text_n" rect="0,0,210,60" color="#A5AAA3" text="$(text)" font-size="25" h-align="center" v-align="center"  extendstyle="1010"/>
+        </node>
+        <node name="sFocus" rect="0,0,210,60" extendstyle="1010">
+            <label name="text_f" rect="0,0,210,60" color="#ffffff" text="$(text)" font-size="25" h-align="center" v-align="center"  extendstyle="1010"/>
+        </node>
+        <node name="sMiddle" rect="0,0,210,60" extendstyle="1010">
+            <label name="text_m" rect="0,0,210,60" color="#A5AAA3" text="$(text)" font-size="25" h-align="center" v-align="center"  extendstyle="1010"/>
+        </node>
+    </node>
+    </body>
+</root>
+<cms:include filepath="${lua}" />
+<![CDATA[
+
+monthList = {"01","02","03","04","05","06","07","08","09","10","11","12"}
+dayList = {"01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"}
+
+local saveEnable = false
+local requiredInfoCount = 0
+-- @brief 场景根节点的BuildChildrenFinished事件
+function bodyBuildChildrenFinished(sprite)
+    rootSprite = sprite
+    nameEdit = Sprite:findChild(sprite, 'nameEdit')
+    sexLbl = Sprite:findChild(sprite, 'sexLbl')
+    saveBtn = Sprite:findChild(sprite, 'saveBtn')
+    myPictureBtn = Sprite:findChild(sprite, 'myPictureBtn')
+    namePrompt = Sprite:findChild(sprite, 'namePrompt')
+    ageEdit = Sprite:findChild(sprite, 'ageEdit')
+    addressEdit = Sprite:findChild(sprite, 'addressEdit')
+    educationEdit = Sprite:findChild(sprite, 'educationEdit')
+    signEdit = Sprite:findChild(sprite, 'signEdit')
+
+    birthdayPickerNode = Sprite:findChild(sprite, 'birthdayPickerNode')
+    galleryYear = Sprite:findChild(birthdayPickerNode, 'galleryYear')
+    galleryMonth = Sprite:findChild(birthdayPickerNode, 'galleryMonth')
+    galleryDay = Sprite:findChild(birthdayPickerNode, 'galleryDay')
+    pickerItem = Sprite:findChild(sprite, 'pickerItem')
+    
+    areaChooseNode = Sprite:findChild(sprite, 'areaChooseNode')
+    listviewArea = Sprite:findChild(areaChooseNode, 'listviewArea')
+end
+
+function bodyOnSpriteEvent(msg, param)
+    if msg == MSG_ACTIVATE then
+        local reg = Reg:create(Reg.com_wondertek_mobileaudio.upload)
+        local imgpath = Reg:getString(reg,"imgpath")
+        Log:write("imgpath",imgpath)
+        if imgpath ~= "" then
+            Reg:setString(reg,"imgpath","")
+            if IO:fileExist(imgpath) then
+                local fext = IO:fileExt(imgpath)
+                local desPath = "MODULE:\\com_wondertek_mobileaudio\\userImg." .. fext
+                Log:write("desPath",desPath)
+                IO:fileCopy(imgpath,desPath,true)
+                IO:fileRemove(imgpath)
+                Sprite:setProperty(myPictureBtn, 'src', desPath)
+                --Sprite:setEnable( saveBtn,1)
+                --saveEnable = true
+                setSaveBtnStatus()
+            end
+        else
+            Loading:show()
+            requestUserinfoData()
+        end
+    elseif msg == MSG_DEACTIVATE then
+        commonDeactivate()
+        if bFree == 1 then
+            Scene:freeByHandle(rootSprite)
+        end
+    elseif msg == MSG_STRINGEVENT then
+        local paramEventID = Param:getInteger(param, 0)
+        if paramEventID == 9 then
+            local imgPath = Param:getString(param, 1)
+            if not string.find(imgPath, 'error=') then
+                clipImg(imgPath)
+            end
+            return
+        end
+        Util:onSpriteEvent(msg, param)
+    else
+        Util:onSpriteEvent(msg, param)
+    end
+end
+
+function bodyOnPluginEvent(msg, param)
+    if msg == 101 then
+        Loading:close()
+        userinfoData = Http:jsonDecode('userinfoData')
+        if userinfoData then
+            initData()
+        end
+    elseif msg == 102 then
+        Loading:close()
+        local requestData = Http:jsonDecode('settingData')
+        Log:write('requestData==========', requestData)
+        if requestData then
+            if requestData.result == '0000' then
+                Tips:show('亲，修改成功啦')
+                setRequestUpdate("userinfoDataState",Reg:create(Reg.com_wondertek_mobileaudio.community))
+                Timer:set(TimerId.once,1000,"backOnSelect")
+            else
+                Tips:show(requestData.description)
+            end
+        end
+    elseif msg == 103 then
+        local checkUserData = Http:jsonDecode('checkUserData')
+        Log:write('checkUserData====', checkUserData)
+        if checkUserData and checkUserData.result == '3007' then
+            Tips:show('亲，您的输入有误哦')
+            Sprite:setFocus(checkEdit)
+            Sprite:setProperty(checkEdit, 'text', '')
+            checkInfo()
+        end
+    else
+        Util:onPluginEvent(msg, param)
+    end
+end
+
+function mainNodeOnKeyUp(sprite, kc)
+    if kc == Key.F2 then
+        if Sprite:isVisible(birthdayPickerNode) == 1 then
+            birthdayPickerCloseOS()
+            return
+        elseif Sprite:isVisible(areaChooseNode) == 1 then
+            areaChooseCloseOS()
+            return
+        elseif commonF2KeyUp and commonF2KeyUp() then
+            return
+        end
+        bFree = 1
+        Scene:back()
+    end
+end
+
+function backOnSelect(sprite)
+    bFree = 1
+    Scene:back()
+end
+
+function requestUserinfoData()
+    local regCommunity = Reg:create(Reg.com_wondertek_mobileaudio.community)
+    local userinfoDataState = Reg:getString(regCommunity,"userinfoDataState")
+    local userId = Reg:getString( regCommunity ,'userId')
+    if userinfoDataState == "" or userinfoDataState == "1" then
+        Http:request('userinfoData',  Util:getWeiBoServer() .. Alias.userinfoData .. '?userId='..userId, 101, {useCache=0})
+        Reg:setString(regCommunity,"userinfoDataState","2")
+    else
+        Http:request('userinfoData',  Util:getWeiBoServer() .. Alias.userinfoData .. '?userId='..userId, 101, {useCache=2})
+    end
+end
+
+function saveSelect(sprite)
+    local nickName = Sprite:getText(nameEdit)
+    local sex = Sprite:getText(sexLbl)
+    local address = Sprite:getText(addressEdit)
+    local age = Sprite:getText(ageEdit)
+    local education = Sprite:getText(educationEdit)
+    local sign = Sprite:getText(signEdit)
+    if sex == '男' then
+        sex = '0'
+    elseif sex == '女' then
+        sex = '1'
+    else
+        sex = '2'
+    end
+    local iage = tonumber(age)
+    local imgSrc = Sprite:getProperty(myPictureBtn, 'src')
+    Log:write('imgSrc==========', imgSrc)
+    Loading:show()
+    if string.find(imgSrc, 'http://') or imgSrc == "" then
+        Http:request('settingData', Util:getWeiBoServer() .. 'sup/sup_infoEdit.msp?sname=' .. nickName .. '&sex=' .. sex .. '&area=' .. address .. '&sign=' .. sign .. '&age=' .. age .. '&school=' .. education, 102, {useCache=0})
+    else
+        local imgCachePath = GetLocalFilename(userImg)
+        if IO:fileExist(imgCachePath) then
+            IO:fileRemove(imgCachePath)
+        end
+        local imgData = IO:fileRead(imgSrc)
+        imgData = Base64EncodeEX(imgData, IO:fileSize(imgSrc))
+        imgData = 'myFile=' .. imgData
+        Http:request('settingData', Util:getWeiBoServer() .. 'sup/sup_infoEdit.msp?sname=' .. nickName .. '&sex=' .. sex .. '&area=' .. address .. '&sign=' .. sign .. '&age=' .. age .. '&school=' .. education .. '&fileName=png', 102, {useCache=0, method='post', postData=imgData})
+    end
+    local reg = Reg:create(Reg.com_wondertek_mobileaudio.community)
+    Reg:setString(reg, 'userInfoChanged','1')
+end
+
+function setSaveBtnStatus(status)
+    if status == '+1' then
+        requiredInfoCount = requiredInfoCount + 1 
+
+    elseif status == '-1' then
+        requiredInfoCount = requiredInfoCount -1
+    else
+
+    end
+    Log:write(' setSaveBtnStatus ,requiredInfoCount = ',requiredInfoCount,status)
+    --if requiredInfoCount > 4 then
+        --requiredInfoCount  = 4
+    --elseif requiredInfoCount < 0 then
+        --requiredInfoCount  = 0
+    --end
+    if requiredInfoCount >= 4  then
+        Sprite:setEnable( saveBtn,1)
+    else
+        Sprite:setEnable( saveBtn,0)
+    end
+end
+
+function nameFocus(sprite)
+    Sprite:setVisible(Sprite:findChild(Sprite:getParent(sprite), 'nameMsg'), 0)
+    nameEditText =Sprite:getText( nameEdit)
+end
+
+function nameLostFocus(sprite)
+    local text = Sprite:getText(sprite)
+    if '' == text then
+        Sprite:setVisible(Sprite:findChild(Sprite:getParent(sprite), 'nameMsg'), 1)
+        --Sprite:setEnable(saveBtn, 0)
+    else
+        if text ~= userinfoData.sname then
+            checkInput(sprite, text)
+        end
+    end
+    if nameEditText == '' then
+        if text == '' then
+        else
+            setSaveBtnStatus('+1')
+        end
+    else
+        if text == '' then
+            setSaveBtnStatus('-1')
+        else
+            if text ~= userinfoData.sname then
+                setSaveBtnStatus()
+            end
+        end
+    end
+end
+
+function educationFocus(sprite)
+    Sprite:setVisible(Sprite:findChild(Sprite:getParent(sprite), 'educationMsg'), 0)
+end
+
+function educationLostFocus(sprite)
+    local text = Sprite:getText(sprite)
+    if '' == text then
+        Sprite:setVisible(Sprite:findChild(Sprite:getParent(sprite), 'educationMsg'), 1)
+    end
+    if text ~= userinfoData.school then
+        checkInput(sprite, text)
+    end
+end
+
+function signFocus(sprite)
+    Sprite:setVisible(Sprite:findChild(Sprite:getParent(sprite), 'signMsg'), 0)
+    signEditText = Sprite:getText( signEdit)
+end
+
+function signLostFocus(sprite)
+    local text = Sprite:getText(sprite)
+    if '' == text then
+        Sprite:setVisible(Sprite:findChild(Sprite:getParent(sprite), 'signMsg'), 1)
+    end
+    if text ~= userinfoData.sign then
+        checkInput(sprite, text)
+    end
+    if signEditText ~= Sprite:getText( signEdit) then
+        setSaveBtnStatus()
+    end
+end
+
+function initData()
+    local nickName = userinfoData.sname
+    local sex = userinfoData.sex
+    local address = userinfoData.address
+    local age = userinfoData.age
+    local education = userinfoData.school
+    local sign = userinfoData.sign
+    userImg = userinfoData.picture
+
+    if nickName and nickName ~= '' then
+        Sprite:setVisible(Sprite:findChild(rootSprite, 'nameMsg'), 0)
+        Sprite:setProperty(nameEdit, 'text', nickName)
+        setSaveBtnStatus('+1')
+    end
+    if sex and sex ~= '' then
+        Sprite:setVisible(Sprite:findChild(rootSprite, 'sexMsg'), 0)
+        if sex == '0' then
+            Sprite:setProperty(sexLbl, 'text', '男')
+        elseif sex == '1' then
+            Sprite:setProperty(sexLbl, 'text', '女')
+        else
+            Sprite:setProperty(sexLbl, 'text', '保 密')
+        end
+        setSaveBtnStatus('+1')
+    end
+    sexLblText = Sprite:getText( sexLbl)
+    Sprite:setProperty(addressEdit, 'text', address)
+    if address and address ~= '' then
+        setSaveBtnStatus('+1')
+    end
+    addressEditText = Sprite:getText( addressEdit)
+    editOnTextChanged(addressEdit)
+    Sprite:setProperty(ageEdit, 'text', age == "0" and "" or age)
+    if age ~= '0' then
+        setSaveBtnStatus('+1')
+    end
+    ageEditText = Sprite:getText( ageEdit)
+    editOnTextChanged(ageEdit)
+    if education and education ~= '' then
+        Sprite:setVisible(Sprite:findChild(rootSprite, 'educationMsg'), 0)
+        Sprite:setProperty(Sprite:findChild(rootSprite, 'educationEdit'), 'text', education)
+    end
+    if sign and sign ~= '' then
+        Sprite:setVisible(Sprite:findChild(rootSprite, 'signMsg'), 0)
+        Sprite:setProperty(signEdit, 'text', sign)
+    end
+    if userImg and userImg ~= '' then
+        userImg = Util:getWeiBoServer() ..'publish/clt' .. userImg
+        Sprite:setProperty(myPictureBtn, 'src', userImg)
+    end
+    Sprite:setEnable( saveBtn,0)
+end
+
+function isChangeLeadSave()
+
+    Sprite:setVisible(Sprite:findChild(rootSprite, 'nameMsg'), 0)
+    local nickName = Sprite:getText(nameEdit)
+
+end
+
+function getFlashCardPath()
+    local path = ''
+    local flashCard = System:getFlashCardName(1) -- 判断外置存储卡存在性
+    local innerCard = System:getFlashCardName(0) -- 判断内置存储卡存在性
+    if flashCard and flashCard ~= '' then --设置在外置存储卡，并且存在外置存储卡
+        path = flashCard
+    elseif innerCard and innerCard ~= '' then --设置在内置存储卡，并且存在内置存储卡
+        path = innerCard
+    end
+    return path
+end
+
+function checkInfo()
+    if not isEdit or '' == Sprite:getText(nameEdit) or '' == Sprite:getText(sexLbl) or '' == Sprite:getText(addressEdit) then
+        --Sprite:setEnable(saveBtn, 0)
+    else
+        --Sprite:setEnable(saveBtn, 1)
+    end
+end
+
+function checkInput(sprite, text)
+    if string.find(text, '"') then
+        Tips:show('亲，输入不能包含双引号哦')
+        --Sprite:setEnable(saveBtn, 0)
+        return
+    end
+    checkEdit = sprite
+    if not isEdit then
+        isEdit = true
+    end
+    if text ~= '' then
+        Http:request('checkUserData', Util:getWeiBoServer() .. 'sup/validateName.msp?word=' .. text, 103, {useCache=1})
+    end
+    checkInfo()
+end
+
+function myPicSelect(sprite)
+    Popup:show({title="头像选择",funcList={{funcName="拍摄一张",funcCallBack="cameraOS"},{funcName="本地图片",funcCallBack="localimgOS"}}})
+end
+
+function cameraOS()
+    dofunction(4, "", "", 0, 0)
+    Popup:close(1)
+end
+
+function localimgOS()
+    local flashCard = getFlashCardPath()
+    OpenAlbumDialog('getAlbumImg', flashCard, 'jpg')
+    Popup:close(1)
+end
+
+function getAlbumImg(imgPath, imgType)
+    Log:write('imgPath', imgPath)
+    if not imgPath then return end
+    local fileExt = string.lower(IO:fileExt(imgPath))
+    if imgPath and fileExt == "jpg" or fileExt == "png" then
+        clipImg(imgPath)
+    else
+        Tips:show('请使用jpg或png格式的图片')
+    end
+end
+
+function getFlashCardPath()
+    local path = ''
+    local flashCard = System:getFlashCardName(1)
+    local innerCard = System:getFlashCardName(0)
+    if flashCard and flashCard ~= '' then
+        path = flashCard
+    elseif innerCard and innerCard ~= '' then
+        path = innerCard
+    end
+    return path
+end
+
+function clipImg(imgPath)
+    local reg = Reg:create(Reg.com_wondertek_mobileaudio.upload)
+    Reg:setString(reg,"imgPath",imgPath)
+    Reg:setString(reg,"displaystyle","3")
+    Scene:go(Alias.uploadimgedit)
+end
+
+function editOnTextChanged(sprite)
+    local p = Sprite:getParent(sprite)
+    local defaultText = Sprite:findChild(p,"defaultText")
+    local t = Sprite:getText(sprite)
+    if t == "" then
+        setNodeState(defaultText,1)
+    else
+        setNodeState(defaultText,0)
+    end
+end
+
+function sexDialogSel(sprite)
+    Sprite:setVisible(Sprite:findChild(Sprite:getParent(sprite), 'sexMsg'), 0)
+    Popup:show({title="性别",funcList={{funcName="男",funcCallBack="sexMaleSel"},{funcName="女",funcCallBack="sexFemaleSel"},{funcName="保 密",funcCallBack="sexUnknownSel"}}})
+end
+
+function sexMaleSel()
+    Sprite:setProperty(sexLbl, 'text', "男")
+    Popup:close()
+    sexSet()
+end
+
+function sexFemaleSel()
+    Sprite:setProperty(sexLbl, 'text', "女")
+    Popup:close()
+    sexSet()
+end
+
+function sexUnknownSel()
+    Sprite:setProperty(sexLbl, 'text', "保 密")
+    Popup:close()
+    sexSet()
+end
+
+function sexSet()
+    if sexLblText == '' then
+        setSaveBtnStatus('+1')
+    elseif Sprite:getText( sexLbl) ~= sexLblText then
+        setSaveBtnStatus()
+    end
+end
+
+function birthdayPickerShow()
+    setNodeState(birthdayPickerNode,1)
+    local pVer = GetPlatformVersion()
+    if string.match(pVer,"_android") then
+        pVer = string.gsub(pVer,"_android","")
+        if pVer >= "4.0" then
+            local okBtn,cancelBtn = Sprite:findChild(birthdayPickerNode, 'okBtn'),Sprite:findChild(birthdayPickerNode, 'cancelBtn')
+            setBtnOK(cancelBtn,'确定')
+            setBtnCancel(okBtn,'取消')
+            Sprite:setProperty(cancelBtn, 'OnSelect', "birthdayPickerProc")
+            Sprite:setProperty(okBtn, 'OnSelect', "birthdayPickerCloseOS")
+        end
+    end
+    popEffectShow(birthdayPickerNode, "birthdayPickerFrame", "bpShadow", "birthdayPickerbg", {"bottomshadow","titleArea","galleryArea","btnArea"},9,"createGalleryData")
+end
+
+function birthdayPickerCloseOS()
+    setNodeState(birthdayPickerNode,0)
+    popEffectClose(birthdayPickerNode, "birthdayPickerFrame", "bpShadow", "birthdayPickerbg", {"bottomshadow","titleArea","galleryArea","btnArea"},9)
+end
+
+function birthdayPickerProc()
+    birthdayPickerCloseOS()
+    local displayyear,displaymonth,displayday = getGalleryText(galleryYear),getGalleryText(galleryMonth),getGalleryText(galleryDay)
+    local ageMinus = -1
+    if displaymonth == t.month then
+        if displayday <= t.day then
+            ageMinus = 0
+        end
+    elseif displaymonth < t.month then
+        ageMinus = 0
+    end
+    local age = t.year - displayyear + ageMinus
+    Sprite:setProperty(ageEdit,"text",age)
+    editOnTextChanged(ageEdit)
+    Config:set("birthMonth",displaymonth)
+    Config:set("birthDay",displayday)
+    if ageEditText == '' then
+        setSaveBtnStatus('+1')
+    elseif ageEditText ~= Sprite:getText( ageEdit) then
+        setSaveBtnStatus()
+    end
+end
+
+function createGalleryData()
+    local ct = Util:getServerTime()
+    t = os.date('*t', math.floor(ct / 1000))
+    if Gallery:getItemCount(galleryYear) == 0 then
+        local curAge = tonumber(Sprite:getText(ageEdit))
+        local birthMonth,birthDay = tonumber(Config:get("birthMonth")),tonumber(Config:get("birthDay"))
+        local ageMinus = 0
+        if birthMonth and birthDay then
+            if birthMonth == t.month then
+                if birthDay > t.day then
+                    ageMinus = 1
+                end
+            elseif birthMonth > t.month then
+                ageMinus = 1
+            end
+        end
+        curAge = curAge and curAge + ageMinus or curAge
+        createGalleryYear(t.year,curAge)
+    end
+end
+
+function createGalleryYear(year,curAge)
+    Gallery:removeAllItems(galleryYear,1,1)
+    _year = year
+    _curAge = curAge or 0
+    Gallery:loadItem(galleryYear, pickerItem, 80, 'onLoadGalleryYearItem')
+end
+
+function galleryYearOS()
+    getGalleryText(galleryYear)
+    if Gallery:getItemCount(galleryMonth) == 0 then
+        createGalleryMonth(t.month)
+    end
+    if Gallery:getItemCount(galleryDay) ~= 0 then
+        local displayyear,displaymonth = getGalleryText(galleryYear),getGalleryText(galleryMonth)
+        if displaymonth == 2 then
+            createGalleryDay(displayyear,displaymonth,getGalleryText(galleryDay))
+        end
+    end
+end
+
+function onLoadGalleryYearItem(list, item, index)
+    local setText = (_year - (index+_curAge)%80) .. "年"
+    setGalleryItem(list, item, index, setText)
+end
+
+function createGalleryMonth(month)
+    Gallery:removeAllItems(galleryMonth,1,1)
+    _month = month or 1
+    Gallery:loadItem(galleryMonth, pickerItem, 12, 'onLoadGalleryMonthItem')
+end
+
+function galleryMonthOS()
+    getGalleryText(galleryMonth)
+    if Gallery:getItemCount(galleryDay) == 0 then
+        createGalleryDay(t.year,t.month,t.day)
+    else
+        local displayyear,displaymonth = getGalleryText(galleryYear),getGalleryText(galleryMonth)
+        createGalleryDay(displayyear,displaymonth,getGalleryText(galleryDay))
+    end
+end
+
+function onLoadGalleryMonthItem(list, item, index)
+    local setText = monthList[(_month-1-index)%12 + 1] .. "月"
+    setGalleryItem(list, item, index, setText)
+end
+
+function createGalleryDay(year,month,day)
+    Gallery:removeAllItems(galleryDay,1,1)
+    _day = day or 1
+    _datCount = 0
+    if month == 1 or month == 3 or month == 5 or month == 7 or month == 8 or month == 10 or month == 12 then
+        _datCount = 31
+    elseif month == 2 then
+        if year%4 == 0 then
+            _datCount = 29
+        else
+            _datCount = 28
+        end
+    else
+       _datCount = 30
+    end
+    if _day > _datCount then _day = 1 end
+    Gallery:loadItem(galleryDay, pickerItem, _datCount, 'onLoadGalleryDayItem')
+end
+
+function galleryDayOS()
+    getGalleryText(galleryDay)
+end
+
+function onLoadGalleryDayItem(list, item, index)
+    local setText = dayList[(_day-1-index)%_datCount + 1] .. "日"
+    setGalleryItem(list, item, index, setText)
+end
+
+function setGalleryItem(list, item, index, setText)
+    Sprite:setProperty(item, 'extendstyle', '0000')
+    Sprite:setProperty(item, 'normal', 'sNormal')
+    Sprite:setProperty(item, 'focus', 'sFocus')
+    Sprite:setProperty(item, 'middle', 'sMiddle')
+    local lblNormal = Sprite:findChild(item,'text_n')
+    local lblFocus = Sprite:findChild(item,'text_f')
+    local lblMiddle = Sprite:findChild(item,'text_m')
+    Sprite:setProperty(lblNormal, 'text', setText)
+    Sprite:setProperty(lblFocus, 'text', setText)
+    Sprite:setProperty(lblMiddle, 'text', setText)
+end
+
+function getGalleryText(spriteGalery)
+    local index = Gallery:getCurItem(spriteGalery)
+    local item = Gallery:getItem(spriteGalery,index)
+    local sprite = Sprite:findChild(item,"text_n")
+    local _,_,num = string.find(Sprite:getText(sprite),"(%d+)")
+    Log:write("getGalleryText", tonumber(num))
+    return tonumber(num) or 0
+end
+
+function areaChooseShow()
+    setNodeState(areaChooseNode,1)
+    local pVer = GetPlatformVersion()
+    if string.match(pVer,"_android") then
+        pVer = string.gsub(pVer,"_android","")
+        if pVer >= "4.0" then
+            local okBtn,cancelBtn = Sprite:findChild(areaChooseNode, 'okBtn'),Sprite:findChild(areaChooseNode, 'cancelBtn')
+            setBtnOK(cancelBtn,'确定')
+            setBtnCancel(okBtn,'取消')
+            Sprite:setProperty(cancelBtn, 'OnSelect', "areaChooseProc")
+            Sprite:setProperty(okBtn, 'OnSelect', "areaChooseCloseOS")
+        end
+    end
+    popEffectShow(areaChooseNode, "areaChooseFrame", "bpShadow", "areaChoosebg", {"bottomshadow","titleArea","listviewArea","btnArea"},9,"createListviewAreaData")
+end
+
+function areaChooseCloseOS()
+    setNodeState(areaChooseNode,0)
+    popEffectClose(areaChooseNode, "areaChooseFrame", "bpShadow", "areaChoosebg", {"bottomshadow","titleArea","listviewArea","btnArea"},9)
+end
+
+function createListviewAreaData()
+    local setText = Sprite:getText(addressEdit)
+    local setItem = 0
+    for i=0,ListView:getItemCount(listviewArea)-1 do
+        local item = ListView:getItem(listviewArea,i)
+        local areaBtn = Sprite:findChild(item,"areaBtn")
+        Sprite:setEnable(areaBtn,1)
+        local n = Sprite:findChild(item,"n")
+        if setText == Sprite:getText(n) then
+            setItem = item
+            Sprite:setEnable(areaBtn,0)
+            Sprite:setProperty(listviewArea,"data",i)
+        end
+    end
+    if setItem ~= 0 then
+        ListView:showItem(listviewArea,setItem)
+    end
+end
+
+function areaChooseProc()
+    local data = Sprite:getData(listviewArea)
+    local disabledIndex = tonumber(data)
+    if disabledIndex then
+        local item = ListView:getItem(listviewArea,disabledIndex)
+        local n = Sprite:findChild(item,"n")
+        Sprite:setProperty(addressEdit, 'text', Sprite:getText(n))
+    else
+        Sprite:setProperty(addressEdit, 'text', "")
+    end
+    editOnTextChanged(addressEdit)
+    areaChooseCloseOS()
+    if addressEditText == '' and addressEditText ~= Sprite:getText( addressEdit) then
+        setSaveBtnStatus('+1')
+    else
+        setSaveBtnStatus()
+    end
+end
+
+function areaChooseOS(sprite)
+    local item = Sprite:getParent(sprite)
+    local data = Sprite:getData(listviewArea)
+    local disabledIndex = tonumber(data)
+    if disabledIndex then
+        local item = ListView:getItem(listviewArea,disabledIndex)
+        local areaBtn = Sprite:findChild(item,"areaBtn")
+        Sprite:setEnable(areaBtn,1)
+    end
+    Sprite:setEnable(sprite,0)
+    local index = ListView:getItemIndex(item)
+    Sprite:setProperty(listviewArea,"data",index)
+end
+]]>

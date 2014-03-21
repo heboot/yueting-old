@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ == ============================================================================
+ == | WonderTek [ 网络无处不在，沟通及时到达 ]
+ == ============================================================================
+ == | Copyright (c) 2013, WonderTek, Inc. All Rights Reserved.
+ == ============================================================================
+ == | Author: cuiyizhou <cuiyizhou@wondertek.com.cn>
+ == ============================================================================
+ == | Desc: 帮助
+ == ============================================================================
+-->
+<root>
+    <header>
+    </header>
+    <body BuildChildrenFinished="bodyBuildChildrenFinished" OnSpriteEvent="bodyOnSpriteEvent" OnPluginEvent="bodyOnPluginEvent" resolution="720,1280">
+    <node name="mainNode" rect="0,0,720,1280" extendstyle="1111" layouttype="1" OnKeyUp="mainNodeOnKeyUp">
+        <shadow rect="0,0,720,1280" color="#FFFFFF" alpha="255" extendstyle="1111" />
+        <node rect="0,0,720,76" extendstyle="1010">
+            <shadow rect="0,0,720,4" color="#BADE9E" alpha="255" extendstyle="1510" />
+        </node>
+        <label name="title" rect="0,0,720,76" text="意见反馈" extendstyle="1010" h-align="center" v-align="center" font-size="28" color="#4F6855"/>
+        <button rect="0,8,100,59" style="autosize" OnSelect="backOnSelect" extendstyle="1010" normal="n" sel="s">
+            <image name="n" rect="22,12,15,35" src="file://image/backarrow_n.png" extendstyle="1000" style="autosize" />
+            <image name="s" rect="22,12,15,35" src="file://image/backarrow_n.png" extendstyle="1000" style="autosize" />
+        </button>
+        <button rect="0,0,100,76" style="autosize" OnSelect="sendAdvice" extendstyle="5010" normal="n" sel="s">
+            <image name="n" rect="20,16,61,40" src="file://image/setting_send_gre.png" extendstyle="1000" style="autosize" BuildChildrenFinished="resChoose"><node/></image>
+            <image name="s" rect="20,16,61,40" src="file://image/setting_send_b.png" extendstyle="1000" style="autosize" BuildChildrenFinished="resChoose"><node/></image>
+        </button>
+        <panorama name="mainPanorama" rect="0,76,720,0" extendstyle="0017" foreground="foreground">
+            <panoramaitem name="foreground" rect="0,0,720,0" extendstyle="0017">
+                <node name="tipsNode" rect="0,0,720,210" extendstyle="0017"/>
+            </panoramaitem>
+            <panoramaitem rect="0,0,720,0" extendstyle="0017">
+                <listview name="helpArea" rect="0,0,720,0" extendstyle="1017" scroll="auto" scrollbar_slider="file://image/slider.png,5,30" BuildChildrenFinished="listviewResChoose">
+                    <list-item rect="0,0,720,420" extendstyle="1010">
+                        <node rect="30,17,660,235" extendstyle="1010">
+                            <label rect="10,30,130,80" extendstyle="1010" text="意见:" font-size="25" color="#4F6855"/>
+                            <label name="blankTip" rect="100,30,520,80" extendstyle="1010" text="提出你的不爽，我们努力让大家都爽" font-size="25" color="#C8C8C8" shadow="true" shadow-color="#ffffff" shadow-alpha="150" shadow-offset="0,1"/>
+                            <edit name="contentDesc" option="numeric" rect="100,30,570,375" extendstyle="1010" color="#BBC0B9" OnTextChanged="editOnTextChanged" font-size="25" multiline="true" max-size="120"/>
+                        </node>
+                        <node rect="0,47,125,50" extendstyle="5510">
+                            <image rect="0,0,95,35" src="file://image/wordslimit.png" style="sudoku-auto" sudoku="12,0,24,0" extendstyle="1010" BuildChildrenFinished="resChoose"><node/></image>
+                            <label rect="12,0,95,35" text="120字" extendstyle="1010" font-size="18" color="#A5AAA4" v-align="center" />
+                        </node>
+                        <shadow rect="30,0,660,1" color="#D1DFC5" alpha="255" extendstyle="1514" />
+                    </list-item>
+                    <list-item rect="0,0,720,375" extendstyle="1010">
+                        <node rect="30,17,660,235" extendstyle="1010">
+                            <label rect="10,30,130,80" extendstyle="1010" text="联系方式:" font-size="25" color="#4F6855"/>
+                            <label name="blankTip" rect="150,30,520,80" extendstyle="1010" text="无论QQ、微信、邮箱等联系方式" font-size="25" color="#C8C8C8" shadow="true" shadow-color="#ffffff" shadow-alpha="150" shadow-offset="0,1"/>
+                            <edit name="contactDesc" option="numeric" rect="150,30,480,215" extendstyle="1010" color="#BBC0B9" OnTextChanged="editOnTextChanged" font-size="25" multiline="true" max-size="50"/>
+                            <shadow rect="0,240,660,1" color="#D1DFC5" alpha="255" extendstyle="1014" />
+                        </node>
+                    </list-item>
+                </listview>
+            </panoramaitem>
+        </panorama>
+    </node>
+    </body>
+</root>
+<![CDATA[
+require('com_wondertek_mobileaudio.commonlocal')
+
+function bodyBuildChildrenFinished(sprite)
+    rootSprite = sprite
+    contentDesc = Sprite:findChild(sprite,"contentDesc")
+    contactDesc = Sprite:findChild(sprite,"contactDesc")
+end
+
+--[[  插件消息方法  ]]--
+function bodyOnPluginEvent(msg, param)
+    if msg == 101 then
+        Loading:close()
+        Tips:show('谢谢您的宝贵反馈意见')
+        Timer:set(TimerId.once,1000,"backOnSelect")
+    else
+        Util:onPluginEvent(msg, param)
+    end
+end
+
+--[[  节点消息方法  ]]--
+function bodyOnSpriteEvent(msg, param)
+    if msg == MSG_ACTIVATE then
+        commonActivate()
+    elseif msg == MSG_DEACTIVATE then
+        commonDeactivate()
+        Scene:freeByHandle(rootSprite)
+    else
+        Util:onSpriteEvent(msg, param)
+    end
+end
+
+--[[  按键事件响应  ]]--
+function mainNodeOnKeyUp(sprite, kc)
+    if kc == Key.F2 then
+        if commonF2KeyUp and commonF2KeyUp() then return end
+        Scene:back()
+    else
+        Util:mainNodeOnKeyUp(sprite, kc)
+    end
+end
+
+function backOnSelect(sprite)
+    Scene:back()
+end
+
+function editOnTextChanged(sprite)
+    local p = Sprite:getParent(sprite)
+    local blankTip = Sprite:findChild(p,"blankTip")
+    if Sprite:getText(sprite) == "" then
+        setNodeState(blankTip,1)
+    else
+        setNodeState(blankTip,0)
+    end
+end
+
+function sendAdvice(sprite)
+    local t = Sprite:getText(contentDesc)
+    if t == "" then
+        Tips:show('忘了填写内容吧?')
+        return
+    end
+    local postData = "意见:" .. Sprite:getText(contentDesc) .. "，联系方式:" .. Sprite:getText(contactDesc)
+    Log:write("postData="..postData)
+    postData = 'suggestTitle=手机悦听3.0用户意见反馈&suggestContent='..postData
+    Loading:show()
+    Http:request('help_advise', Util:getServer().. 'msp/suggest.msp', 101, {useCache = 0, method='post', postData=postData})
+end
+]]>

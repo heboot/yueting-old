@@ -1,0 +1,1453 @@
+
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ == ============================================================================
+ == | WonderTek [ 网络无处不在，沟通及时到达 ]
+ == ============================================================================
+ == | Copyright (c) 2011, WonderTek, Inc. All Rights Reserved.
+ == ============================================================================
+ == | Author: wangweipeng <wangweipeng@wondertek.com.cn>
+ == ============================================================================
+ == | Desc: 社区
+ == ============================================================================
+-->
+<root>
+    <header>
+        
+    </header>
+    <body BuildChildrenFinished="bodyBuildChildrenFinished"  OnSpriteEvent="bodyOnSpriteEvent" OnPluginEvent="bodyOnPluginEvent" resolution="720,1280">
+    <node name="mainNode" rect="0,0,720,1280" OnKeyUp="mainNodeOnKeyUp" layouttype="1" extendstyle="1111">
+        <shadow rect="0,0,720,1280" color="#F7FDF3" alpha="255" extendstyle="1111" />
+        <shadow rect="0,0,720,470" color="#FFFFFF" alpha="255" extendstyle="1010" />
+        <panorama rect="0,0,720,0" extendstyle="0017" foreground="foreground">
+            <panoramaitem name="foreground" rect="0,0,720,0" extendstyle="0017">
+                <node name="popupNode" rect="0,0,720,1280" extendstyle="0017"/>
+                <node name="tipsNode" rect="0,0,720,210" extendstyle="0017"/>
+            </panoramaitem>
+            <panoramaitem rect="0,0,720,0" extendstyle="0017">
+                <image name="spaceBg" rect="0,0,720,300" style="minsize" src="file://image/my_space_bg.jpg" extendstyle="1010">
+                    <image rect="0,0,410,86" style="autosize" src="file://image/shadow_content.png" alpha="128" extendstyle="0570"/>
+                </image>
+                <shadow rect="0,0,720,76" color="#000000" alpha="90" extendstyle="1110" />
+                <button rect="0,8,100,59" style="autosize" OnSelect="backOnSelect" extendstyle="1010" normal="n" sel="s">
+                    <image name="n" rect="22,12,15,35" src="file://image/backarrow_s.png" extendstyle="1000" style="autosize" />
+                    <image name="s" rect="22,12,15,35" src="file://image/backarrow_n.png" extendstyle="1000" style="autosize" />
+                </button>
+                <button name="followBtn" rect="0,8,80,60" OnSelect="followBtnOS" extendstyle="5000" normal='n' sel='s' visible="0" enable="0">   --关注
+                    <image name="n" rect="7,7,47,46" src="file://image/space_follow_n.png" extendstyle="0000" style="autosize" BuildChildrenFinished="resChoose"><node/></image>
+                    <image name="s" rect="7,7,47,46" src="file://image/space_follow_s.png" extendstyle="0000" style="autosize" BuildChildrenFinished="resChoose"><node/></image>
+                </button>
+                <button name="unfollowBtn" rect="0,8,80,60" OnSelect="unfollowBtnOS" extendstyle="5000" normal='n' sel='s' visible="0" enable="0">   --关注
+                    <image name="n" rect="7,7,47,46" src="file://image/space_unfollow_n.png" extendstyle="0000" style="autosize" BuildChildrenFinished="resChoose"><node/></image>
+                    <image name="s" rect="7,7,47,46" src="file://image/space_unfollow_s.png" extendstyle="0000" style="autosize" BuildChildrenFinished="resChoose"><node/></image>
+                </button>
+                <button name="uploadBtn" rect="0,8,80,60" OnSelect="uploadBtnOS" extendstyle="5000" normal="n" sel="s">
+                    <image name="n" rect="7,7,47,46" src="file://image/space_record_n.png" extendstyle="0000" style="autosize" BuildChildrenFinished="resChoose"><node/></image>
+                    <image name="s" rect="7,7,47,46" src="file://image/space_record_s.png" extendstyle="0000" style="autosize" BuildChildrenFinished="resChoose"><node/></image>
+                </button>
+                <label name="spaceTitle" rect="0,0,720,76" text="我的空间" extendstyle="1010" h-align="center" v-align="center" font-size="30" color="#FFFFFF" shadow="true" shadow-color="#000000" shadow-alpha="150" shadow-offset="0,1"/>
+                <node name="msgNode" rect='0,215,720,138' extendstyle="1010">
+                    <image rect="36,0,137,137" style="sudoku-auto" sudoku="7,7,7,7" src="file://image/commonbg.png" extendstyle="0000" >
+                        <image src="file://image/dft_headimg_big.jpg" rect="4,4,129,129" style="autosize" padding="0,4,4,0" extendstyle="0066" BuildChildrenFinished="resChoose"><node/></image>
+                        <image name="msgImg" src="" alphaeffect="true" rect="4,4,129,129" style="autosize" padding="0,4,4,0" extendstyle="0066"/>
+                    </image>
+                    <label rect='190,0,80,40' text="昵称:" extendstyle="0000" font-size="25" color="#FFFFFF"/>
+                    <label rect='290,0,0,40' name="msgName" text="" autoextend="true" extendstyle="1010" font-size="25" color="#FFFFFF"/>
+                    <image rect='450,4,32,32' name='sexImg' src="file://image/woman.png" style='autosize' extendstyle='1000'/>
+                    <label rect='190,45,80,40' text="等级:" extendstyle="0000" font-size="25" color="#FFFFFF"/>
+                    <label rect='290,45,220,40' name="msgArea" text="N/A"  extendstyle="1010" postfix="." font-size="25" color="#FFFFFF"/>
+                    <node name="myspaceNode" rect='0,25,160,60' extendstyle="5000">
+                        <button rect="80,0,60,60" OnSelect="editOS" extendstyle="0000" normal="n" sel="s">
+                            <image name="n" rect="4,5,52,50" src="file://image/space_edit_n.png" extendstyle="0000" style="autosize" BuildChildrenFinished="resChoose"><node/></image>
+                            <image name="s" rect="4,5,52,50" src="file://image/space_edit_f.png" extendstyle="0000" style="autosize" BuildChildrenFinished="resChoose"><node/></image>
+                        </button>
+                        <button rect="80,0,60,60" OnSelect="msgOS" extendstyle="0000" visible="0" enable="0" normal="n" sel="s">
+                            <image name="n" rect="4,5,52,50" src="file://image/space_message_n.png" extendstyle="0000" style="autosize" BuildChildrenFinished="resChoose"><node/></image>
+                            <image name="s" rect="4,5,52,50" src="file://image/space_message_f.png" extendstyle="0000" style="autosize" BuildChildrenFinished="resChoose"><node/></image>
+                            <image rect="4,5,52,50" src="file://image/space_messagetip.png" extendstyle="0000" style="autosize" BuildChildrenFinished="resChoose"><node/></image>
+                        </button>
+                    </node>
+                    <textarea name="msgMood" rect='190,90,510,80' text="" line-height="35" font-size="22" color="#A4A9A2" maxlines="2" />
+                </node>
+                <button name="spaceBgEdit" rect="0,76,720,140" extendstyle="1010" OnSelect="spaceBgEditOS"/>
+                <list name="catalogList" rect='0,380,720,90' extendstyle='1010' auto-adjust="true" line='1' col='4'>
+                    <list-item rect='0,0,180,90' extendstyle='1010'>
+                        <button rect='0,0,180,90' extendstyle='1010' OnSelect="changeOnSelect" enable="$(enable)" name='changeBtn' normal='n' sel='s' disabled='d' h-align='center'>
+                            <node name="n" rect='0,0,180,90' extendstyle='1010'>
+                                <label text='$(text)' rect='10,10,170,40' h-align='center' extendstyle='1010' font-size='22' color='#5E7C64' shadow-color="#ffffff" shadow-alpha='100'  shadow-offset='0,1' />
+                                <label name="times" text='$(text1)' h-align='center' rect='10,45,170,40'extendstyle='1010' font-size='22' color='#5E7C64' shadow-color="#ffffff" shadow-alpha='100'  shadow-offset='0,1' font-family="Arial" />
+                            </node>
+                            <node name="s" rect='0,0,180,90' extendstyle='1010'>
+                                <label text='$(text)' rect='10,10,170,40' h-align='center' extendstyle='1010' font-size='22' color='#5E7C64' shadow-color="#ffffff" shadow-alpha='100' shadow-offset='0,1' />
+                                <label name="times" text='$(text1)' h-align='center' rect='10,45,170,40' extendstyle='1010' font-size='22' color='#5E7C64' shadow-color="#ffffff" shadow-alpha='100'  shadow-offset='0,1' font-family="Arial" />
+                            </node>
+                            <node name="d" rect='0,0,180,90' extendstyle='1010'>
+                                <label text='$(text)' rect='10,10,170,40' h-align='center' extendstyle='1010' font-size='22' color='#626262' shadow-color="#ffffff" shadow-alpha='100' shadow-offset='0,1' />
+                                <label name="times" text='$(text1)' h-align='center' rect='10,45,170,40' extendstyle='1010' font-size='22' color='#626262' shadow-color="#ffffff" shadow-alpha='100'  shadow-offset='0,1' font-family="Arial" />
+                                <shadow rect="0,81,179,6" color="#81BD7D" alpha="255" extendstyle="1510" />
+                            </node>
+                        </button>
+                        <shadow rect="179,25,1,45" color="#81BD7D" alpha="255" extendstyle="1041" />
+                    </list-item>
+                    <dataset>
+                        <set text="详细" visible="true"  enable="false" text1='信息'/>
+                        <set text="作品" visible="false" enable="true"  text1='0'/>
+                        <set text="关注" visible="false" enable="true"  text1='0'/>
+                        <set text="粉丝" visible="false" enable="true"  text1='0'/>
+                    </dataset>
+                </list>
+                <panorama name="mainPanorama" rect="0,470,720,0" extendstyle="0017" foreground="foreground" style="circle">
+                    <panoramaitem name="foreground" rect="0,0,720,0" extendstyle="0017">
+                        <shadow rect="0,0,720,3" color="#81BD7D" alpha="255" extendstyle="1010" />
+                    </panoramaitem>
+                    <panoramaitem rect="0,0,720,0" extendstyle="0017" OnSelect="mainPanoramaOnSel">
+                        <listview name="contentList1" visible="0" enable="0" rect="0,0,720,0" padding="0,0,4,0" extendstyle="0016" scroll="auto" scrollbar_slider="file://image/slider.png,5,30" BuildChildrenFinished="listviewResChoose">
+                            <textarea name="noTimesLbl" text="暂无用户记录" rect="20,0,680,0" padding="0,0,94,0" extendstyle="0016" font-size="30" color="#817b7b" shadow="true" shadow-color="#ffffff" shadow-alpha="150" shadow-offset="0,1" line-height="40" h-align="center" v-center="true" visible="false"/>
+                        </listview>
+                    </panoramaitem>
+                     <panoramaitem rect="0,0,720,0" extendstyle="0017" OnSelect="mainPanoramaOnSel">
+                        <shadow rect="40,0,1,175" color="#D1DFC6" alpha="255" extendstyle="0047" />
+                        <listview name="contentList2" rect="0,0,720,0" padding="0,0,5,0" extendstyle="0016" scroll="auto" scrollbar_slider="file://image/slider.png,5,30" OnOverTrail="contentList2OnTrail" BuildChildrenFinished="listviewResChoose">
+                            <textarea name="noTimesLbl" text="暂无作品" rect="20,0,680,0" padding="0,0,94,0" extendstyle="0016" font-size="30" color="#817b7b" shadow="true" shadow-color="#ffffff" shadow-alpha="150" shadow-offset="0,1" line-height="40" h-align="center" v-center="true" visible="false"/>
+                        </listview>
+                    </panoramaitem>
+                     <panoramaitem rect="0,0,720,0" padding="0,0,5,0" extendstyle="0016" OnSelect="mainPanoramaOnSel">
+                        <listview name="contentList3" rect="0,0,720,0" extendstyle="0017" auto-adjust="true" scroll="auto" scrollbar_slider="file://image/exdpi/slider.png,5,6" OnOverTrail="contentList3OnTrail" BuildChildrenFinished="listviewResChoose">
+                            <textarea name="noTimesLbl" text="暂无关注" rect="20,0,680,0" padding="0,0,94,0" extendstyle="0016" font-size="30" color="#817b7b" shadow="true" shadow-color="#ffffff" shadow-alpha="150" shadow-offset="0,1" line-height="40" h-align="center" v-center="true" visible="false"/>
+                        </listview>
+                    </panoramaitem>
+                    <panoramaitem rect="0,0,720,0" padding="0,0,4,0" extendstyle="0016" OnSelect="mainPanoramaOnSel">
+                        <listview name="contentList4" rect="0,0,720,0" extendstyle="0017" scroll="auto" scrollbar_slider="file://image/slider.png,5,30" OnOverTrail="contentList4OnTrail" BuildChildrenFinished="listviewResChoose">
+                            <textarea name="noTimesLbl" text="暂无粉丝\n小提示:上传和转发视频可以让您增加粉丝哦" rect="20,0,680,0" padding="0,0,94,0" extendstyle="0016" font-size="30" color="#817b7b" shadow="true" shadow-color="#ffffff" shadow-alpha="150" shadow-offset="0,1" line-height="40" h-align="center" v-center="true" visible="false"/>
+                        </listview>
+                    </panoramaitem>
+                </panorama>
+            </panoramaitem>
+        </panorama>
+        <node name="itemNode1" rect='0,0,720,120' extendstyle="1010" visible="0" enable="0" active="0">
+            <image rect='10,20,700,100' src='file://image/whitebg.png' style="sudoku-auto" sudoku="5,5,5,5" extendstyle="1010" BuildChildrenFinished="resChoose"><node/></image>
+            <button name="voteBtn" rect="15,25,90,90" extendstyle='0000' OnSelect="gotaSpaceOnSelect">
+                <image rect="5,5,90,90" padding="0,5,5,0" extendstyle="0066" src="file://image/dft_headimg_mid.jpg" style="autosize" BuildChildrenFinished="resChoose"><node/></image>
+                <image name="voteImg" rect="5,5,90,90" padding="0,5,5,0" extendstyle="0066" style="autosize" />
+                <image rect="5,5,90,90" padding="0,5,5,0" extendstyle="0066" style="sudoku-auto" sudoku="5,5,5,5" src="file://image/userimgmask.png" BuildChildrenFinished="resChoose"><node/></image>
+            </button>
+            <button OnSelect="gotaSpaceOnSelect1" rect="0,0,560,102" extendstyle='1010' />
+            <label rect='120,20,450,60' name="voteName" text="" postfix="..." extendstyle='1111' color='#5E7C64' font-size="25" v-align="center" />
+            <textarea name="votetitle" rect="120,80,450,40" text="" color="#C2C8BE" extendstyle="1010" font-size="20" v-align="center" maxlines="1"/>
+            <node name="shadowNode" rect='0,0,120,120' extendstyle="5010">
+                <shadow rect="0,30,1,80" color="#D4D2D2" alpha="255" extendstyle="0040" />
+            </node>
+            <button name="add" rect='0,25,115,90' extendstyle="5010" normal='n' sel='f' visible='false' enable='false' OnSelect="followBtnOS">
+                <node name="n" rect='0,0,95,90' extendstyle="1010">
+                    <image rect="25,2,47,46" src="file://image/follow_n.png" style="autosize" />
+                    <label rect="0,35,95,56" text="加关注" font-size='22' color="#829080" v-align="center" h-align="center"/>
+                </node>
+                <image name="f" rect='0,0,95,90' src="file://image/greenbg.png" style="sudoku-auto" sudoku="8,8,8,8" extendstyle="1010" BuildChildrenFinished="resChoose">
+                    <image rect="25,2,47,46" src="file://image/follow_s.png"  style="autosize"  />
+                    <label rect="0,35,95,56" text="加关注" font-size='22' color="#ffffff" v-align="center" h-align="center"/>
+                </image>
+            </button>
+            <button name="cancel" rect='0,25,115,90' extendstyle="5010" normal='n' sel='f' OnSelect="unfollowBtnOS">
+                <node name="n" rect='0,0,95,90' extendstyle="1010">
+                    <image rect="25,2,47,46" src="file://image/unfollow_n.png"  style="autosize"  />
+                    <label rect="0,35,95,56" text="取消关注" font-size='20' color="#829080" v-align="center" h-align="center"/>
+                </node>
+                <image name="f" rect='0,0,95,90' src="file://image/greenbg.png" style="sudoku-auto" sudoku="8,8,8,8" extendstyle="1010" BuildChildrenFinished="resChoose">
+                    <image rect="25,2,47,46" src="file://image/unfollow_s.png"  style="autosize"  />
+                    <label rect="0,35,95,56" text="取消关注" font-size='20' color="#ffffff" v-align="center" h-align="center"/>
+                </image>
+            </button>
+        </node>
+        <node name="itemNode3" rect='0,0,720,175' extendstyle="1010" visible="0" enable="0" active="0">
+            <shadow rect="40,0,1,175" color="#D1DFC6" alpha="255" extendstyle="0040" />
+            <image name="publishBg" rect='5,80,75,30' src='file://image/space_publishbg_f.png' style="sudoku-auto" sudoku="12,0,12,0" color="#000000" extendstyle="1010" BuildChildrenFinished="resChoose"><node/></image>
+            <label name="publishTxt" rect='5,80,75,30' text="9/23" extendstyle='1010' color="#FFFFFF" font-size="20" v-align="center" h-align="center"/>
+            <image rect='85,20,625,155' src='file://image/whitebg.png' style="sudoku-auto" sudoku="5,5,5,5" color="#000000" extendstyle="1010" BuildChildrenFinished="resChoose"><node/></image>
+            <button name="voteBtn" rect="90,25,220,145" extendstyle='1010' OnSelect="" >
+                <shadow rect="3,3,90,90" color="#C6C6C6" alpha="255" padding="0,3,3,0" extendstyle="0066" />
+                <image rect="62,46,95,53" extendstyle="0000" src='file://image/logo_white.png' style="autosize" BuildChildrenFinished="resChoose"><node/></image>
+                <image name="voteImg" rect="3,3,90,90" padding="0,3,3,0" extendstyle="0066" style="autosize" />
+                <shadow name="underAuditing" rect="3,3,90,90" color="#000000" alpha="128" padding="0,3,3,0" extendstyle="0066" visible="0">
+                    <label rect='0,0,0,0' text="审核中" extendstyle='0077' font-size="25" color='#FFFFFF' v-align="center" h-align="center"/>
+                </shadow>
+                <image rect="3,3,90,90" padding="0,3,3,0" extendstyle="0066" style="sudoku-auto" sudoku="5,5,5,5" src="file://image/userimgmask.png" BuildChildrenFinished="resChoose"><node/></image>
+            </button>
+            <button name="goPlay" sel="s" OnSelect="goPlayOnSelect" rect="0,0,720,175" extendstyle='1010' >
+                <shadow name="s" rect="85,20,625,155" color="#202020" alpha="100" extendstyle="1010"/>
+                <image name="" rect="85,20,625,155" src="file://image/userimgmask.png" style="sudoku-auto" sudoku="5,5,5,5" extendstyle="1010" BuildChildrenFinished="resChoose"><node/></image>
+            </button>
+            <label name="voteName" rect='310,20,100,60' text="" autoextend="true" postfix=".." extendstyle='1010' font-size="25" color='#5E7C64' v-align="center" />
+            <image name="blogType" rect="500,35,34,29" style="autosize" src="file://image//share.png" extendstyle="1010" />
+            <textarea name="voteTitle" rect="310,70,400,70" text="" color="#8b8a8a" extendstyle="1010" font-size="20" line-height="30" maxlines="2"/>
+            <image rect='315,134,50,42' src='file://image/sg_playcounts.png'  extendstyle="1010" BuildChildrenFinished="resChoose"><node/></image>
+            <label rect='360,130,50,50' name="listentimes" text="0" extendstyle='1010'  color="#8b8a8a" font-size="22"/>
+            <image rect='480,130,50,30' src='file://image/comment_s.png'  extendstyle="1010" />
+            <label rect='530,130,50,50' name="commenttimes" text="0" extendstyle='1010'  color="#8b8a8a" font-size="22"/>
+        </node>
+        <node name="itemNode4" rect='0,0,720,80' visible="false" enable="false" active="false">
+            <label name="voteName" rect="60,0,80,80" extendstyle="1010" v-align="center" text="" font-size="25" color="#5E7C64"/>
+            <label name="nameMsg" rect="170,0,540,80" extendstyle="1010" v-align="center" text="" postfix='..' font-size="25" color="#A4AAA0" />
+            <shadow name='lastshadow' rect="13,79,694,1" color="#DDEBD3" extendstyle="1514" />
+        </node>
+    </node>
+    </body>
+</root>
+<![CDATA[
+require('com_wondertek_mobileaudio.commonlocal')
+
+local curIndex = 0
+local userinfoData
+local followerData
+local noticerData
+local favoriteData
+local blogData
+local pagesize_Blog =5 --日志每页条数
+local pageidx_Fav = 1
+local myUserId
+local isChangedN = 0 --我的关注有更新
+local isChangedF = 0 --我的粉丝有更新
+local uploadList={}
+local uploadFilename = ''
+local uploadFinishFile = ''
+local reg = 0
+local videoPath =''
+local videoImgPath =''
+local VideoTitle = ''
+local downloadPath=''
+
+infotable={[0]={page=1},[1]={page=1},[2]={page=1},[3]={page=1}}
+
+function bodyBuildChildrenFinished(sprite)
+    rootSprite = sprite
+    mainPanorama = Sprite:findChild(sprite,'mainPanorama')
+    contentList1 = Sprite:findChild(sprite,'contentList1')
+    contentList2 = Sprite:findChild(sprite,'contentList2')
+    contentList3 = Sprite:findChild(sprite,'contentList3')
+    contentList4 = Sprite:findChild(sprite,'contentList4')
+    itemNode1 = Sprite:findChild(sprite,'itemNode1')
+    itemNode3 = Sprite:findChild(sprite,'itemNode3')
+    itemNode4 = Sprite:findChild(sprite,'itemNode4')
+    itemNodeUploading = Sprite:findChild(sprite,'itemNodeUploading')
+    spaceBg = Sprite:findChild(sprite,'spaceBg')
+    myspaceNode = Sprite:findChild(sprite,'myspaceNode')
+    spaceBgEdit = Sprite:findChild(sprite,'spaceBgEdit')
+    followBtn = Sprite:findChild(sprite,'followBtn')
+    unfollowBtn = Sprite:findChild(sprite,'unfollowBtn')
+    uploadBtn = Sprite:findChild(sprite,'uploadBtn')
+
+    settingNode = Sprite:findChild(sprite,'settingNode')
+    movieNode = Sprite:findChild(sprite,'movieNode')
+    catalogList = Sprite:findChild(sprite,'catalogList')
+    setNodeState(contentList1,0)
+    spaceTitle = Sprite:findChild(sprite,'spaceTitle')
+
+    local ct = Util:getServerTime()
+    t = os.date('*t', math.floor(ct / 1000))
+end
+
+function bodyOnSpriteEvent(msg, param)
+   if msg == MSG_ACTIVATE then
+        commonActivate()
+        local reg = Reg:create(Reg.com_wondertek_mobileaudio.upload)
+        local imgpath = Reg:getString(reg,"imgpath")
+        Log:write("imgpath",imgpath)
+        if imgpath ~= "" then
+            Reg:setString(reg,"imgpath","")
+            if IO:fileExist(imgpath) then
+                local fext = IO:fileExt(imgpath)
+                local desPath = "MODULE:\\com_wondertek_mobileaudio\\spaceBg." .. fext
+                Log:write("desPath",desPath)
+                IO:fileCopy(imgpath,desPath,true)
+                IO:fileRemove(imgpath)
+                Config:set("spaceBg",desPath)
+            end
+        end
+        local regCommunity = Reg:create(Reg.com_wondertek_mobileaudio.community)
+        local userId = Reg:getString(regCommunity ,'userId')
+        _userId = userId
+		Log:write('获取的Id',userId)
+        if userId ~= "" then
+            setCommunityType(1)
+            spaceType = 'ta' .. userId
+            local urlparam_f ='?usertype=noticer&pageIdx=1&pageSize=300'
+            Http:request('myNoticerData', Util:getWeiBoServer() .. Alias.usernetworkData .. urlparam_f, 105, {useCache=0})
+        else
+            setCommunityType(0)
+            spaceType = 'my'
+            myNoticerData_flag = true
+        end
+        requestUserinfoData()
+    elseif msg == MSG_DEACTIVATE then
+        commonDeactivate()
+        Timer:cancel(3)
+        if bFree == 1 then
+            Scene:freeByHandle(rootSprite)
+        end
+    elseif msg == MSG_STRINGEVENT then
+        local paramEventID = Param:getInteger(param, 0)
+        if paramEventID == 9 then
+            local imgPath = Param:getString(param, 1)
+            if not string.find(imgPath, 'error=') then
+                clipImg(imgPath)
+            end
+            return
+        end
+        Util:onSpriteEvent(msg, param)
+    else
+        Util:onSpriteEvent(msg, param)
+    end
+end
+
+function requestUserinfoData()
+    local regCommunity = Reg:create(Reg.com_wondertek_mobileaudio.community)
+    local useCache = getRequestState("userinfoDataState" .. _userId, regCommunity)
+    Loading:show()
+	Log:write("userid2===============",_userId,useCache)
+    Http:request('userinfoData',  Util:getWeiBoServer() .. Alias.userinfoData .. '?userId=' .. _userId, 110, {useCache = useCache})
+end
+
+function bodyOnPluginEvent(msg, param)
+    if msg == 101 then
+
+    elseif msg == 102 then
+        resultData = Http:jsonDecode('addFocus_data')
+        Log:write("addFocus_data", resultData)
+        if resultData.result=='0000' then
+            changeStatus()
+            Tips:show("关注成功")
+            if spaceType ~= "my" then
+                setRequestState('userinfoDataState' .. _userId)
+                requestUserinfoData()
+                setRequestState('noticerDataStatemy')
+                setRequestState('userinfoDataState')
+            end
+        end
+    elseif msg == 103 then
+        resultData = Http:jsonDecode('cancelFocus_data')
+        Log:write("cancelFocus_data", resultData)
+        if resultData.result=='0000' then
+            changeStatus()
+            Tips:show("取消成功")
+            if spaceType ~= "my" then
+                setRequestState('userinfoDataState' .. _userId)
+                requestUserinfoData()
+                setRequestState('noticerDataStatemy')
+                setRequestState('userinfoDataState')
+            end
+        end
+    elseif msg == 105 then
+        local tempNoticerData = Http:jsonDecode('myNoticerData')
+        if tempNoticerData and tempNoticerData.userInfoList then
+            myNoticerData = tempNoticerData.userInfoList
+        end
+        myNoticerData_flag = true
+        Log:write(' myNoticerData = ',tempNoticerData)
+        if noticerData_flag then
+            ListView:loadItem(contentList3,itemNode1, #noticerData+1,'onloadItem1')
+            ListView:adjust(contentList3)
+        end
+        if followerData_flag then
+            ListView:loadItem(contentList4,itemNode1, #followerData + 1,'onloadItem2')
+            ListView:adjust(contentList4)
+        end
+        --local removeFlag =false
+        --if myNoticerData and myNoticerData.userInfoList then
+            --for i=0,#myNoticerData.userInfoList do
+                --if myNoticerData.userInfoList[i].id == userinfoData.userId then
+                    --changeNoticeStatus('remove')
+                    --removeFlag = true
+                    --break
+                --end
+            --end
+        --end
+    elseif msg == 110 then
+        userinfoData = Http:jsonDecode('userinfoData')
+        Log:write('userinfoData 110',userinfoData)
+		Log:write('userinfoData 110',userinfoData.code)
+        Loading:close()
+        if userinfoData.code =='1014' then
+            setNodeState(contentList1,0)
+            Net:goToMyAccount()
+        else
+            LoadUserInfo()
+            setNodeState(contentList1,1)
+            if spaceType ~= "my" then
+                if userinfoData.isFocused == "1" then
+                    setNodeState(followBtn,0)
+                    setNodeState(unfollowBtn,1)
+                else
+                    setNodeState(followBtn,1)
+                    setNodeState(unfollowBtn,0)
+                end
+                Sprite:setProperty(followBtn,"data",userinfoData.userId)
+                Sprite:setProperty(unfollowBtn,"data",userinfoData.userId)
+            end
+        end
+    elseif msg == 150 then
+        userWorksData = Http:jsonDecode('userWorksData')
+        Log:write(' userWorksData = ',userWorksData )
+        if userWorksData and userWorksData.contList then
+            loadWorksData()
+        end
+    elseif msg == 160 then
+        userWorksData = Http:jsonDecode('userWorksData')
+        Log:write('userWorksData 160',userWorksData )
+        Sprite:setProperty(contentList2,"data","")
+        if userBoxData and userBoxData.blogList then
+            loadWorksData()
+        else
+            infotable[1].page = -1
+        end
+    elseif msg == 151 then
+        userBoxData = Http:jsonDecode('userBoxData')
+        Log:write('userBoxData 151',userBoxData )
+        setTimes(1,userBoxData.count)
+        if userBoxData and userBoxData.blogList then
+            loadBoxData()
+        end
+    elseif msg == 161 then
+        userBoxData = Http:jsonDecode('userBoxData')
+        Log:write('userBoxData 161',userBoxData )
+        Sprite:setProperty(contentList2,"data","")
+        if userBoxData and userBoxData.blogList then
+            loadBoxData()
+        else
+            infotable[1].page = -1
+        end
+    elseif msg == 152 then
+        Loading:close()
+        local ntData = Http:jsonDecode('noticerData')
+        Log:write('ntData 152',ntData)
+        local noTimesLbl = Sprite:findChild(contentList3,'noTimesLbl')
+        if ntData.count == '0' then
+            Sprite:setVisible(noTimesLbl, 1)
+            Sprite:setEnable(contentList3, 0)
+            return
+        else
+            Sprite:setVisible(noTimesLbl, 0)
+            Sprite:setEnable(contentList3, 1)
+        end
+        setTimes(2,ntData.count)
+        infotable[2].page = 1
+        if ntData and ntData.userInfoList and #ntData.userInfoList+1 > 0 then
+            noticerData = ntData.userInfoList
+            ListView:removeAllItems(contentList3,1,1)
+            ListView:loadItem(contentList3,itemNode1, #noticerData+1,'onloadItem1')
+            ListView:adjust(contentList3)
+        else
+            infotable[2].page = -1
+        end
+    elseif msg == 162 then
+        Loading:close()
+        local ntData = Http:jsonDecode('noticerData')
+        Log:write('ntData 162',ntData)
+        -- local lastItem = ListView:getItem(contentList3,ListView:getItemCount(contentList3)-1)
+        -- if lastItem then
+        --     ListView:removeItem(contentList3,lastItem,1,1)
+        -- end
+        Sprite:setProperty(contentList3,"data","")
+        if ntData and ntData.userInfoList and #ntData.userInfoList+1 > 0 then
+            noticerData = ntData.userInfoList
+            ListView:loadItem(contentList3,itemNode1, #noticerData+1,'onloadItem1')
+            ListView:adjust(contentList3)
+        else
+            infotable[2].page = -1
+        end
+    elseif msg == 153 then
+        Loading:close()
+        local fwData = Http:jsonDecode('followerData')
+        Log:write('fwData 153',fwData)
+        local noTimesLbl = Sprite:findChild(contentList4,'noTimesLbl')
+        if fwData.count == '0' then
+            Sprite:setVisible(noTimesLbl, 1)
+            Sprite:setEnable(contentList4, 0)
+            return
+        else
+            Sprite:setVisible(noTimesLbl, 0)
+            Sprite:setEnable(contentList4, 1)
+        end
+        setTimes(3,fwData.count)
+        infotable[3].page = 1
+        local count = 0
+        if fwData and fwData.userInfoList and #fwData.userInfoList+1 > 0 then
+            followerData = fwData.userInfoList
+            Log:write(' followerCount = ',#followerData )
+            ListView:removeAllItems(contentList4,1,1)
+            ListView:loadItem(contentList4,itemNode1, #followerData+1,'onloadItem2')
+            ListView:adjust(contentList4)
+        else
+            infotable[3].page = -1
+        end
+    elseif msg == 163 then
+        Loading:close()
+        local fwData = Http:jsonDecode('followerData')
+        Log:write('fwData 163',fwData)
+        -- local lastItem = ListView:getItem(contentList4,ListView:getItemCount(contentList4)-1)
+        -- if lastItem then
+        --     ListView:removeItem(contentList4,lastItem,1,1)
+        -- end
+        Sprite:setProperty(contentList4,"data","")
+        if fwData and fwData.userInfoList and #fwData.userInfoList+1 > 0 then
+            followerData = fwData.userInfoList
+            Log:write(' followerCount = ',#followerData )
+            ListView:loadItem(contentList4,itemNode1, #followerData+1,'onloadItem2')
+            ListView:adjust(contentList4)
+        else
+            infotable[3].page = -1
+        end
+    elseif msg == 114 then  --加载我的收藏
+        favoriteData = Http:jsonDecode('favoriteData')
+        Log:write('***********************114',favoriteData)
+        --setTimes(3,favoriteData.count)
+        --if favoriteData.count=='0' then
+            --local noTimesLbl = Sprite:findChild(contentList4,'noTimesLbl')
+            --Sprite:setVisible(noTimesLbl, 1)
+            --Sprite:setEnable(contentList4, 0)
+            --return
+        --end
+        --isLoadingMore = 0
+        --local lastItem = ListView:getItem(contentList4,ListView:getItemCount(contentList4)-1)
+        --if lastItem then
+            --ListView:removeItem(contentList4,lastItem,1,1)
+        --end
+
+        --local count = 0
+        --if favoriteData.blogList then
+            --count = #favoriteData.blogList+1
+        --end
+        --if ListView:getItemCount(contentList4)<math.floor(favoriteData.count) then --if count >0 then
+            --blogData = favoriteData.blogList
+            --ListView:loadItem(contentList4,itemNode3, count,'onloadItem3')
+            --ListView:adjust(contentList4)
+        --else
+            --pageidx_Fav = -1
+        --end
+    elseif msg == 115 then
+        local sendRequestData = Http:jsonDecode('sendRequestData')
+        Log:write('sendRequestData=======', sendRequestData)
+        if sendRequestData then
+            if sendRequestData.description then
+                Tips:show('视频上传成功，等待视频审核')
+                --Tips:show(sendRequestData.description)
+            end
+            --Save detail param
+            --[[
+            local blogId=sendRequestData.blogId
+            local reg1 = Reg:create('com_wondertek_mobileaudio_video_uploaded')
+            Reg:load(reg1,uploadFinishFile)
+            Reg:setString(reg1, blogId,videoPath..'|'..videoImgPath)
+            Reg:save(reg1, uploadFinishFile)
+            --Set upload Item
+            showUploadFinishItem(blogId)
+            --]]
+        else
+            Tips:show('汗，视频上传失败')
+        end
+    else
+        Util:onPluginEvent(msg, param)
+    end
+end
+
+function backOnSelect(sprite)
+    bFree = 1
+    Scene:back()
+end
+
+function mainNodeOnKeyUp(sprite, kc)
+    if kc == Key.F2 then
+        if commonF2KeyUp and commonF2KeyUp() then return end
+        bFree = 1
+        Scene:back()
+    end
+end
+
+function LoadUserInfo()
+    local msgImg = Sprite:findChild(rootSprite,'msgImg')
+    local msgName = Sprite:findChild(rootSprite,'msgName')
+    local msgArea = Sprite:findChild(rootSprite,'msgArea')
+    local msgMood = Sprite:findChild(rootSprite,'msgMood')
+    local msgNode = Sprite:findChild(rootSprite,"msgNode")
+    local sexImg = Sprite:findChild(rootSprite,'sexImg')
+
+    local mypicurl =userinfoData.picture or ''
+    if mypicurl~='' then
+        mypicurl =Util:getWeiBoServer() .. 'publish/clt' .. mypicurl
+        Log:write('mypicurl==',mypicurl)
+        Sprite:setProperty(msgImg,'src', mypicurl)
+        SpriteImage_RefreshImage(msgImg)
+    end
+
+    Sprite:setProperty(msgName,'text',userinfoData.sname or "")
+    Sprite:setProperty(msgArea,'text',"")
+    Sprite:setProperty(msgMood,'text',userinfoData.perDesc == "" and "简介:这个人很懒，啥都没填写" or "简介:" .. userinfoData.perDesc)
+    Sprite:setVisible(sexImg, 1)
+    if userinfoData.sex=='0' then
+        Sprite:setProperty(sexImg,'src','file://image/man.png')
+    elseif userinfoData.sex=='1' then
+        Sprite:setProperty(sexImg,'src','file://image/woman.png')
+    else
+        Sprite:setVisible(sexImg, 0)
+    end
+
+    local x, y, w, h = Sprite:getRect(sexImg)
+    local a,b,c,d = Sprite:getRect(msgName)
+    Sprite:setRect(sexImg,a+c+10,y,w,h)
+
+    myUserId = userinfoData.userId
+	Log:write('userid3===',myUserId)
+    ListView:removeAllItems(contentList1,1,1)
+    ListView:loadItem(contentList1,itemNode4, 7,'onloadItem4')
+    ListView:adjust(contentList1)
+
+    setTimes(1,userinfoData.worksCount)
+    setTimes(2,userinfoData.noticerCount)
+    setTimes(3,userinfoData.followerCount)
+end
+
+function loadWorksData()
+    -- Sprite:setRect(contentList2, 0, 0, 720, 720)
+    Sprite:setProperty(contentList2, 'extendstyle', '1010')
+    local count = #userWorksData.contList
+    ListView:loadItem(contentList2,itemNode3, count + 1,'onloadworksItem3')
+    ListView:adjust(contentList2)
+end
+
+function loadBoxData()
+    local count = #userBoxData.blogList
+    ListView:loadItem(contentList2,itemNode3, count + 1,'onloadboxItem3')
+    ListView:adjust(contentList2)
+end
+
+function onloadworksItem3(list,item,index)
+    Sprite:setRect( item,0,0,720,168)
+    Sprite:setProperty( item,'extendstyle','1010')
+    local voteName = Sprite:findChild( item,'voteName')
+    local votetitle = Sprite:findChild( item,'votetitle')
+    local voteBtn = Sprite:findChild( item,'voteBtn')
+    local listentimes = Sprite:findChild( item,'listentimes')
+    local commenttimes = Sprite:findChild( item,'commenttimes')
+
+    Sprite:setProperty( voteName,'text',userWorksData.contList[index].name)
+    Sprite:setProperty( votetitle,'text',userWorksData.desc)
+    Sprite:setProperty( voteBtn,'data',userWorksData.contList[index].param)
+    Sprite:setProperty( listentimes,'text',userWorksData.contList[index].playTimes)
+end
+
+function onloadboxItem3(list,item,index)
+    Sprite:setRect(item, 0, 0, 720, 175)
+    Sprite:setProperty(item, 'extendstyle', '1010')
+    local voteImg = Sprite:findChild(item, 'voteImg')
+    local videoImg = userBoxData.blogList[index].videoImg or ''
+    Sprite:setProperty(voteImg, 'src', videoImg)
+    local goPlay = Sprite:findChild(item, "goPlay")
+    Sprite:setProperty(goPlay, "data", userBoxData.blogList[index].param )
+    Sprite:setProperty( item,'data',userBoxData.blogList[index].userId .. ';' .. userBoxData.blogList[index].blogId)
+    local voteName,voteTitle = Sprite:findChild(item, 'voteName'),Sprite:findChild(item, 'voteTitle')
+    local blogType =Sprite:findChild( item,'blogType')
+    Sprite:setProperty(voteName, "text", userBoxData.blogList[index].title)
+    Sprite:setProperty(voteTitle, "text", userBoxData.blogList[index].body == "" and "这个人很懒，啥都没写" or userBoxData.blogList[index].body)
+    if userBoxData.blogList[index].bolgType == '0' then
+        Sprite:setProperty( blogType,'src','file://image/edit.png')
+    end
+
+    local listentimes =Sprite:findChild( item,'listentimes')
+    local commenttimes =Sprite:findChild( item,'commenttimes')
+    Sprite:setProperty( listentimes,'text',userBoxData.blogList[index].playTimes)
+    Sprite:setProperty( commenttimes,'text',userBoxData.blogList[index].commentTimes)
+
+    local publishTxt,publishBg = Sprite:findChild(item, 'publishTxt'),Sprite:findChild(item, 'publishBg')
+    local _,_,m,d = string.find(userBoxData.blogList[index].pubTime,"%d+-(%d+)-(%d+) .+")
+    if m and d then
+        Sprite:setProperty(publishTxt,"text", m .. "/" .. d)
+        if m ~= t.month and d ~= t.day then
+            Sprite:setProperty(publishTxt,"color","#8b8a8a")
+            Sprite:setProperty(publishBg,"src","file://image/space_publishbg_n.png")
+            resChoose(publishBg)
+        end
+    end
+    if userBoxData.blogList[index].blogStatus == "0" then
+        --[[  审核中  ]]--
+        local underAuditing = Sprite:findChild(item, 'underAuditing')
+        setNodeState(underAuditing,1)
+        Sprite:setEnable(goPlay,0)
+    end
+
+    local rect1 ={Sprite:getRect( voteName)}
+    local rect2 ={Sprite:getRect( blogType)}
+    local x = rect1[3]
+    if x > 350 then 
+        x = 350
+        Sprite:setProperty( voteName,'autoextend','false')
+    end
+    Sprite:setRect( voteName,rect1[1],rect1[2],x,rect1[4])
+    Sprite:setRect( blogType,x + rect1[1] + 10,rect2[2],rect2[3],rect2[4])
+end
+
+function setTimes(i,count)
+    local Item =List:getItem(catalogList,i)
+    local changeBtn=Sprite:findChild(Item,'changeBtn')
+    local n =Sprite:findChild(changeBtn,'n')
+    local s =Sprite:findChild(changeBtn,'s')
+    local d =Sprite:findChild(changeBtn,'d')
+    local nTimes=Sprite:findChild(n,'times')
+    local sTimes=Sprite:findChild(s,'times')
+    local dTimes=Sprite:findChild(d,'times')
+    if  count== '-1' then
+        local oldcount =math.floor(Sprite:getProperty(nTimes, 'text'))
+        oldcount = oldcount-1
+        Sprite:setProperty(nTimes,'text',oldcount)
+        Sprite:setProperty(sTimes,'text',oldcount)
+        Sprite:setProperty(dTimes,'text',oldcount)
+    elseif  count== '+1' then
+        local oldcount =math.floor(Sprite:getProperty(nTimes, 'text'))
+        oldcount = oldcount + 1
+        Sprite:setProperty(nTimes,'text',oldcount)
+        Sprite:setProperty(sTimes,'text',oldcount)
+        Sprite:setProperty(dTimes,'text',oldcount)
+    else
+        Sprite:setProperty(nTimes,'text',count)
+        Sprite:setProperty(sTimes,'text',count)
+        Sprite:setProperty(dTimes,'text',count)
+    end
+end
+
+function changeStatus(sprite)
+    local n = Panorama:getCurItem(mainPanorama)
+    if n == 2 then
+        setRequestState('noticerDataState' .. spaceType)
+        if spaceType == 'my' then
+        else
+            setRequestState('noticerDataStatemy')
+            setRequestState('userinfoDataState')
+        end
+        Loading:show()
+        infotable[n].page = 1
+        refreshNoticerList(false,0)
+    elseif n == 3 then
+        setRequestState('followerDataState' .. spaceType)
+        if spaceType == 'my' then
+            setRequestState('noticerDataState' .. spaceType)
+            infotable[2].page = 1
+            refreshNoticerList(false,0)
+        else
+            setRequestState('noticerDataStatemy')
+            setRequestState('userinfoDataState')
+        end
+        Loading:show()
+        infotable[n].page = 1
+        refreshFollowerList(false,0)
+    end
+end
+
+function onloadItem1(list, item, index) --关注
+    Sprite:setRect(item, 0, 0, 720, 120)
+    Sprite:setProperty(item, 'extendstyle', '1010')
+    Log:write('onloadItem1 index='..index)
+    local voteImg = Sprite:findChild(item, 'voteImg')
+    local userImg = noticerData[index].img or ''
+    if userImg ~= '' then
+        userImg = Util:getWeiBoServer() .. 'publish/clt' .. userImg
+        Sprite:setProperty(voteImg, 'src', userImg)
+        Log:write('userImg=='..userImg)
+    end
+    local voteName = Sprite:findChild(item, 'voteName')
+    Sprite:setProperty(voteName, 'text', '昵称:' .. (noticerData[index].name == "" and "匿名" or noticerData[index].name))
+    local votetitle = Sprite:findChild(item, 'votetitle')
+    Sprite:setProperty(votetitle, 'text', '简介:' .. (noticerData[index].sign == "" and "这个人很懒，啥都没写" or noticerData[index].sign))
+    local add,cancel,shadowNode = Sprite:findChild(item,'add'),Sprite:findChild(item,'cancel'),Sprite:findChild(item,'shadowNode')
+    Sprite:setProperty(add, 'data', noticerData[index].id or "")
+    Sprite:setProperty(cancel, 'data', noticerData[index].id or "")
+    Sprite:setProperty(shadowNode, 'data', noticerData[index].myUserId)
+    
+    if noticerData[index].isFocused == '1' then
+        setNodeState(add, 0)
+        setNodeState(cancel, 1)
+    else
+        setNodeState(add, 1)
+        setNodeState(cancel, 0)
+    end
+    
+    if spaceType ~= 'my' and noticerData[index].id == noticerData[index].myUserId then
+        setNodeState(add, 0)
+        setNodeState(cancel, 0)
+        setNodeState(shadowNode, 0)
+    end
+end
+
+function onloadItem2(list, item, index) --粉丝
+    Sprite:setRect(item, 0, 0, 720, 120)
+    Sprite:setProperty(item, 'extendstyle', '0010')
+    Log:write('onloadItem2 index='..index)
+    local voteImg = Sprite:findChild(item, 'voteImg')
+    local userImg =followerData[index].img or ''
+    if userImg~='' then
+        userImg = Util:getWeiBoServer() .. 'publish/clt' .. userImg
+        Sprite:setProperty(voteImg, 'src', userImg)
+        Log:write('userImg=='..userImg)
+    end
+    local voteName = Sprite:findChild(item, 'voteName')
+    Sprite:setProperty(voteName, 'text', '昵称:' .. (followerData[index].name == "" and "匿名" or followerData[index].name))
+    local votetitle = Sprite:findChild(item, 'votetitle')
+    Sprite:setProperty(votetitle, 'text', '简介:' .. (followerData[index].sign == "" and "这个人很懒，啥都没写" or followerData[index].sign))
+    local add,cancel,shadowNode = Sprite:findChild(item,'add'),Sprite:findChild(item,'cancel'),Sprite:findChild(item,'shadowNode')
+    Sprite:setProperty(add, 'data', followerData[index].id or "")
+    Sprite:setProperty(cancel, 'data', followerData[index].id or "")
+    Sprite:setProperty(shadowNode, 'data', followerData[index].myUserId)
+    
+    if followerData[index].isFocused == '1' then
+        setNodeState(add, 0)
+        setNodeState(cancel, 1)
+    else
+        setNodeState(add, 1)
+        setNodeState(cancel, 0)
+    end
+
+    if spaceType ~= 'my' and followerData[index].id == followerData[index].myUserId then
+        setNodeState(add, 0)
+        setNodeState(cancel, 0)
+        setNodeState(shadowNode, 0)
+    end
+end
+
+function onloadItem4(list, item, index)
+    Sprite:setRect(item, 0, 0, 720, 80)
+    Sprite:setProperty(item, 'extendstyle', '1010')
+    local voteName = Sprite:findChild(item, 'voteName')
+    local votetitle = Sprite:findChild(item, 'nameMsg')
+    if index == 0 then
+        Sprite:setProperty(voteName, 'text', '昵称:')
+        Sprite:setProperty(votetitle, 'text', userinfoData.sname)
+    elseif index == 1 then
+        Sprite:setProperty(voteName, 'text', '性别:')
+        local gender = '保密'
+        if userinfoData.sex == "0" then
+            gender = '男'
+        elseif userinfoData.sex == "1" then
+            gender = '女'
+        end
+        Sprite:setProperty(votetitle, 'text', gender)
+    elseif index == 2 then
+        Sprite:setProperty(voteName, 'text', '年龄:')
+        Sprite:setProperty(votetitle, 'text', userinfoData.age)
+    elseif index == 3 then
+        Sprite:setProperty(voteName, 'text', '来自:')
+        Sprite:setProperty(votetitle, 'text', userinfoData.address)
+    elseif index == 4 then
+        Sprite:setProperty(voteName, 'text', '等级:')
+        Sprite:setProperty(votetitle, 'text', '')
+    elseif index == 5 then
+        Sprite:setProperty(voteName, 'text', '教育:')
+        Sprite:setProperty(votetitle, 'text', userinfoData.school)
+    elseif index == 6 then
+        Sprite:setProperty(voteName, 'text', '心情:')
+        Sprite:setProperty(votetitle, 'text', userinfoData.sign)
+    end
+
+    --Sprite:setProperty(voteName, 'text',  noticerData[index].name or '默认用户')
+    --Sprite:setProperty(votetitle, 'text',   noticerData[index].sign or 'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest')
+    --local add=Sprite:findChild(item,'add')
+    --local cancel=Sprite:findChild(item,'cancel')
+    --Sprite:setProperty(add, 'data', noticerData[index].id or "")
+    --Sprite:setProperty(cancel, 'data', noticerData[index].id or "")
+end
+
+function changeOnSelect(sprite)
+    local n= List:getCurItem(catalogList)
+    Log:write(">>>>changeOnSelect n = "..n)
+
+    for i=0,3 do
+    local item =List:getItem(catalogList,i)
+    --local navBar =Sprite:findChild(item,'navBar')
+    local changeBtn=Sprite:findChild(item,'changeBtn')
+        if i==n then
+            --Sprite:setVisible(navBar,1)
+            Sprite:setEnable(changeBtn,0)
+            Panorama:setCurItem(mainPanorama,n)
+            curIndex=i
+        else
+            Sprite:setEnable(changeBtn,1)
+            --Sprite:setVisible(navBar,0)
+        end
+    end
+end
+
+function mainPanoramaOnSel(sprite)
+    local n =Panorama:getCurItem(mainPanorama)
+    for i=0,3 do
+        local item =List:getItem(catalogList,i)
+        local changeBtn=Sprite:findChild(item,'changeBtn')
+        if i==n then
+            Panorama:setCurItem(mainPanorama,n)
+            Sprite:setEnable(changeBtn,0)
+        else
+            Sprite:setEnable(changeBtn,1)
+        end
+    end
+    if not userinfoData then return end
+    if n == 1 and ListView:getItemCount(contentList2) == 0 then
+        if userinfoData.nodeId and userinfoData.nodeId ~= '' then
+            local useCache = getRequestState("userWorksDataState", Reg:create(Reg.com_wondertek_mobileaudio.community))
+            Http:request('userWorksData',Util:getWeiBoServer() .. Alias.audioplayData .. '?nodeId=' .. userinfoData.nodeId .. '&objType=0',150,{useCache = useCache})
+        else
+            local useCache = getRequestState("userBoxDataState", Reg:create(Reg.com_wondertek_mobileaudio.community))
+            Http:request('userBoxData', Util:getWeiBoServer() .. Alias.userboxData .. '?userId=' .. userinfoData.userId .. '&pageIdx=' .. infotable[n].page .. '&pageSize=10' , 151 ,{useCache = useCache} )
+        end
+    elseif n == 2 and ListView:getItemCount(contentList3) == 0 then
+        refreshNoticerList()
+    elseif n == 3 and ListView:getItemCount(contentList4) == 0 then
+        refreshFollowerList()
+    end
+end
+
+function refreshNoticerList(bKeepList,useCache,msgNum)
+    if not bKeepList then
+        ListView:setItemToTop(contentList3,0) --为了不错误触发onovertrail
+        ListView:removeAllItems(contentList3,1,1)
+    end
+    local useCache = useCache or getRequestState("noticerDataState" .. spaceType, Reg:create(Reg.com_wondertek_mobileaudio.community))
+    local urlparam_n ='&usertype=noticer&pageIdx=' .. infotable[2].page .. '&pageSize=10'
+    Http:request('noticerData',  Util:getWeiBoServer() .. Alias.usernetworkData .. '?userId=' .. userinfoData.userId .. urlparam_n, msgNum or 152, {useCache = useCache})
+end
+
+function refreshFollowerList(bKeepList,useCache,msgNum)
+    if not bKeepList then
+        ListView:setItemToTop(contentList4,0) --为了不错误触发onovertrail
+        ListView:removeAllItems(contentList4,1,1)
+    end
+    local useCache = useCache or getRequestState("followerDataState" .. spaceType, Reg:create(Reg.com_wondertek_mobileaudio.community))
+    local urlparam_f ='&usertype=follower&pageIdx='.. infotable[3].page .. '&pageSize=10'
+    Http:request('followerData', Util:getWeiBoServer() .. Alias.usernetworkData .. '?userId=' .. userinfoData.userId .. urlparam_f, msgNum or 153, {useCache = useCache})
+end
+
+function goDetailOnSelect(sprite)
+  local curTable=videoData[index]
+  Reg:setTable(Reg:create(Reg.com_wondertek_mobileaudio.community), 'curTopicTab', curTable)
+  Scene:go(Alias.communityDetail, {freeDestScene=true})
+end
+
+function goPlayOnSelect(sprite)
+    local param = Sprite:getData( sprite)
+    local Ids =Sprite:getData( Sprite:getParent( sprite))
+    local idtable = Util:split(Ids,';')
+    Log:write('param, Ids,idtable = ', param,Ids,idtable)
+    local reg = Reg:create( Reg.com_wondertek_mobileaudio.home)
+    Reg:setString(reg,'audioplayData',param)
+    Reg:setString(reg,'userId',idtable[1])
+    Reg:setString(reg,'microBlogId',idtable[2])
+    if not param or param == '' then
+        Tips:show('参数为空~~')
+    else
+        Scene:go(Alias.audioplay,{freeDestScene=true})
+    end
+end
+
+function gotaSpaceOnSelect(sprite)
+    local item = Sprite:getParent(sprite)
+    local userId = Sprite:getData(Sprite:findChild(item,'cancel'))
+    local myId = Sprite:getData(Sprite:findChild(item,'shadowNode'))
+    if userId ~= userinfoData.userId then
+        Reg:setString(Reg:create(Reg.com_wondertek_mobileaudio.community), 'spaceId', userId)
+        if userId ~= myId then
+            Reg:setString(Reg:create(Reg.com_wondertek_mobileaudio.community), 'userId', userId)
+        else
+            Reg:setString(Reg:create(Reg.com_wondertek_mobileaudio.community), 'userId', '')
+        end
+        Scene:go(Alias.mycommunity,{freeDestScene=true,setReturn=false})
+    else
+        Tips:show("您已经在这个空间内")
+    end
+end
+
+function gotaSpaceOnSelect1(sprite)
+    local item = Sprite:getParent(sprite)
+    local voteBtn = Sprite:findChild(item,"voteBtn")
+    gotaSpaceOnSelect(voteBtn)
+end
+
+function goSettingOnSelect(sprite)
+    if userinfoData and userinfoData.code and userinfoData.code ~='1014' then
+		Log:write('goSettingOnSelect111================')
+        Scene:go(Alias.setting)
+		
+    else
+        Net:goToMyAccount()
+    end
+end
+
+function contentList2OnTrail(sprite, x)
+    if x ~= 0 then return end
+    Log:write('contentList2OnTrail' .. infotable[1].page)
+    if infotable[1].page ~= -1  then
+        if Sprite:getData(sprite) == "" then
+            infotable[1].page = infotable[1].page + 1
+            Sprite:setProperty(sprite,"data","1")
+            if userinfoData.nodeId and userinfoData.nodeId ~= '' then
+                Http:request('userWorksData',Util:getWeiBoServer() .. Alias.audioplayData .. '?nodeId=' .. userinfoData.nodeId .. '&objType=0&pageIdx=' .. infotable[n].page, 160, {useCache = useCache})
+            else
+                Http:request('userBoxData', Util:getWeiBoServer() .. Alias.userboxData .. '?userId=' .. userinfoData.userId .. '&pageIdx=' .. infotable[n].page .. '&pageSize=10', 161, {useCache = 0})
+            end
+        end
+    else
+        Tips:show('到底啦')
+    end
+end
+
+function contentList3OnTrail(sprite, x)
+    if x ~= 0 then return end
+    Log:write('contentList3OnTrail' .. infotable[2].page)
+    if infotable[2].page ~= -1 then
+        if Sprite:getData(sprite) == "" then
+            infotable[2].page = infotable[2].page + 1
+            Sprite:setProperty(sprite,"data","1")
+            refreshNoticerList(1,0,162)
+        end
+    else
+        Tips:show('到底啦')
+    end
+end
+
+function contentList4OnTrail(sprite,x)
+    if x ~= 0 then return end
+    Log:write('contentList3OnTrail' .. infotable[3].page)
+    if infotable[3].page ~= -1 then
+        if Sprite:getData(sprite) == "" then
+            infotable[3].page = infotable[3].page + 1
+            Sprite:setProperty(sprite,"data","1")
+            refreshFollowerList(1,0,163)
+        end
+    else
+        Tips:show('到底啦')
+    end
+end
+
+function insertLoading(sprite)
+    isLoadingMore = 1
+    local item = Sprite:create("listitem",0)
+    local node = Sprite:create("node",item)
+    -- Sprite:loadFromString(node,Interloading.layout)
+    local label = Sprite:create('label',node)
+    Sprite:setProperty( label,'text','加载中...')
+    Sprite:setProperty( label,'rect','300,0,100,50')
+    Sprite:setProperty( label,'font-size',26)
+    Sprite:setProperty( label,'color','#262626')
+    Sprite:setProperty( label,'extendstyle','1010')
+
+    Sprite:setRect(node,0,20,800,50)
+    Sprite:setProperty(node, 'extendstyle', '1010')
+
+    Sprite:setRect(item,0,0,800,90)
+    Sprite:setProperty(item, 'extendstyle', '1010')
+    Sprite:setProperty(sprite,"data","1")
+    ListView:insertItem(sprite, ListView:getItemCount(sprite)+1, item)
+end
+
+function goCommunityOnSelect(sprite)
+    local Id = Sprite:getData(sprite)
+    Log:write("id==================",Id)
+    Reg:setString(Reg:create(Reg.com_wondertek_mobileaudio.community), 'curDetailId', Sprite:getData(sprite))
+    Scene:go(Alias.communityDetail, {freeDestScene=true})
+end
+
+function cameraSelect(sprite)
+    if userinfoData and userinfoData.code and userinfoData.code ~='1014' then
+        local cameraDialog = Sprite:findChild(rootSprite, 'cameraDialog')
+        Sprite:setVisible(cameraDialog, 1)
+        Sprite:setEnable(cameraDialog, 1)
+    else
+        Net:goToMyAccount()
+    end
+end
+
+function cancelCameraDiagOnSelect(sprite)
+    local cameraDialog = Sprite:findChild(rootSprite, 'cameraDialog')
+    Sprite:setVisible(cameraDialog, 0)
+    Sprite:setEnable(cameraDialog, 0)
+end
+--[[
+function videoUploadSel(sprite)
+    cancelCameraDiagOnSelect()
+    local doNext = Sprite:getData(sprite)
+
+    if not userinfoData or '' == userinfoData.sname or '' == userinfoData.sex or '' == userinfoData.address then
+        Reg:setString(Reg:create(Reg.com_wondertek_mobileaudio.community), 'doNext', doNext)
+        Dialog:show('提示', '您的资料还不完善，请到设置页面完善相关资料', 'ok', 'toSetting')
+    else
+        if 'local' == doNext then
+            Scene:go(Alias.localVideo)
+        elseif 'camera' == doNext then
+            dofunction(1, "", "", 0, 0)
+        end
+    end
+end
+
+function toSetting()
+    Scene:go(Alias.setting)
+end
+
+function saveVideoRecord(sprite)
+    depressSel(sprite)
+    Scene:go(Alias.videoUpload)
+end
+
+function depressSel(sprite)
+    local parentSprite = Sprite:getParent(Sprite:getParent(sprite))
+    Sprite:setVisible(parentSprite, 0)
+    Sprite:setEnable(parentSprite, 0)
+end
+--]]
+function getUploadStatus()
+    --Log:write('getUploadStatus')
+    local itemCount = pluginInvoke(upload, "Count")
+    for i=1, itemCount do
+        local result, id, remote, remoteparam, localfile, title, desc, type, maxsize, leavesize, status = pluginInvoke(upload, "GetItem", i-1)
+        dataObj ={
+                    result = result,
+                    id = id,
+                    remote = remote,
+                    remoteparam = remoteparam,
+                    localfile = localfile,
+                    title = title,
+                    desc = desc,
+                    type = type,
+                    maxsize = maxsize,
+                    leavesize = leavesize,
+                    status = status
+                }
+
+        local blogCount = ListView:getItemCount(contentList1)
+        for j=0,blogCount-1 do
+            local item = ListView:getItem(contentList1, j)
+            local param = Sprite:getData(item)
+            if param and param == title then
+                local videoParam = Reg:getString(reg, dataObj.title)
+                showCurUploadItem(item,dataObj,videoParam)
+            end
+        end
+    end
+
+    Timer:set(3,1000,"getUploadStatus")
+end
+
+function showCurUploadItem(item,dataObj,videoinfo)
+    --Log:write('showCurUploadItem=dataObj======',dataObj,videoinfo)
+    local usrLbl = Sprite:findChild(item, 'usrLbl')
+    local pauseBtn = Sprite:findChild(item, 'pauseBtn')
+    local userName = userinfoData.sname
+    Sprite:setProperty(Sprite:findChild(item, 'retryBtn'), 'data', dataObj.id)
+    Sprite:setProperty(Sprite:findChild(item, 'pauseBtn'), 'data', dataObj.id)
+
+    if userName and '' ~= userName then
+        Sprite:setProperty(usrLbl, 'text', userName)
+    else
+        Sprite:setProperty(usrLbl, 'text', '手机视频用户')
+    end
+    local x, _, w, _ = Sprite:getRect(usrLbl)
+    local typeIcon = Sprite:findChild(item, 'typeIcon')
+    local _, yy, ww, hh = Sprite:getRect(typeIcon)
+    Sprite:setRect(typeIcon, x+w+30, yy, ww, hh)
+
+    local maxsize = dataObj.maxsize
+    local leavesize = dataObj.leavesize
+    local progress =0
+    if maxsize~=0 then
+        progress = math.floor((maxsize - leavesize)*100/maxsize)
+    end
+
+    Sprite:setProperty(Sprite:findChild(item, 'lblProgress'), 'text', progress..'%...')
+
+    local wavebottom =Sprite:findChild(item, 'wavebottom')
+    local x, y, w, h = Sprite:getRect(wavebottom)
+    local waveHeight = math.floor((progress*387)/100)
+    Sprite:setRect(wavebottom, x, 387-waveHeight, w, waveHeight)
+    local wave =Sprite:findChild(item, 'wave')
+    local x, y, w, h = Sprite:getRect(wave)
+    Sprite:setRect(wave, x, 387-waveHeight -18, w, h)
+    Log:write('wave waveHeight==',waveHeight)
+    local videoId=''
+    local videoTitle=''
+    local imgPath=''
+    local videoType=''
+    if videoinfo ~='' then
+        local tempTab = Util:split(videoinfo, '|')
+        if tempTab and type(tempTab) == 'table' then
+            videoId = tempTab[1]
+            videoTitle = tempTab[2]
+            imgPath = tempTab[3]
+            videoType = tempTab[4]
+        end
+        Sprite:setProperty(Sprite:findChild(item, 'titleTextarea'), 'text', videoTitle)
+    end
+
+    Sprite:setProperty(Sprite:findChild(item, 'detailTextarea'), 'text', dataObj.desc)
+    Sprite:setProperty(Sprite:findChild(item, 'timeLbl'), 'text', '上传中')
+    if dataObj.status == 3 then
+        Sprite:setProperty(Sprite:findChild(item, 'wave'), 'loop', 'true')
+        Sprite:setVisible(Sprite:findChild(item, 'wave'),1)
+        Sprite:setVisible(Sprite:findChild(item, 'retryBtn'),0)
+        Sprite:setEnable(Sprite:findChild(item, 'retryBtn'),0)
+        Sprite:setVisible(pauseBtn,1)
+        Sprite:setEnable(pauseBtn,1)
+    elseif dataObj.status == 5 then
+        Sprite:setVisible(Sprite:findChild(item, 'iconplay'),1)
+        Sprite:setProperty(Sprite:findChild(item, 'timeLbl'), 'text', '审核中')
+        Sprite:setVisible(Sprite:findChild(item, 'lblProgress'),0)
+        Sprite:setVisible(pauseBtn,0)
+        Sprite:setEnable(pauseBtn,0)
+        --发送微博
+        pluginInvoke(upload, "Remove", dataObj.id)
+        uploadList = loadUploadingList()
+        Http:request('sendRequestData', Util:getWeiBoServer() .. 'sup/sup_Publish.msp?body=' .. dataObj.desc .. '&videoId=' .. videoId .. '&videoTitle=' .. videoTitle .. '&topic=' .. videoType, 115, {useCache=0})
+        Reg:remove(reg, dataObj.title)
+        Reg:save(reg, uploadFilename)
+
+        videoPath = dataObj.localfile
+        VideoTitle = dataObj.title
+        videoImgPath = imgPath
+    elseif dataObj.status == 6 then
+        Sprite:setProperty(Sprite:findChild(item, 'wave'), 'loop', 'false')
+        Sprite:setVisible(Sprite:findChild(item, 'retryBtn'),1)
+        Sprite:setEnable(Sprite:findChild(item, 'retryBtn'),1)
+        Sprite:setVisible(pauseBtn,0)
+        Sprite:setEnable(pauseBtn,0)
+        Sprite:setProperty(Sprite:findChild(item, 'timeLbl'), 'text', '上传失败')
+        Sprite:setProperty(Sprite:findChild(item, 'lblProgress'), 'text', '已停止 '..progress..'%...')
+    elseif dataObj.status == 4 then
+        Sprite:setProperty(Sprite:findChild(item, 'wave'), 'loop', 'false')
+        Sprite:setVisible(Sprite:findChild(item, 'retryBtn'),1)
+        Sprite:setEnable(Sprite:findChild(item, 'retryBtn'),1)
+        Sprite:setVisible(pauseBtn,0)
+        Sprite:setEnable(pauseBtn,0)
+        Sprite:setProperty(Sprite:findChild(item, 'timeLbl'), 'text', '暂停了')
+        Sprite:setProperty(Sprite:findChild(item, 'lblProgress'), 'text', '已暂停 '..progress..'%...')
+    end
+    resChoose(Sprite:findChild(pauseBtn, 'n'))
+    resChoose(Sprite:findChild(pauseBtn, 's'))
+end
+
+function showUploadFinishItem(id)
+    Log:write('showUploadFinishItem',id,videoPath)
+    local blogCount = ListView:getItemCount(contentList1)
+    for j=0,blogCount-1 do
+        local item = ListView:getItem(contentList1, j)
+        local param = Sprite:getData(item)
+        Log:write('',param,videoPath)
+        if param and param == VideoTitle then
+            Sprite:setProperty(Sprite:findChild(item, 'communityBtn'), 'data', id)
+            Sprite:setEnable(Sprite:findChild(item, 'communityBtn'), 1)
+            Sprite:setVisible(Sprite:findChild(item, 'wavebottom'), 0)
+            Sprite:setProperty(Sprite:findChild(item, 'avatarBgImg'), 'src', videoImgPath)
+        end
+    end
+end
+
+--读取上传队列
+function loadUploadingList()
+    local returnTable = {}
+    local itemCount = pluginInvoke(upload, "Count")
+    for i=1, itemCount do
+        --returnTable[i-1] = pluginInvoke(upload, "GetItem", i-1)
+        local result, id, remote, remoteparam, localfile, title, desc, type, maxsize, leavesize, status = pluginInvoke(upload, "GetItem", i-1)
+
+            table.insert(returnTable, {
+                    result = result,
+                    id = id,
+                    remote = remote,
+                    remoteparam = remoteparam,
+                    localfile = localfile,
+                    title = title,
+                    desc = desc,
+                    type = type,
+                    maxsize = maxsize,
+                    leavesize = leavesize,
+                    status = status
+                })
+
+    end
+    Log:write('UploadingList===========',returnTable)
+    return returnTable
+end
+
+function loadUploadItem()
+    Log:write('loadUploadItem')
+    local count =#uploadList
+    if count>0 then
+        local noTimesLbl = Sprite:findChild(contentList1,'noTimesLbl')
+        if Sprite:isVisible(noTimesLbl) == 1 then
+            Sprite:setVisible(noTimesLbl,0)
+            Sprite:setEnable(contentList1, 1)
+            ListView:removeAllItems(contentList1,1,1)
+        end
+    end
+
+    for i=1,count do
+        dataObj = uploadList[i]
+
+        --check has insert in the list
+        local isInList =false
+        local blogCount = ListView:getItemCount(contentList1)
+        for j=0,blogCount-1 do
+            local item = ListView:getItem(contentList1, j)
+            local param = Sprite:getData(item)
+            Log:write('check upload data',dataObj.title,param)
+            if param and param == dataObj.title then
+                isInList = true
+            end
+        end
+        if isInList==false then
+            local videoParam = Reg:getString(reg, dataObj.title)
+            if videoParam then
+                Log:write('videoParam======'..videoParam)
+                local item = Sprite:create('listitem', 0)
+                Sprite:loadFromSprite(item, itemNodeUploading)
+                Sprite:setProperty(item, 'extendstyle', '1010')
+                Sprite:setRect(item,0,0,720,626)
+                Sprite:setProperty(item, 'data', dataObj.title)
+                Sprite:setProperty(Sprite:findChild(item, 'retryBtn'), 'data', dataObj.id)
+                Sprite:setProperty(Sprite:findChild(item, 'pauseBtn'), 'data', dataObj.id)
+
+                showCurUploadItem(item,dataObj,videoParam)
+
+                Log:write('loadUploadItem insert'..dataObj.title)
+                ListView:insertItem(contentList1,0,item)
+                ListView:adjust(contentList1)
+                ----setTimes(1,'+1')
+            end
+        end
+    end
+    getUploadStatus()
+end
+
+function retryUpload(sprite)
+    local taskid = Sprite:getData(sprite)
+    Log:write('retryUpload taskid'..taskid)
+    pluginInvoke(upload, "Resume", taskid)
+end
+
+function pauseOnselect(sprite)
+    local taskid = Sprite:getData(sprite)
+    Log:write('pauseOnselect taskid'..taskid)
+    pluginInvoke(upload, "Pause", taskid)
+end
+
+function uploadBtnOS()
+    Popup:show({title="上传方式",funcList={{funcName="录制一段",funcCallBack="recordOS"},{funcName="本地音频",funcCallBack="localvideoOS"}}})
+end
+
+function recordOS(sprite)
+    Scene:go(Alias.uploadrecording)
+    Popup:close()
+end
+
+function localvideoOS(sprite)
+    Scene:go(Alias.uploadlocalsearch)
+    Popup:close()
+end
+
+function spaceBgEditOS()
+    Popup:show({title="自定义背景",funcList={{funcName="拍摄一张",funcCallBack="cameraOS"},{funcName="本地图片",funcCallBack="localimgOS"}}})
+end
+
+function cameraOS()
+    dofunction(4, "", "", 0, 0)
+    Popup:close(1)
+end
+
+function localimgOS()
+    local flashCard = getFlashCardPath()
+    OpenAlbumDialog('getAlbumImg', flashCard, 'jpg')
+    Popup:close(1)
+end
+
+function getAlbumImg(imgPath, imgType)
+    Log:write('imgPath', imgPath)
+    local fileExt = string.lower(IO:fileExt(imgPath))
+    if imgPath and fileExt == "jpg" or fileExt == "png" then
+        clipImg(imgPath)
+    else
+        Tips:show('请使用jpg或png格式的图片')
+    end
+end
+
+function getFlashCardPath()
+    local path = ''
+    local flashCard = System:getFlashCardName(1)
+    local innerCard = System:getFlashCardName(0)
+    if flashCard and flashCard ~= '' then
+        path = flashCard
+    elseif innerCard and innerCard ~= '' then
+        path = innerCard
+    end
+    return path
+end
+
+function clipImg(imgPath)
+    local reg = Reg:create(Reg.com_wondertek_mobileaudio.upload)
+    Reg:setString(reg,"imgPath",imgPath)
+    Reg:setString(reg,"displaystyle","2")
+    Scene:go(Alias.uploadimgedit)
+end
+
+function editOS()
+    Scene:go(Alias.mycommunitysetting)
+end
+
+function msgOS()
+
+end
+
+function followBtnOS(sprite)
+    local id = Sprite:getData(sprite)
+    if tonumber(id) then
+        Http:request('addFocus_data', Util:getWeiBoServer().. '/sup/addNoticer.msp?noticerId='.. id, 102, {useCache = 0})
+    else
+        Tips:show("无法获取用户信息")
+    end
+end
+
+function unfollowBtnOS(sprite)
+    local id = Sprite:getData(sprite)
+    if tonumber(id) then
+        Http:request('cancelFocus_data', Util:getWeiBoServer()..'/sup/supRemoveNoticer.msp?noticerId='.. id, 103, {useCache = 0})
+    else
+        Tips:show("无法获取用户信息")
+    end
+end
+
+function setCommunityType(cType)
+    if cType == 1 then
+        Sprite:setProperty(spaceTitle,"text","TA的空间")
+        setNodeState(followBtn,0)
+        setNodeState(unfollowBtn,0)
+        setNodeState(uploadBtn,0)
+        setNodeState(myspaceNode,0)
+        setNodeState(spaceBgEdit,0)
+    else
+        Sprite:setProperty(spaceTitle,"text","我的空间")
+        setNodeState(followBtn,0)
+        setNodeState(unfollowBtn,0)
+        setNodeState(uploadBtn,1)
+        setNodeState(myspaceNode,1)
+        local imgBg = Config:get("spaceBg")
+        if imgBg ~= "" then
+            Sprite:setProperty(spaceBg,"src",imgBg)
+        end
+        setNodeState(spaceBgEdit,1)
+    end
+end
+
+function setRequestState(requestTag)
+    local regCommunity = Reg:create(Reg.com_wondertek_mobileaudio.community)
+    Reg:setString(regCommunity,requestTag,"1")
+end
+
+function getRequestState(requestTag,requestReg)
+    if not requestReg then return 0 end
+    local requestState = Reg:getString(requestReg,requestTag)
+    if requestState == "" or requestState == "1" then
+        Reg:setString(requestReg,requestTag,"2")
+        return 0
+    else
+        return 2
+    end
+end
+]]>
